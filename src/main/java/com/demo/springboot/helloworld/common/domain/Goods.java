@@ -5,13 +5,17 @@ import java.math.BigDecimal;
 public class Goods {
     private Integer id;
 
+    private Integer categoryId;
+
+    private BigDecimal no;
+
     private String name;
 
     private BigDecimal price;
 
     private String description;
 
-    private String category;
+    private String image;
 
     private Integer onsale;
 
@@ -27,6 +31,22 @@ public class Goods {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public BigDecimal getNo() {
+        return no;
+    }
+
+    public void setNo(BigDecimal no) {
+        this.no = no;
     }
 
     public String getName() {
@@ -53,12 +73,12 @@ public class Goods {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getCategory() {
-        return category;
+    public String getImage() {
+        return image;
     }
 
-    public void setCategory(String category) {
-        this.category = category == null ? null : category.trim();
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
     }
 
     public Integer getOnsale() {

@@ -226,193 +226,183 @@ public class OrderedExample {
             return (Criteria) this;
         }
 
-        public Criteria andQuantityIsNull() {
-            addCriterion("quantity is null");
+        public Criteria andReceiveIdIsNull() {
+            addCriterion("receive_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityIsNotNull() {
-            addCriterion("quantity is not null");
+        public Criteria andReceiveIdIsNotNull() {
+            addCriterion("receive_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityEqualTo(Integer value) {
-            addCriterion("quantity =", value, "quantity");
+        public Criteria andReceiveIdEqualTo(Integer value) {
+            addCriterion("receive_id =", value, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityNotEqualTo(Integer value) {
-            addCriterion("quantity <>", value, "quantity");
+        public Criteria andReceiveIdNotEqualTo(Integer value) {
+            addCriterion("receive_id <>", value, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityGreaterThan(Integer value) {
-            addCriterion("quantity >", value, "quantity");
+        public Criteria andReceiveIdGreaterThan(Integer value) {
+            addCriterion("receive_id >", value, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("quantity >=", value, "quantity");
+        public Criteria andReceiveIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("receive_id >=", value, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityLessThan(Integer value) {
-            addCriterion("quantity <", value, "quantity");
+        public Criteria andReceiveIdLessThan(Integer value) {
+            addCriterion("receive_id <", value, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityLessThanOrEqualTo(Integer value) {
-            addCriterion("quantity <=", value, "quantity");
+        public Criteria andReceiveIdLessThanOrEqualTo(Integer value) {
+            addCriterion("receive_id <=", value, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityIn(List<Integer> values) {
-            addCriterion("quantity in", values, "quantity");
+        public Criteria andReceiveIdIn(List<Integer> values) {
+            addCriterion("receive_id in", values, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityNotIn(List<Integer> values) {
-            addCriterion("quantity not in", values, "quantity");
+        public Criteria andReceiveIdNotIn(List<Integer> values) {
+            addCriterion("receive_id not in", values, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityBetween(Integer value1, Integer value2) {
-            addCriterion("quantity between", value1, value2, "quantity");
+        public Criteria andReceiveIdBetween(Integer value1, Integer value2) {
+            addCriterion("receive_id between", value1, value2, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andQuantityNotBetween(Integer value1, Integer value2) {
-            addCriterion("quantity not between", value1, value2, "quantity");
+        public Criteria andReceiveIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("receive_id not between", value1, value2, "receiveId");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyIsNull() {
-            addCriterion("money is null");
+        public Criteria andNoIsNull() {
+            addCriterion("no is null");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyIsNotNull() {
-            addCriterion("money is not null");
+        public Criteria andNoIsNotNull() {
+            addCriterion("no is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyEqualTo(BigDecimal value) {
-            addCriterion("money =", value, "money");
+        public Criteria andNoEqualTo(BigDecimal value) {
+            addCriterion("no =", value, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyNotEqualTo(BigDecimal value) {
-            addCriterion("money <>", value, "money");
+        public Criteria andNoNotEqualTo(BigDecimal value) {
+            addCriterion("no <>", value, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyGreaterThan(BigDecimal value) {
-            addCriterion("money >", value, "money");
+        public Criteria andNoGreaterThan(BigDecimal value) {
+            addCriterion("no >", value, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("money >=", value, "money");
+        public Criteria andNoGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("no >=", value, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyLessThan(BigDecimal value) {
-            addCriterion("money <", value, "money");
+        public Criteria andNoLessThan(BigDecimal value) {
+            addCriterion("no <", value, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("money <=", value, "money");
+        public Criteria andNoLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("no <=", value, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyIn(List<BigDecimal> values) {
-            addCriterion("money in", values, "money");
+        public Criteria andNoIn(List<BigDecimal> values) {
+            addCriterion("no in", values, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyNotIn(List<BigDecimal> values) {
-            addCriterion("money not in", values, "money");
+        public Criteria andNoNotIn(List<BigDecimal> values) {
+            addCriterion("no not in", values, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("money between", value1, value2, "money");
+        public Criteria andNoBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("no between", value1, value2, "no");
             return (Criteria) this;
         }
 
-        public Criteria andMoneyNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("money not between", value1, value2, "money");
+        public Criteria andNoNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("no not between", value1, value2, "no");
             return (Criteria) this;
         }
 
-        public Criteria andAddressIsNull() {
-            addCriterion("address is null");
+        public Criteria andTotalIsNull() {
+            addCriterion("total is null");
             return (Criteria) this;
         }
 
-        public Criteria andAddressIsNotNull() {
-            addCriterion("address is not null");
+        public Criteria andTotalIsNotNull() {
+            addCriterion("total is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAddressEqualTo(String value) {
-            addCriterion("address =", value, "address");
+        public Criteria andTotalEqualTo(BigDecimal value) {
+            addCriterion("total =", value, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressNotEqualTo(String value) {
-            addCriterion("address <>", value, "address");
+        public Criteria andTotalNotEqualTo(BigDecimal value) {
+            addCriterion("total <>", value, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressGreaterThan(String value) {
-            addCriterion("address >", value, "address");
+        public Criteria andTotalGreaterThan(BigDecimal value) {
+            addCriterion("total >", value, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressGreaterThanOrEqualTo(String value) {
-            addCriterion("address >=", value, "address");
+        public Criteria andTotalGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("total >=", value, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressLessThan(String value) {
-            addCriterion("address <", value, "address");
+        public Criteria andTotalLessThan(BigDecimal value) {
+            addCriterion("total <", value, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressLessThanOrEqualTo(String value) {
-            addCriterion("address <=", value, "address");
+        public Criteria andTotalLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("total <=", value, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressLike(String value) {
-            addCriterion("address like", value, "address");
+        public Criteria andTotalIn(List<BigDecimal> values) {
+            addCriterion("total in", values, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressNotLike(String value) {
-            addCriterion("address not like", value, "address");
+        public Criteria andTotalNotIn(List<BigDecimal> values) {
+            addCriterion("total not in", values, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressIn(List<String> values) {
-            addCriterion("address in", values, "address");
+        public Criteria andTotalBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("total between", value1, value2, "total");
             return (Criteria) this;
         }
 
-        public Criteria andAddressNotIn(List<String> values) {
-            addCriterion("address not in", values, "address");
-            return (Criteria) this;
-        }
-
-        public Criteria andAddressBetween(String value1, String value2) {
-            addCriterion("address between", value1, value2, "address");
-            return (Criteria) this;
-        }
-
-        public Criteria andAddressNotBetween(String value1, String value2) {
-            addCriterion("address not between", value1, value2, "address");
+        public Criteria andTotalNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("total not between", value1, value2, "total");
             return (Criteria) this;
         }
 

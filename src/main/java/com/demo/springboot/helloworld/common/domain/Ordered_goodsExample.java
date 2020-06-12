@@ -3,14 +3,14 @@ package com.demo.springboot.helloworld.common.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order_goodsExample {
+public class Ordered_goodsExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public Order_goodsExample() {
+    public Ordered_goodsExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -104,63 +104,63 @@ public class Order_goodsExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andOrderIdIsNull() {
-            addCriterion("order_id is null");
+        public Criteria andOrderedIdIsNull() {
+            addCriterion("ordered_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIsNotNull() {
-            addCriterion("order_id is not null");
+        public Criteria andOrderedIdIsNotNull() {
+            addCriterion("ordered_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdEqualTo(Integer value) {
-            addCriterion("order_id =", value, "orderId");
+        public Criteria andOrderedIdEqualTo(Integer value) {
+            addCriterion("ordered_id =", value, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotEqualTo(Integer value) {
-            addCriterion("order_id <>", value, "orderId");
+        public Criteria andOrderedIdNotEqualTo(Integer value) {
+            addCriterion("ordered_id <>", value, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThan(Integer value) {
-            addCriterion("order_id >", value, "orderId");
+        public Criteria andOrderedIdGreaterThan(Integer value) {
+            addCriterion("ordered_id >", value, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("order_id >=", value, "orderId");
+        public Criteria andOrderedIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ordered_id >=", value, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThan(Integer value) {
-            addCriterion("order_id <", value, "orderId");
+        public Criteria andOrderedIdLessThan(Integer value) {
+            addCriterion("ordered_id <", value, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdLessThanOrEqualTo(Integer value) {
-            addCriterion("order_id <=", value, "orderId");
+        public Criteria andOrderedIdLessThanOrEqualTo(Integer value) {
+            addCriterion("ordered_id <=", value, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdIn(List<Integer> values) {
-            addCriterion("order_id in", values, "orderId");
+        public Criteria andOrderedIdIn(List<Integer> values) {
+            addCriterion("ordered_id in", values, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotIn(List<Integer> values) {
-            addCriterion("order_id not in", values, "orderId");
+        public Criteria andOrderedIdNotIn(List<Integer> values) {
+            addCriterion("ordered_id not in", values, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdBetween(Integer value1, Integer value2) {
-            addCriterion("order_id between", value1, value2, "orderId");
+        public Criteria andOrderedIdBetween(Integer value1, Integer value2) {
+            addCriterion("ordered_id between", value1, value2, "orderedId");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("order_id not between", value1, value2, "orderId");
+        public Criteria andOrderedIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("ordered_id not between", value1, value2, "orderedId");
             return (Criteria) this;
         }
 

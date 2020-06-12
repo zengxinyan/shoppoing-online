@@ -3,8 +3,8 @@
 <mapper namespace="com.demo.springboot.helloworld.mapper.MessageMapper">
   <resultMap id="BaseResultMap" type="com.demo.springboot.helloworld.common.domain.Message">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="date" jdbcType="DATE" property="date" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, msg
+    id, msg, date
   </sql>
   <select id="selectByExample" parameterType="com.demo.springboot.helloworld.common.domain.MessageExample" resultMap="BaseResultMap">
     select
@@ -98,10 +98,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.demo.springboot.helloworld.common.domain.Message">
-    insert into message (id, user_id, msg
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{msg,jdbcType=VARCHAR}
-      )
+    insert into message (id, msg, date)
+    values (#{id,jdbcType=INTEGER}, #{msg,jdbcType=VARCHAR}, #{date,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.demo.springboot.helloworld.common.domain.Message">
     insert into message
@@ -109,22 +107,22 @@
       <if test="id != null">
         id,
       </if>
-      <if test="userId != null">
-        user_id,
-      </if>
       <if test="msg != null">
         msg,
+      </if>
+      <if test="date != null">
+        date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
       <if test="msg != null">
         #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -140,11 +138,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
       <if test="record.msg != null">
         msg = #{record.msg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=DATE},
       </if>
     </set>
     <if test="_parameter != null">
@@ -154,8 +152,8 @@
   <update id="updateByExample" parameterType="map">
     update message
     set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      msg = #{record.msg,jdbcType=VARCHAR}
+      msg = #{record.msg,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=DATE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -163,19 +161,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.demo.springboot.helloworld.common.domain.Message">
     update message
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
       <if test="msg != null">
         msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.demo.springboot.helloworld.common.domain.Message">
     update message
-    set user_id = #{userId,jdbcType=INTEGER},
-      msg = #{msg,jdbcType=VARCHAR}
+    set msg = #{msg,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

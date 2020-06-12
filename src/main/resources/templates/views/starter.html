@@ -44,40 +44,57 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">
-
   <!-- Main Header -->
-  <div th:replace="~{views/include/head :: head}"></div>
-  <div th:replace="~{views/include/menu :: menu}"></div>
+  <div th:replace="~{views/include/head :: head (onevar=${user})}"></div>
+  <div th:replace="~{views/include/menu :: menu (onevar=${user})}"></div>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Page Header
-        <small>Optional description</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
-
+<!--    <section class="content-header">-->
+<!--      <h1>-->
+<!--        Page Header-->
+<!--        <small>Optional description</small>-->
+<!--      </h1>-->
+<!--      <ol class="breadcrumb">-->
+<!--        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>-->
+<!--        <li class="active">Here</li>-->
+<!--      </ol>-->
+<!--    </section>-->
     <!-- Main content -->
     <section class="content container-fluid">
+      <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+      <div class="panel panel-default">
+          <div class="panel-heading">商品列表</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+<!--                <div class="box-header" >-->
+<!--                  <div id="toolbar">-->
+<!--                    <button class="btn btn-danger remove-batch" >批量删除</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+                <div class="box-body">
+                  <table id="table1" class="table table-bordered table-hover">
+
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
-
-</div>
+</div>>
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
@@ -89,8 +106,181 @@ desired effect
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
 
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
 </body>
 </html>
+
+<script>
+  $(function () {
+
+    window.operateEvents  = {
+      // 更改操作的方法
+      'click .btn_update': function (e, value, row, index) {
+        alert('更改');
+      },
+      //删除 单行/
+      'click .btn_del': function (e, value, row, index) {
+        var id = row.id;
+        layer.confirm("确认删除: "+row.name+ "  ?", {icon: 3, title:'删除操作'}, function(index){
+          //do something
+          $.ajax({
+            type: "delete",
+            url: "/deleteBook",
+            contentType:"application/json",
+            data:JSON.stringify({"id":id }),
+            success: function(msg){
+              if(msg["success"]){
+                $('#table1').bootstrapTable('remove', {
+                  field: 'id',
+                  values: [id]
+                });
+                layer.msg("操作成功",{time:700});
+              }
+            }
+          });
+          layer.close(index);
+        });
+      }
+    };
+
+    $('#table1').bootstrapTable('destroy').bootstrapTable({
+      method: 'get',
+      url: "/getAllGoods",
+      striped: true,
+      dataField: "list",
+      totalField: "total",
+      pageNumber: 1,
+      pageSize: 10,
+      pagination: true,
+      queryParamsType: 'limit',
+      //search: true,
+      strictSearch: true,
+      searchOnEnterKey: true,
+      //showToggle: true,
+      //cardView: false,
+      queryParams: function (params) {
+        return {
+          pageSize: params.limit,
+          pageNo: params.offset / params.limit + 1
+        }
+      },
+      sidePagination: 'server',
+      pageList: "[10, 25, 50, 100, all]",
+      //showRefresh: true,
+      clickToSelect: true,
+      toolbarAlign: 'left',
+      buttonsAlign: 'right',
+      toolbar: '#toolbar',
+      //showColumns: true,
+      paginationLoop: false,
+      sortable: true,
+      columns: [
+        {
+          title: 'ID',
+          field: 'id',
+          visible: false,
+          width: 160
+        },
+        // {
+        //   //  title: '全选/反选',
+        //   checkbox: true
+        // },
+        {
+          title: '',
+          field: 'image',
+          visible: true,
+          width: 160,
+          formatter : function (value, row, index) {
+            return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+          }
+        },
+        {
+          title: '商品名',
+          field: 'name',
+          visible: true,
+          width: 160
+        },
+        {
+          title: '价格',
+          field: 'price',
+          width: 160,
+          align: 'center',
+          sortable : true,
+          order: 'desc'
+        },
+        {
+          title: '描述',
+          field: 'description',
+          width: 160,
+          align: 'left'
+        },
+        {
+         // title: '操作',
+          width: 80,
+          align: 'center',
+          formatter:function (value, row, index) {
+            return [
+              '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+              '详情' ,
+              '</button>',
+              // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+              // '加入购物车' ,
+              // '</button>',
+            ].join('')
+          },
+          events:window.operateEvents
+        }
+      ],
+      locale: 'zh-CN',
+      responseHandler: function (data) {
+        return data['data'];
+      }
+
+    });
+
+
+    $(".remove-batch").click(function () {
+      var rows =  $('#table1').bootstrapTable('getSelections');
+      var ids= $.map(rows,function (row) {
+        return row.id;
+      });
+
+      if(ids.length>0){
+        layer.confirm("确认删除", {icon: 3, title:'删除操作'}, function(index){
+          //do something
+          $.ajax({
+            type: "delete",
+            url: "/deleteBooks",
+            contentType:"application/json",
+            data:JSON.stringify(ids),
+            success: function(msg){
+              if(msg["success"]){
+                $('#table1').bootstrapTable('refresh');
+                layer.msg("批量操作成功",{time:700});
+                /*   $('#table1').bootstrapTable('remove', {
+                     field: 'id',
+                     values: ids
+                   });*/
+
+              }
+            }
+          });
+          layer.close(index);
+        });
+      }else {
+        layer.msg("未选中行",{time:700});
+      }
+
+    });
+  })
+</script>

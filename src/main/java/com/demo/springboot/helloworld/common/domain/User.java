@@ -7,23 +7,25 @@ public class User {
 
     private Integer cartId;
 
-    private Integer messageId;
-
     private String loginname;
 
     private String password;
 
     private String name;
 
+    private String sex;
+
+    private Date birthday;
+
     private String email;
 
     private String phone;
 
-    private String picture;
+    private String image;
 
-    private Date birthday;
+    private String secret;
 
-    private String sex;
+    private String answer;
 
     public Integer getId() {
         return id;
@@ -39,14 +41,6 @@ public class User {
 
     public void setCartId(Integer cartId) {
         this.cartId = cartId;
-    }
-
-    public Integer getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(Integer messageId) {
-        this.messageId = messageId;
     }
 
     public String getLoginname() {
@@ -73,6 +67,22 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -89,27 +99,27 @@ public class User {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getPicture() {
-        return picture;
+    public String getImage() {
+        return image;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture == null ? null : picture.trim();
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getSecret() {
+        return secret;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setSecret(String secret) {
+        this.secret = secret == null ? null : secret.trim();
     }
 
-    public String getSex() {
-        return sex;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
+    public void setAnswer(String answer) {
+        this.answer = answer == null ? null : answer.trim();
     }
 }

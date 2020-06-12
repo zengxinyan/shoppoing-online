@@ -8,11 +8,11 @@ public class Ordered {
 
     private Integer userId;
 
-    private Integer quantity;
+    private Integer receiveId;
 
-    private BigDecimal money;
+    private BigDecimal no;
 
-    private String address;
+    private BigDecimal total;
 
     private String status;
 
@@ -34,28 +34,28 @@ public class Ordered {
         this.userId = userId;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getReceiveId() {
+        return receiveId;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setReceiveId(Integer receiveId) {
+        this.receiveId = receiveId;
     }
 
-    public BigDecimal getMoney() {
-        return money;
+    public BigDecimal getNo() {
+        return no;
     }
 
-    public void setMoney(BigDecimal money) {
-        this.money = money;
+    public void setNo(BigDecimal no) {
+        this.no = no;
     }
 
-    public String getAddress() {
-        return address;
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     public String getStatus() {

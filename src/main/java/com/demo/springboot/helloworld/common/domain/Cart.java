@@ -1,11 +1,15 @@
 package com.demo.springboot.helloworld.common.domain;
 
+import java.math.BigDecimal;
+
 public class Cart {
     private Integer id;
 
     private Integer userId;
 
     private Integer quantity;
+
+    private BigDecimal total;
 
     public Integer getId() {
         return id;
@@ -29,5 +33,13 @@ public class Cart {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 }

@@ -1,6 +1,6 @@
 package com.demo.springboot.helloworld.common.domain;
 
-public class Order_goods extends Order_goodsKey {
+public class Ordered_goods extends Ordered_goodsKey {
     private Integer quantity;
 
     public Integer getQuantity() {

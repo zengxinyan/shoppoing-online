@@ -2,7 +2,26 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2020/6/10 16:20:48                           */
 /*==============================================================*/
+
+mysql -uroot -proot
+
+drop database if exists springboot_demo; -- 数据库名不能用中划线-
+create database springboot_demo;
+use springboot_demo;
+
 SET FOREIGN_KEY_CHECKS = 0;
+
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     2020/6/11 18:12:38                           */
+/*==============================================================*/
+
+
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     2020/6/12 10:33:35                           */
+/*==============================================================*/
+
 
 drop table if exists admin;
 
@@ -10,13 +29,17 @@ drop table if exists cart;
 
 drop table if exists cart_goods;
 
+drop table if exists category;
+
 drop table if exists goods;
 
 drop table if exists message;
 
 drop table if exists ordered;
 
-drop table if exists order_goods;
+drop table if exists ordered_goods;
+
+drop table if exists receive;
 
 drop table if exists user;
 
@@ -25,10 +48,10 @@ drop table if exists user;
 /*==============================================================*/
 create table admin
 (
-   id                   int not null AUTO_INCREMENT,
-   loginname            varchar(50) not null,
-   password             varchar(50) not null,
-   primary key (id)
+    id                   int not null auto_increment,
+    loginname            varchar(50) not null,
+    password             varchar(50) not null,
+    primary key (id)
 );
 
 /*==============================================================*/
@@ -36,10 +59,11 @@ create table admin
 /*==============================================================*/
 create table cart
 (
-   id                   int not null AUTO_INCREMENT,
-   user_id              int,
-   quantity             int,
-   primary key (id)
+    id                   int not null auto_increment,
+    user_id              int,
+    quantity             int,
+    total                decimal(10,2),
+    primary key (id)
 );
 
 /*==============================================================*/
@@ -47,10 +71,21 @@ create table cart
 /*==============================================================*/
 create table cart_goods
 (
-   cart_id              int not null,
-   goods_id             int not null,
-   quantity             int,
-   primary key (cart_id, goods_id)
+    cart_id              int not null,
+    goods_id             int not null,
+    quantity             int,
+    primary key (cart_id, goods_id)
+);
+
+/*==============================================================*/
+/* Table: category                                              */
+/*==============================================================*/
+create table category
+(
+    id                   int not null auto_increment,
+    name                 varchar(50),
+    description          varchar(100),
+    primary key (id)
 );
 
 /*==============================================================*/
@@ -58,16 +93,18 @@ create table cart_goods
 /*==============================================================*/
 create table goods
 (
-   id                   int not null AUTO_INCREMENT,
-   name                 varchar(50),
-   price                decimal(10,2),
-   description          varchar(100),
-   category             varchar(50),
-   onsale               int,
-   sold                 int,
-   isHot                bool,
-   isDiscount           bool,
-   primary key (id)
+    id                   int not null auto_increment,
+    category_id          int,
+    no                   numeric(20,0),
+    name                 varchar(50),
+    price                decimal(10,2),
+    description          varchar(100),
+    image                varchar(100),
+    onsale               int,
+    sold                 int,
+    isHot                bool,
+    isDiscount           bool,
+    primary key (id)
 );
 
 /*==============================================================*/
@@ -75,36 +112,50 @@ create table goods
 /*==============================================================*/
 create table message
 (
-   id                   int not null AUTO_INCREMENT,
-   user_id              int,
-   msg                  varchar(1000),
-   primary key (id)
+    id                   int not null auto_increment,
+    msg                  varchar(1000),
+    date                 date,
+    primary key (id)
 );
 
 /*==============================================================*/
-/* Table: "ordered"                                               */
+/* Table: ordered                                               */
 /*==============================================================*/
 create table ordered
 (
-   id                   int not null AUTO_INCREMENT,
-   user_id              int,
-   quantity             int,
-   money                decimal(10,2),
-   address              varchar(100),
-   status               varchar(50),
-   orderDate            timestamp,
-   primary key (id)
+    id                   int not null auto_increment,
+    user_id              int,
+    receive_id           int,
+    no                   numeric(20,0),
+    total                decimal(10,2),
+    status               varchar(50),
+    orderDate            timestamp,
+    primary key (id)
 );
 
 /*==============================================================*/
-/* Table: order_goods                                           */
+/* Table: ordered_goods                                         */
 /*==============================================================*/
-create table order_goods
+create table ordered_goods
 (
-   order_id             int not null,
-   goods_id             int not null,
-   quantity             int,
-   primary key (order_id, goods_id)
+    ordered_id           int not null,
+    goods_id             int not null,
+    quantity             int,
+    primary key (ordered_id, goods_id)
+);
+
+/*==============================================================*/
+/* Table: receive                                               */
+/*==============================================================*/
+create table receive
+(
+    id                   int not null auto_increment,
+    user_id              int,
+    ordered_id           int,
+    name                 varchar(50),
+    phone                varchar(50),
+    address              varchar(100),
+    primary key (id)
 );
 
 /*==============================================================*/
@@ -112,46 +163,53 @@ create table order_goods
 /*==============================================================*/
 create table user
 (
-   id                   int not null AUTO_INCREMENT,
-   cart_id              int,
-   message_id           int,
-   loginname            varchar(50) not null,
-   password             varchar(50) not null,
-   name                 varchar(50),
-   email                varchar(50),
-   phone                varchar(50),
-   picture              varchar(100),
-   birthday             date,
-   sex                  varchar(10),
-   primary key (id)
+    id                   int not null auto_increment,
+    cart_id              int,
+    loginname            varchar(50) not null,
+    password             varchar(50) not null,
+    name                 varchar(50),
+    sex                  varchar(10),
+    birthday             date,
+    email                varchar(50),
+    phone                varchar(50),
+    image                varchar(100),
+    secret               varchar(100),
+    answer               varchar(100),
+    primary key (id)
 );
 
 alter table cart add constraint FK_Relationship_2 foreign key (user_id)
-      references user (id) on delete restrict on update restrict;
+    references user (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table cart_goods add constraint FK_Relationship_6 foreign key (cart_id)
-      references cart (id) on delete restrict on update restrict;
+    references cart (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table cart_goods add constraint FK_Relationship_7 foreign key (goods_id)
-      references goods (id) on delete restrict on update restrict;
+    references goods (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table message add constraint FK_Relationship_8 foreign key (user_id)
-      references user (id) on delete restrict on update restrict;
+alter table goods add constraint FK_Relationship_11 foreign key (category_id)
+    references category (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table ordered add constraint FK_Relationship_3 foreign key (user_id)
-      references user (id) on delete restrict on update restrict;
+    references user (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table order_goods add constraint FK_Relationship_4 foreign key (order_id)
-      references ordered (id) on delete restrict on update restrict;
+alter table ordered add constraint FK_Relationship_9 foreign key (receive_id)
+    references receive (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table order_goods add constraint FK_Relationship_5 foreign key (goods_id)
-      references goods (id) on delete restrict on update restrict;
+alter table ordered_goods add constraint FK_Relationship_4 foreign key (ordered_id)
+    references ordered (id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+alter table ordered_goods add constraint FK_Relationship_5 foreign key (goods_id)
+    references goods (id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+alter table receive add constraint FK_Relationship_10 foreign key (ordered_id)
+    references ordered (id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+alter table receive add constraint FK_Relationship_8 foreign key (user_id)
+    references user (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table user add constraint FK_Relationship_1 foreign key (cart_id)
-      references cart (id) on delete restrict on update restrict;
-
-alter table user add constraint FK_Relationship_9 foreign key (message_id)
-      references message (id) on delete restrict on update restrict;
+    references cart (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 SET FOREIGN_KEY_CHECKS = 1;
 

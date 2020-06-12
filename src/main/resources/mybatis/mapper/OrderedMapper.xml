@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="com.demo.springboot.helloworld.common.domain.Ordered">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="money" jdbcType="DECIMAL" property="money" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="receive_id" jdbcType="INTEGER" property="receiveId" />
+    <result column="no" jdbcType="DECIMAL" property="no" />
+    <result column="total" jdbcType="DECIMAL" property="total" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="orderDate" jdbcType="TIMESTAMP" property="orderdate" />
   </resultMap>
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, quantity, money, address, status, orderDate
+    id, user_id, receive_id, no, total, status, orderDate
   </sql>
   <select id="selectByExample" parameterType="com.demo.springboot.helloworld.common.domain.OrderedExample" resultMap="BaseResultMap">
     select
@@ -102,11 +102,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.demo.springboot.helloworld.common.domain.Ordered">
-    insert into ordered (id, user_id, quantity, 
-      money, address, status, 
+    insert into ordered (id, user_id, receive_id, 
+      no, total, status, 
       orderDate)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
-      #{money,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{receiveId,jdbcType=INTEGER}, 
+      #{no,jdbcType=DECIMAL}, #{total,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, 
       #{orderdate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.demo.springboot.helloworld.common.domain.Ordered">
@@ -118,14 +118,14 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="quantity != null">
-        quantity,
+      <if test="receiveId != null">
+        receive_id,
       </if>
-      <if test="money != null">
-        money,
+      <if test="no != null">
+        no,
       </if>
-      <if test="address != null">
-        address,
+      <if test="total != null">
+        total,
       </if>
       <if test="status != null">
         status,
@@ -141,14 +141,14 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="quantity != null">
-        #{quantity,jdbcType=INTEGER},
+      <if test="receiveId != null">
+        #{receiveId,jdbcType=INTEGER},
       </if>
-      <if test="money != null">
-        #{money,jdbcType=DECIMAL},
+      <if test="no != null">
+        #{no,jdbcType=DECIMAL},
       </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
+      <if test="total != null">
+        #{total,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
@@ -173,14 +173,14 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.quantity != null">
-        quantity = #{record.quantity,jdbcType=INTEGER},
+      <if test="record.receiveId != null">
+        receive_id = #{record.receiveId,jdbcType=INTEGER},
       </if>
-      <if test="record.money != null">
-        money = #{record.money,jdbcType=DECIMAL},
+      <if test="record.no != null">
+        no = #{record.no,jdbcType=DECIMAL},
       </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.total != null">
+        total = #{record.total,jdbcType=DECIMAL},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=VARCHAR},
@@ -197,9 +197,9 @@
     update ordered
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      quantity = #{record.quantity,jdbcType=INTEGER},
-      money = #{record.money,jdbcType=DECIMAL},
-      address = #{record.address,jdbcType=VARCHAR},
+      receive_id = #{record.receiveId,jdbcType=INTEGER},
+      no = #{record.no,jdbcType=DECIMAL},
+      total = #{record.total,jdbcType=DECIMAL},
       status = #{record.status,jdbcType=VARCHAR},
       orderDate = #{record.orderdate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -212,14 +212,14 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="quantity != null">
-        quantity = #{quantity,jdbcType=INTEGER},
+      <if test="receiveId != null">
+        receive_id = #{receiveId,jdbcType=INTEGER},
       </if>
-      <if test="money != null">
-        money = #{money,jdbcType=DECIMAL},
+      <if test="no != null">
+        no = #{no,jdbcType=DECIMAL},
       </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+      <if test="total != null">
+        total = #{total,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=VARCHAR},
@@ -233,9 +233,9 @@
   <update id="updateByPrimaryKey" parameterType="com.demo.springboot.helloworld.common.domain.Ordered">
     update ordered
     set user_id = #{userId,jdbcType=INTEGER},
-      quantity = #{quantity,jdbcType=INTEGER},
-      money = #{money,jdbcType=DECIMAL},
-      address = #{address,jdbcType=VARCHAR},
+      receive_id = #{receiveId,jdbcType=INTEGER},
+      no = #{no,jdbcType=DECIMAL},
+      total = #{total,jdbcType=DECIMAL},
       status = #{status,jdbcType=VARCHAR},
       orderDate = #{orderdate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="total" jdbcType="DECIMAL" property="total" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, quantity
+    id, user_id, quantity, total
   </sql>
   <select id="selectByExample" parameterType="com.demo.springboot.helloworld.common.domain.CartExample" resultMap="BaseResultMap">
     select
@@ -98,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.demo.springboot.helloworld.common.domain.Cart">
-    insert into cart (id, user_id, quantity
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}
-      )
+    insert into cart (id, user_id, quantity, 
+      total)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
+      #{total,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.demo.springboot.helloworld.common.domain.Cart">
     insert into cart
@@ -115,6 +116,9 @@
       <if test="quantity != null">
         quantity,
       </if>
+      <if test="total != null">
+        total,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -125,6 +129,9 @@
       </if>
       <if test="quantity != null">
         #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -146,6 +153,9 @@
       <if test="record.quantity != null">
         quantity = #{record.quantity,jdbcType=INTEGER},
       </if>
+      <if test="record.total != null">
+        total = #{record.total,jdbcType=DECIMAL},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +165,8 @@
     update cart
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      quantity = #{record.quantity,jdbcType=INTEGER}
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      total = #{record.total,jdbcType=DECIMAL}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +180,17 @@
       <if test="quantity != null">
         quantity = #{quantity,jdbcType=INTEGER},
       </if>
+      <if test="total != null">
+        total = #{total,jdbcType=DECIMAL},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.demo.springboot.helloworld.common.domain.Cart">
     update cart
     set user_id = #{userId,jdbcType=INTEGER},
-      quantity = #{quantity,jdbcType=INTEGER}
+      quantity = #{quantity,jdbcType=INTEGER},
+      total = #{total,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

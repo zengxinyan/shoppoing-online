@@ -1,16 +1,16 @@
 package com.demo.springboot.helloworld.common.domain;
 
-public class Order_goodsKey {
-    private Integer orderId;
+public class Ordered_goodsKey {
+    private Integer orderedId;
 
     private Integer goodsId;
 
-    public Integer getOrderId() {
-        return orderId;
+    public Integer getOrderedId() {
+        return orderedId;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setOrderedId(Integer orderedId) {
+        this.orderedId = orderedId;
     }
 
     public Integer getGoodsId() {

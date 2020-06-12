@@ -46,7 +46,7 @@
             <div class="form-group has-feedback">
                 <input id="repassword" type="password" name="repassword" class="form-control" required="true" onChange="checkpas();"  placeholder="Retype password">
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-                <span class="tip" style="color: #1d1d1d;">两次输入的密码不一致</span>
+                <span class="tip" style="color: red;">两次输入的密码不一致</span>
             </div>
             <div class="row">
                 <div class="col-xs-8">
@@ -116,6 +116,9 @@
         if(pas3!=pas4){
             alert("两次输入的密码不一致！");
             return false;
+        }
+        else if(pas3!=null&&pas4!=null&&document.getElementById("loginname")!=null){
+            alert("注册成功！");
         }
     }
 

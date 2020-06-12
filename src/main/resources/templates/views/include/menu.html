@@ -5,19 +5,21 @@
     <section class="sidebar">
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">HEADER</li>
+            <li class="header">导航栏</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-            <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>全部商品</span></a></li>
+            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>热销商品</span></a></li>
+            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>促销商品</span></a></li>
             <li class="treeview active">
-                <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+                <a href="/getAllCategory" >
+                    <i class="fa fa-link"></i>
+                    <span>商品类别</span>
                     <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#" th:href="@{/listbooks}">查询图书</a></li>
-                    <li><a href="#">Link in level 2</a></li>
+                    <li>名字</li>
                 </ul>
             </li>
         </ul>
