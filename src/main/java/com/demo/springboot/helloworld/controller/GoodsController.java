@@ -1,5 +1,6 @@
 package com.demo.springboot.helloworld.controller;
 
+import com.demo.springboot.helloworld.common.domain.Category;
 import com.demo.springboot.helloworld.common.utils.Result;
 import com.demo.springboot.helloworld.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class GoodsController {
     @RequestMapping("/getHotGoods")
     @ResponseBody
     public Object getHotGoods(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10")int pageSize){
+        System.out.println("hot");
         return Result.success(goodsService.findHotGoods(pageNo,pageSize),"分页 查询book 对象");
     }
 
@@ -30,5 +32,11 @@ public class GoodsController {
     @ResponseBody
     public Object getDiscountGoods(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10")int pageSize){
         return Result.success(goodsService.findDiscountGoods(pageNo,pageSize),"分页 查询book 对象");
+    }
+
+    @RequestMapping("/getCategoryGoods")
+    @ResponseBody
+    public Object getCategoryGoods(@RequestParam int id,@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10")int pageSize){
+        return Result.success(goodsService.findCategoryGoods(id,pageNo,pageSize),"分页 查询book 对象");
     }
 }

@@ -44,11 +44,39 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <!-- Main Header -->
   <div th:replace="~{views/include/head :: head (onevar=${user})}"></div>
-  <div th:replace="~{views/include/menu :: menu (onevar=${user})}"></div>
+<!--  <div th:replace="~{views/include/menu :: menu (onevar=${user})}"></div>-->
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">导航栏</li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="active"><a href="#"><i class="fa fa-link"></i> <span id="allGoods" onclick="r('/getAllGoods','全部商品')">全部商品</span></a></li>
+                <li class="active"><a href="#"><i class="fa fa-link"></i> <span id="hotGoods" onclick="r('/getHotGoods','热销商品')">热销商品</span></a></li>
+                <li class="active"><a href="#"><i class="fa fa-link"></i> <span id="discountGoods" onclick="r('/getDiscountGoods','促销商品')">促销商品</span></a></li>
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>商品类别</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu" id="refresh">
+                    </ul>
+                </li>
+            </ul>
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -68,7 +96,7 @@ desired effect
         | Your Page Content Here |
         -------------------------->
       <div class="panel panel-default">
-          <div class="panel-heading">商品列表</div>
+          <div class="panel-heading" id="name">全部商品</div>
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-12">
@@ -123,6 +151,302 @@ desired effect
 <script>
   $(function () {
 
+    var url = "/getAllGoods";
+
+    // $("#allGoods").click(function () {
+    //     url = "/getAllGoods";
+    //     $('#table1').bootstrapTable('destroy').bootstrapTable({
+    //           method: 'get',
+    //           url: url,
+    //           striped: true,
+    //           dataField: "list",
+    //           totalField: "total",
+    //           pageNumber: 1,
+    //           pageSize: 10,
+    //           pagination: true,
+    //           queryParamsType: 'limit',
+    //           //search: true,
+    //           strictSearch: true,
+    //           searchOnEnterKey: true,
+    //           //showToggle: true,
+    //           //cardView: false,
+    //           queryParams: function (params) {
+    //               return {
+    //                   pageSize: params.limit,
+    //                   pageNo: params.offset / params.limit + 1
+    //               }
+    //           },
+    //           sidePagination: 'server',
+    //           pageList: "[10, 25, 50, 100, all]",
+    //           //showRefresh: true,
+    //           clickToSelect: true,
+    //           toolbarAlign: 'left',
+    //           buttonsAlign: 'right',
+    //           toolbar: '#toolbar',
+    //           //showColumns: true,
+    //           paginationLoop: false,
+    //           sortable: true,
+    //           columns: [
+    //               {
+    //                   title: 'ID',
+    //                   field: 'id',
+    //                   visible: false,
+    //                   width: 160
+    //               },
+    //               // {
+    //               //   //  title: '全选/反选',
+    //               //   checkbox: true
+    //               // },
+    //               {
+    //                   title: '',
+    //                   field: 'image',
+    //                   visible: true,
+    //                   width: 160,
+    //                   formatter : function (value, row, index) {
+    //                       return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+    //                   }
+    //               },
+    //               {
+    //                   title: '商品名',
+    //                   field: 'name',
+    //                   visible: true,
+    //                   width: 160
+    //               },
+    //               {
+    //                   title: '价格',
+    //                   field: 'price',
+    //                   width: 160,
+    //                   align: 'center',
+    //                   sortable : true,
+    //                   order: 'desc'
+    //               },
+    //               {
+    //                   title: '描述',
+    //                   field: 'description',
+    //                   width: 160,
+    //                   align: 'left'
+    //               },
+    //               {
+    //                   // title: '操作',
+    //                   width: 80,
+    //                   align: 'center',
+    //                   formatter:function (value, row, index) {
+    //                       return [
+    //                           '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+    //                           '详情' ,
+    //                           '</button>',
+    //                           // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+    //                           // '加入购物车' ,
+    //                           // '</button>',
+    //                       ].join('')
+    //                   },
+    //                   events:window.operateEvents
+    //               }
+    //           ],
+    //           locale: 'zh-CN',
+    //           responseHandler: function (data) {
+    //               return data['data'];
+    //           }
+    //
+    //       });
+    // });
+    //
+    // $("#hotGoods").click(function () {
+    //     url = "/getHotGoods";
+    //     $('#table1').bootstrapTable('destroy').bootstrapTable({
+    //         method: 'get',
+    //         url: url,
+    //         striped: true,
+    //         dataField: "list",
+    //         totalField: "total",
+    //         pageNumber: 1,
+    //         pageSize: 10,
+    //         pagination: true,
+    //         queryParamsType: 'limit',
+    //         //search: true,
+    //         strictSearch: true,
+    //         searchOnEnterKey: true,
+    //         //showToggle: true,
+    //         //cardView: false,
+    //         queryParams: function (params) {
+    //             return {
+    //                 pageSize: params.limit,
+    //                 pageNo: params.offset / params.limit + 1
+    //             }
+    //         },
+    //         sidePagination: 'server',
+    //         pageList: "[10, 25, 50, 100, all]",
+    //         //showRefresh: true,
+    //         clickToSelect: true,
+    //         toolbarAlign: 'left',
+    //         buttonsAlign: 'right',
+    //         toolbar: '#toolbar',
+    //         //showColumns: true,
+    //         paginationLoop: false,
+    //         sortable: true,
+    //         columns: [
+    //             {
+    //                 title: 'ID',
+    //                 field: 'id',
+    //                 visible: false,
+    //                 width: 160
+    //             },
+    //             // {
+    //             //   //  title: '全选/反选',
+    //             //   checkbox: true
+    //             // },
+    //             {
+    //                 title: '',
+    //                 field: 'image',
+    //                 visible: true,
+    //                 width: 160,
+    //                 formatter : function (value, row, index) {
+    //                     return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+    //                 }
+    //             },
+    //             {
+    //                 title: '商品名',
+    //                 field: 'name',
+    //                 visible: true,
+    //                 width: 160
+    //             },
+    //             {
+    //                 title: '价格',
+    //                 field: 'price',
+    //                 width: 160,
+    //                 align: 'center',
+    //                 sortable : true,
+    //                 order: 'desc'
+    //             },
+    //             {
+    //                 title: '描述',
+    //                 field: 'description',
+    //                 width: 160,
+    //                 align: 'left'
+    //             },
+    //             {
+    //                 // title: '操作',
+    //                 width: 80,
+    //                 align: 'center',
+    //                 formatter:function (value, row, index) {
+    //                     return [
+    //                         '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+    //                         '详情' ,
+    //                         '</button>',
+    //                         // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+    //                         // '加入购物车' ,
+    //                         // '</button>',
+    //                     ].join('')
+    //                 },
+    //                 events:window.operateEvents
+    //             }
+    //         ],
+    //         locale: 'zh-CN',
+    //         responseHandler: function (data) {
+    //             return data['data'];
+    //         }
+    //
+    //     });
+    // });
+    //
+    // $("#discountGoods").click(function () {
+    //     url = "/getDiscountGoods";
+    //     $('#table1').bootstrapTable('destroy').bootstrapTable({
+    //         method: 'get',
+    //         url: url,
+    //         striped: true,
+    //         dataField: "list",
+    //         totalField: "total",
+    //         pageNumber: 1,
+    //         pageSize: 10,
+    //         pagination: true,
+    //         queryParamsType: 'limit',
+    //         //search: true,
+    //         strictSearch: true,
+    //         searchOnEnterKey: true,
+    //         //showToggle: true,
+    //         //cardView: false,
+    //         queryParams: function (params) {
+    //             return {
+    //                 pageSize: params.limit,
+    //                 pageNo: params.offset / params.limit + 1
+    //             }
+    //         },
+    //         sidePagination: 'server',
+    //         pageList: "[10, 25, 50, 100, all]",
+    //         //showRefresh: true,
+    //         clickToSelect: true,
+    //         toolbarAlign: 'left',
+    //         buttonsAlign: 'right',
+    //         toolbar: '#toolbar',
+    //         //showColumns: true,
+    //         paginationLoop: false,
+    //         sortable: true,
+    //         columns: [
+    //             {
+    //                 title: 'ID',
+    //                 field: 'id',
+    //                 visible: false,
+    //                 width: 160
+    //             },
+    //             // {
+    //             //   //  title: '全选/反选',
+    //             //   checkbox: true
+    //             // },
+    //             {
+    //                 title: '',
+    //                 field: 'image',
+    //                 visible: true,
+    //                 width: 160,
+    //                 formatter : function (value, row, index) {
+    //                     return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+    //                 }
+    //             },
+    //             {
+    //                 title: '商品名',
+    //                 field: 'name',
+    //                 visible: true,
+    //                 width: 160
+    //             },
+    //             {
+    //                 title: '价格',
+    //                 field: 'price',
+    //                 width: 160,
+    //                 align: 'center',
+    //                 sortable : true,
+    //                 order: 'desc'
+    //             },
+    //             {
+    //                 title: '描述',
+    //                 field: 'description',
+    //                 width: 160,
+    //                 align: 'left'
+    //             },
+    //             {
+    //                 // title: '操作',
+    //                 width: 80,
+    //                 align: 'center',
+    //                 formatter:function (value, row, index) {
+    //                     return [
+    //                         '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+    //                         '详情' ,
+    //                         '</button>',
+    //                         // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+    //                         // '加入购物车' ,
+    //                         // '</button>',
+    //                     ].join('')
+    //                 },
+    //                 events:window.operateEvents
+    //             }
+    //         ],
+    //         locale: 'zh-CN',
+    //         responseHandler: function (data) {
+    //             return data['data'];
+    //         }
+    //
+    //     });
+    // })
+
     window.operateEvents  = {
       // 更改操作的方法
       'click .btn_update': function (e, value, row, index) {
@@ -155,7 +479,7 @@ desired effect
 
     $('#table1').bootstrapTable('destroy').bootstrapTable({
       method: 'get',
-      url: "/getAllGoods",
+      url: url,
       striped: true,
       dataField: "list",
       totalField: "total",
@@ -249,38 +573,257 @@ desired effect
     });
 
 
-    $(".remove-batch").click(function () {
-      var rows =  $('#table1').bootstrapTable('getSelections');
-      var ids= $.map(rows,function (row) {
-        return row.id;
-      });
+    // $(".remove-batch").click(function () {
+    //   var rows =  $('#table1').bootstrapTable('getSelections');
+    //   var ids= $.map(rows,function (row) {
+    //     return row.id;
+    //   });
+    //
+    //   if(ids.length>0){
+    //     layer.confirm("确认删除", {icon: 3, title:'删除操作'}, function(index){
+    //       //do something
+    //       $.ajax({
+    //         type: "delete",
+    //         url: "/deleteBooks",
+    //         contentType:"application/json",
+    //         data:JSON.stringify(ids),
+    //         success: function(msg){
+    //           if(msg["success"]){
+    //             $('#table1').bootstrapTable('refresh');
+    //             layer.msg("批量操作成功",{time:700});
+    //             /*   $('#table1').bootstrapTable('remove', {
+    //                  field: 'id',
+    //                  values: ids
+    //                });*/
+    //
+    //           }
+    //         }
+    //       });
+    //       layer.close(index);
+    //     });
+    //   }else {
+    //     layer.msg("未选中行",{time:700});
+    //   }
+    //
+    // });
 
-      if(ids.length>0){
-        layer.confirm("确认删除", {icon: 3, title:'删除操作'}, function(index){
-          //do something
-          $.ajax({
-            type: "delete",
-            url: "/deleteBooks",
-            contentType:"application/json",
-            data:JSON.stringify(ids),
-            success: function(msg){
-              if(msg["success"]){
-                $('#table1').bootstrapTable('refresh');
-                layer.msg("批量操作成功",{time:700});
-                /*   $('#table1').bootstrapTable('remove', {
-                     field: 'id',
-                     values: ids
-                   });*/
-
-              }
-            }
-          });
-          layer.close(index);
-        });
-      }else {
-        layer.msg("未选中行",{time:700});
-      }
-
+    $.ajax({
+      url:"/getAllCategory",
+      type:"get",
+      dataType:"json",
+      success:function (data) {
+          var html="";
+          //var jsonobj= eval('(' + data + ')');  // 把JSON字符串解析为javascript对象
+          //alert("ID:" + data[3].id + "\nName:" + data[3].name);
+          for(var i=0;i<data.length;i++){
+              html = html +'<li><a href="#" id="id'+data[i].id+'" onclick="cate('+data[i].id+')">' + data[i].name + '</a></li>';
+          }
+          $('#refresh').html(html); //在#text中输出
+      },
     });
-  })
+
+  });
+
+  function r(url,name){
+      url =url ;
+      var x = document.getElementById("name");
+      x.innerHTML = name;
+      $('#table1').bootstrapTable('destroy').bootstrapTable({
+          method: 'get',
+          url: url,
+          striped: true,
+          dataField: "list",
+          totalField: "total",
+          pageNumber: 1,
+          pageSize: 10,
+          pagination: true,
+          queryParamsType: 'limit',
+          //search: true,
+          strictSearch: true,
+          searchOnEnterKey: true,
+          //showToggle: true,
+          //cardView: false,
+          queryParams: function (params) {
+              return {
+                  pageSize: params.limit,
+                  pageNo: params.offset / params.limit + 1
+              }
+          },
+          sidePagination: 'server',
+          pageList: "[10, 25, 50, 100, all]",
+          //showRefresh: true,
+          clickToSelect: true,
+          toolbarAlign: 'left',
+          buttonsAlign: 'right',
+          toolbar: '#toolbar',
+          //showColumns: true,
+          paginationLoop: false,
+          sortable: true,
+          columns: [
+              {
+                  title: 'ID',
+                  field: 'id',
+                  visible: false,
+                  width: 160
+              },
+              // {
+              //   //  title: '全选/反选',
+              //   checkbox: true
+              // },
+              {
+                  title: '',
+                  field: 'image',
+                  visible: true,
+                  width: 160,
+                  formatter : function (value, row, index) {
+                      return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+                  }
+              },
+              {
+                  title: '商品名',
+                  field: 'name',
+                  visible: true,
+                  width: 160
+              },
+              {
+                  title: '价格',
+                  field: 'price',
+                  width: 160,
+                  align: 'center',
+                  sortable : true,
+                  order: 'desc'
+              },
+              {
+                  title: '描述',
+                  field: 'description',
+                  width: 160,
+                  align: 'left'
+              },
+              {
+                  // title: '操作',
+                  width: 80,
+                  align: 'center',
+                  formatter:function (value, row, index) {
+                      return [
+                          '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                          '详情' ,
+                          '</button>',
+                          // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+                          // '加入购物车' ,
+                          // '</button>',
+                      ].join('')
+                  },
+                  events:window.operateEvents
+              }
+          ],
+          locale: 'zh-CN',
+          responseHandler: function (data) {
+              return data['data'];
+          }
+
+      });
+  };
+
+  function cate(id){
+      var x = document.getElementById("name");
+      var idd = "#id"+ id;
+      //alert($(idd).text());
+      x.innerHTML = $(idd).text();
+      $('#table1').bootstrapTable('destroy').bootstrapTable({
+          method: 'get',
+          url: "/getCategoryGoods?id="+id,
+          striped: true,
+          dataField: "list",
+          totalField: "total",
+          pageNumber: 1,
+          pageSize: 10,
+          pagination: true,
+          queryParamsType: 'limit',
+          //search: true,
+          strictSearch: true,
+          searchOnEnterKey: true,
+          //showToggle: true,
+          //cardView: false,
+          //data:{"id":id},
+          queryParams: function (params) {
+              return {
+                  pageSize: params.limit,
+                  pageNo: params.offset / params.limit + 1
+              }
+          },
+          sidePagination: 'server',
+          pageList: "[10, 25, 50, 100, all]",
+          //showRefresh: true,
+          clickToSelect: true,
+          toolbarAlign: 'left',
+          buttonsAlign: 'right',
+          toolbar: '#toolbar',
+          //showColumns: true,
+          paginationLoop: false,
+          sortable: true,
+          columns: [
+              {
+                  title: 'ID',
+                  field: 'id',
+                  visible: false,
+                  width: 160
+              },
+              // {
+              //   //  title: '全选/反选',
+              //   checkbox: true
+              // },
+              {
+                  title: '',
+                  field: 'image',
+                  visible: true,
+                  width: 160,
+                  formatter : function (value, row, index) {
+                      return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+                  }
+              },
+              {
+                  title: '商品名',
+                  field: 'name',
+                  visible: true,
+                  width: 160
+              },
+              {
+                  title: '价格',
+                  field: 'price',
+                  width: 160,
+                  align: 'center',
+                  sortable : true,
+                  order: 'desc'
+              },
+              {
+                  title: '描述',
+                  field: 'description',
+                  width: 160,
+                  align: 'left'
+              },
+              {
+                  // title: '操作',
+                  width: 80,
+                  align: 'center',
+                  formatter:function (value, row, index) {
+                      return [
+                          '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                          '详情' ,
+                          '</button>',
+                          // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+                          // '加入购物车' ,
+                          // '</button>',
+                      ].join('')
+                  },
+                  events:window.operateEvents
+              }
+          ],
+          locale: 'zh-CN',
+          responseHandler: function (data) {
+              return data['data'];
+          }
+
+      });
+  };
+
 </script>

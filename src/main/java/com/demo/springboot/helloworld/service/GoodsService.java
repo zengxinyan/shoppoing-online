@@ -1,5 +1,6 @@
 package com.demo.springboot.helloworld.service;
 
+import com.demo.springboot.helloworld.common.domain.Category;
 import com.demo.springboot.helloworld.common.domain.Goods;
 import com.demo.springboot.helloworld.common.domain.GoodsExample;
 import com.demo.springboot.helloworld.mapper.GoodsMapper;
@@ -33,6 +34,14 @@ public class GoodsService {
         PageHelper.startPage(pageNo,pageSize);
         GoodsExample goodsExample = new GoodsExample();
         goodsExample.createCriteria().andIsdiscountEqualTo(true);
+        List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+        return new PageInfo<>(goods);
+    }
+
+    public PageInfo<Goods> findCategoryGoods(int id,int pageNo, int pageSize) {
+        PageHelper.startPage(pageNo,pageSize);
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andCategoryIdEqualTo(id);
         List<Goods> goods = goodsMapper.selectByExample(goodsExample);
         return new PageInfo<>(goods);
     }

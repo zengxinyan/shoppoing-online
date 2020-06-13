@@ -20,7 +20,8 @@ public class CategoryController {
     @ResponseBody
     public List<Category> getAllCategory(Model model){
         System.out.println("22222");
-        List<Category> categories = categoryService.findAllCategory();
-        return categories;
+        //List<Category> categories = categoryService.findAllCategory();
+        //return categories;
+        return categoryService.findAllCategory();
     }
 }
