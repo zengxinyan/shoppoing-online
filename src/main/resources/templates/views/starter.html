@@ -21,8 +21,6 @@
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
 
-
-
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -79,37 +77,35 @@ desired effect
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-<!--    <section class="content-header">-->
-<!--      <h1>-->
-<!--        Page Header-->
-<!--        <small>Optional description</small>-->
-<!--      </h1>-->
-<!--      <ol class="breadcrumb">-->
-<!--        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>-->
-<!--        <li class="active">Here</li>-->
-<!--      </ol>-->
-<!--    </section>-->
-    <!-- Main content -->
+
     <section class="content container-fluid">
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
+      <div class="panel">
+            <div class="panel-body" style="padding-bottom: 1px;">
+                <form class="form-horizontal" onsubmit="return false;">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <input type="text" id="searchString" class="form-control" placeholder="请输入商品名/商品描述" onkeydown="javascript:if(event.keyCode==13) searchId();" />
+                        </div>
+                        <div class="col-sm-1" onclick="fun()">
+                            <button type="button" class="btn btn-primary btn-w-m" id="queryBtn">
+                                <span class="glyphicon glyphicon-search"></span> 搜索
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
       <div class="panel panel-default">
-          <div class="panel-heading" id="name">全部商品</div>
+        <div class="panel-heading" id="name">全部商品</div>
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-12">
               <div class="box">
-<!--                <div class="box-header" >-->
-<!--                  <div id="toolbar">-->
-<!--                    <button class="btn btn-danger remove-batch" >批量删除</button>-->
-<!--                  </div>-->
-<!--                </div>-->
                 <div class="box-body">
-                  <table id="table1" class="table table-bordered table-hover">
-
-                  </table>
+                  <table id="table1" class="table table-bordered table-hover"></table>
                 </div>
               </div>
             </div>
@@ -121,6 +117,7 @@ desired effect
         | Your Page Content Here |
         -------------------------->
     </section>
+
   </div>
 </div>>
 <!-- ./wrapper -->
@@ -149,6 +146,7 @@ desired effect
 </html>
 
 <script>
+
   $(function () {
 
     var url = "/getAllGoods";
@@ -488,14 +486,16 @@ desired effect
       pagination: true,
       queryParamsType: 'limit',
       //search: true,
-      strictSearch: true,
-      searchOnEnterKey: true,
+      //strictSearch: true,
+      //searchOnEnterKey: true,
       //showToggle: true,
       //cardView: false,
       queryParams: function (params) {
         return {
-          pageSize: params.limit,
-          pageNo: params.offset / params.limit + 1
+          pageSize : params.limit,
+          pageNo : params.offset / params.limit + 1,
+          sortName : this.sortName,
+          sortOrder : this.sortOrder
         }
       },
       sidePagination: 'server',
@@ -507,7 +507,9 @@ desired effect
       toolbar: '#toolbar',
       //showColumns: true,
       paginationLoop: false,
-      sortable: true,
+      sort: true,
+      sortName : 'ID',
+      sortOrder : "asc",
       columns: [
         {
           title: 'ID',
@@ -524,6 +526,7 @@ desired effect
           field: 'image',
           visible: true,
           width: 160,
+          sortable: true,
           formatter : function (value, row, index) {
             return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
           }
@@ -532,21 +535,21 @@ desired effect
           title: '商品名',
           field: 'name',
           visible: true,
-          width: 160
+          width: 160,
+          sortable: true,
         },
         {
           title: '价格',
           field: 'price',
           width: 160,
           align: 'center',
-          sortable : true,
-          order: 'desc'
+          sortable : true
         },
         {
           title: '描述',
           field: 'description',
           width: 160,
-          align: 'left'
+          align: 'left',
         },
         {
          // title: '操作',
@@ -639,14 +642,16 @@ desired effect
           pagination: true,
           queryParamsType: 'limit',
           //search: true,
-          strictSearch: true,
-          searchOnEnterKey: true,
-          //showToggle: true,
+          //strictSearch: true,
+          //searchOnEnterKey: true,
+          //showToggle: true,,
           //cardView: false,
           queryParams: function (params) {
               return {
                   pageSize: params.limit,
-                  pageNo: params.offset / params.limit + 1
+                  pageNo: params.offset / params.limit + 1,
+                  sortName: this.sortName,
+                  sortOrder: this.sortOrder
               }
           },
           sidePagination: 'server',
@@ -659,6 +664,9 @@ desired effect
           //showColumns: true,
           paginationLoop: false,
           sortable: true,
+          sort: true,
+          sortName : 'ID',
+          sortOrder : "asc",
           columns: [
               {
                   title: 'ID',
@@ -683,6 +691,7 @@ desired effect
                   title: '商品名',
                   field: 'name',
                   visible: true,
+                  sortable: true,
                   width: 160
               },
               {
@@ -731,7 +740,7 @@ desired effect
       x.innerHTML = $(idd).text();
       $('#table1').bootstrapTable('destroy').bootstrapTable({
           method: 'get',
-          url: "/getCategoryGoods?id="+id,
+          url: "/getCategoryGoods",
           striped: true,
           dataField: "list",
           totalField: "total",
@@ -740,15 +749,17 @@ desired effect
           pagination: true,
           queryParamsType: 'limit',
           //search: true,
-          strictSearch: true,
-          searchOnEnterKey: true,
+          //strictSearch: true,
+          //searchOnEnterKey: true,
           //showToggle: true,
           //cardView: false,
-          //data:{"id":id},
           queryParams: function (params) {
               return {
-                  pageSize: params.limit,
-                  pageNo: params.offset / params.limit + 1
+                  id: id,
+                  pageSize : params.limit,
+                  pageNo : params.offset / params.limit + 1,
+                  sortName : this.sortName,
+                  sortOrder : this.sortOrder
               }
           },
           sidePagination: 'server',
@@ -760,7 +771,9 @@ desired effect
           toolbar: '#toolbar',
           //showColumns: true,
           paginationLoop: false,
-          sortable: true,
+          sort: true,
+          sortName : 'ID',
+          sortOrder : "asc",
           columns: [
               {
                   title: 'ID',
@@ -785,6 +798,7 @@ desired effect
                   title: '商品名',
                   field: 'name',
                   visible: true,
+                  sortable : true,
                   width: 160
               },
               {
@@ -825,5 +839,108 @@ desired effect
 
       });
   };
+
+  function fun() {
+      $('#table1').bootstrapTable('destroy').bootstrapTable({
+          method: 'get',
+          url: "/getSearchGoods",
+          striped: true,
+          dataField: "list",
+          totalField: "total",
+          pageNumber: 1,
+          pageSize: 10,
+          pagination: true,
+          queryParamsType: 'limit',
+          //search: true,
+          //strictSearch: true,
+          //searchOnEnterKey: true,
+          //showToggle: true,
+          //cardView: false,
+          queryParams: function (params) {
+              return {
+                  pageSize : params.limit,
+                  pageNo : params.offset / params.limit + 1,
+                  sortName : this.sortName,
+                  sortOrder : this.sortOrder,
+                  searchString : $("#searchString").val()
+              }
+          },
+          sidePagination: 'server',
+          pageList: "[10, 25, 50, 100, all]",
+          //showRefresh: true,
+          clickToSelect: true,
+          toolbarAlign: 'left',
+          buttonsAlign: 'right',
+          toolbar: '#toolbar',
+          //showColumns: true,
+          paginationLoop: false,
+          sort: true,
+          sortName : 'ID',
+          sortOrder : "asc",
+          columns: [
+              {
+                  title: 'ID',
+                  field: 'id',
+                  visible: false,
+                  width: 160
+              },
+              // {
+              //   //  title: '全选/反选',
+              //   checkbox: true
+              // },
+              {
+                  title: '',
+                  field: 'image',
+                  visible: true,
+                  width: 160,
+                  sortable: true,
+                  formatter : function (value, row, index) {
+                      return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+                  }
+              },
+              {
+                  title: '商品名',
+                  field: 'name',
+                  visible: true,
+                  width: 160,
+                  sortable: true,
+              },
+              {
+                  title: '价格',
+                  field: 'price',
+                  width: 160,
+                  align: 'center',
+                  sortable : true
+              },
+              {
+                  title: '描述',
+                  field: 'description',
+                  width: 160,
+                  align: 'left',
+              },
+              {
+                  // title: '操作',
+                  width: 80,
+                  align: 'center',
+                  formatter:function (value, row, index) {
+                      return [
+                          '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                          '详情' ,
+                          '</button>',
+                          // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+                          // '加入购物车' ,
+                          // '</button>',
+                      ].join('')
+                  },
+                  events:window.operateEvents
+              }
+          ],
+          locale: 'zh-CN',
+          responseHandler: function (data) {
+              return data['data'];
+          }
+
+      });
+  }
 
 </script>
