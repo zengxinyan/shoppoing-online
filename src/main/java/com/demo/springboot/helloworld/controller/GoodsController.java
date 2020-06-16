@@ -50,4 +50,11 @@ public class GoodsController {
     public Object getCategoryGoods(@RequestParam String sortName,@RequestParam String sortOrder,@RequestParam int id,@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10")int pageSize){
         return Result.success(goodsService.findCategoryGoods(sortName,sortOrder,id,pageNo,pageSize),"分页 查询book 对象");
     }
+
+    @RequestMapping("/getGoodsInfo")
+    @ResponseBody
+    public Goods getGoodsInfo(@RequestParam(defaultValue = "1") int goodsId){
+        return goodsService.getGoodsInfo(goodsId);
+    }
+
 }

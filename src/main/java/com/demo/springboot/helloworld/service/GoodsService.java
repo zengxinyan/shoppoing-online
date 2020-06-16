@@ -9,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -58,16 +59,23 @@ public class GoodsService {
         goodsExample.setOrderByClause(sortName+' '+sortOrder);
         GoodsExample.Criteria criteria = goodsExample.createCriteria();
         if(searchString != null && searchString.length() > 0){
-            String s ="%";
+            String s ="";
             for(int i=0;i<searchString.length();i++) {
-                s += "%" + searchString.charAt(i) + "%";
+                s = "%" + searchString.charAt(i) + "%";
+                goodsExample.or(goodsExample.createCriteria().andNameLike(s));
+                goodsExample.or(goodsExample.createCriteria().andDescriptionLike(s));
             }
-            criteria.andNameLike(s);
-            GoodsExample.Criteria criteria1 = goodsExample.createCriteria();
-            criteria1.andDescriptionLike(s);
-            goodsExample.or(criteria1);
         }
         List<Goods> goods = goodsMapper.selectByExample(goodsExample);
         return new PageInfo<>(goods);
     }
+
+    public Goods getGoodsInfo(int goodsId) {
+        List<Goods> goodsList = new ArrayList<>();
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIdEqualTo(goodsId);
+        goodsList = goodsMapper.selectByExample(goodsExample);
+        return goodsList.get(0);
+    }
+
 }

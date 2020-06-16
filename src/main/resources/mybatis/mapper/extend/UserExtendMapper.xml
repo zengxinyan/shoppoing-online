@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.springboot.helloworld.mapper.UserMapper">
+    <resultMap id="myMap" type="com.demo.springboot.helloworld.common.domain.User" extends="BaseResultMap">
+        <association property="cart" column="cart_id" javaType="com.demo.springboot.helloworld.common.domain.Cart">
+            <id column="id" jdbcType="INTEGER" property="id" />
+            <result column="user_id" jdbcType="INTEGER" property="userId" />
+            <result column="quantity" jdbcType="INTEGER" property="quantity" />
+            <result column="total" jdbcType="DECIMAL" property="total" />
+        </association>
+    </resultMap>
+    <select id="selectById" resultMap="myMap">
+        select * from user u,cart c
+        where u.cart_id = c.id and u.id = #{id};
+    </select>
+</mapper>

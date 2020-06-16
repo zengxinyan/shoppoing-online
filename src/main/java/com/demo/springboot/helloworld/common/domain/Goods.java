@@ -1,8 +1,10 @@
 package com.demo.springboot.helloworld.common.domain;
 
+import com.demo.springboot.helloworld.common.domain.extend.GoodsExtend;
+
 import java.math.BigDecimal;
 
-public class Goods {
+public class Goods extends GoodsExtend {
     private Integer id;
 
     private Integer categoryId;

@@ -3,9 +3,11 @@ package com.demo.springboot.helloworld.mapper;
 import com.demo.springboot.helloworld.common.domain.User;
 import com.demo.springboot.helloworld.common.domain.UserExample;
 import java.util.List;
+
+import com.demo.springboot.helloworld.mapper.extend.UserExtendMapper;
 import org.apache.ibatis.annotations.Param;
 
-public interface UserMapper {
+public interface UserMapper extends UserExtendMapper {
     long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);

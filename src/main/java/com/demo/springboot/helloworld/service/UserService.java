@@ -24,6 +24,11 @@ public class UserService {
 
     public void insert(User user) {
         userMapper.insert(user);
-        return ;
+    }
+
+    public User selectById(int id) {
+        User user = userMapper.selectById(id);
+        System.out.println(user.getCart().getTotal()+"元");
+        return user;
     }
 }

@@ -1,8 +1,10 @@
 package com.demo.springboot.helloworld.common.domain;
 
+import com.demo.springboot.helloworld.common.domain.extend.CartExtend;
+
 import java.math.BigDecimal;
 
-public class Cart {
+public class Cart extends CartExtend {
     private Integer id;
 
     private Integer userId;

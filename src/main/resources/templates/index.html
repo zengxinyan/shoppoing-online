@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>登录界面</title>
+    <title>商城主页</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"
@@ -21,71 +21,628 @@
           apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
 
-
-
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
 
-<div class="login-box">
-    <div class="login-logo">
-        <a href="/"><b>网上购物商场</b></a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your shopping</p>
-        <form action="/login" method="post">
-            <div class="form-group has-feedback">
-                <input type="text" name="loginname" class="form-control" placeholder="Name" required="true">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+    <!-- Main Header -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="#" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">商城</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg">网上购物商城</span>
+        </a>
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown notifications-menu">
+                        <!-- Menu toggle button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning" id="messageNum"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header" style="color: #0073b7">收到<span id="messageNum1"></span>条公告</li>
+                            <li>
+                                <ul class="menu" id="message">
+
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <!-- Tasks Menu -->
+                    <li class="dropdown tasks-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" id="cart" onclick="noUser()">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <!-- User Account Menu -->
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="/tologin">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Password" required="true">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-<!--                    <div class="checkbox icheck">-->
-<!--                        <label>-->
-<!--                            <input type="checkbox"> Remember Me-->
-<!--                        </label>-->
-<!--                    </div>-->
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">导航栏</li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="active"><a href="#"><i class="fa fa-link"></i> <span id="allGoods" onclick="r('/getAllGoods','全部商品')">全部商品</span></a></li>
+                <li class="active"><a href="#"><i class="fa fa-link"></i> <span id="hotGoods" onclick="r('/getHotGoods','热销商品')">热销商品</span></a></li>
+                <li class="active"><a href="#"><i class="fa fa-link"></i> <span id="discountGoods" onclick="r('/getDiscountGoods','促销商品')">促销商品</span></a></li>
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>商品类别</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu" id="refresh">
+                    </ul>
+                </li>
+            </ul>
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <section class="content container-fluid">
+            <!--------------------------
+              | Your Page Content Here |
+              -------------------------->
+            <div class="panel">
+                <div class="panel-body" style="padding-bottom: 1px;">
+                    <form class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <input type="text" id="searchString" class="form-control" placeholder="请输入商品名/商品描述" onkeydown="javascript:if(event.keyCode==13) searchId();" />
+                            </div>
+                            <div class="col-sm-1" onclick="fun()">
+                                <button type="button" class="btn btn-primary btn-w-m" id="queryBtn">
+                                    <span class="glyphicon glyphicon-search"></span> 搜索
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                </div>
-                <!-- /.col -->
             </div>
-        </form>
+            <div class="panel panel-default">
+                <div class="panel-heading" id="name">全部商品</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-body">
+                                    <table id="table1" class="table table-bordered table-hover"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>  I forgot my password</a>
-            <a href="/register" class="btn btn-block btn-social btn-linkedin"><i class="fa fa-linkedin"></i>  Register a new membership</a>
-        </div>
-        <!-- /.social-auth-links -->
+            <!--------------------------
+              | Your Page Content Here |
+              -------------------------->
+        </section>
 
     </div>
-    <!-- /.login-box-body -->
+
 </div>
-<!-- /.login-box -->
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<!-- iCheck -->
-<script src="plugins/iCheck/icheck.min.js" th:href="@{/plugins/iCheck/icheck.min.js}"></script>
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
-        });
-    });
-</script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
 
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
 </body>
 </html>
+
+<script>
+
+    $(function () {
+
+        var url = "/getAllGoods";
+
+        // window.operateEvents  = {
+        //   // 更改操作的方法
+        //   'click .btn_update': function (e, value, row, index) {
+        //     alert('更改');
+        //   },
+        //   //删除 单行/
+        //   'click .btn_del': function (e, value, row, index) {
+        //     var id = row.id;
+        //     layer.confirm("确认删除: "+row.name+ "  ?", {icon: 3, title:'删除操作'}, function(index){
+        //       //do something
+        //       $.ajax({
+        //         type: "delete",
+        //         url: "/deleteBook",
+        //         contentType:"application/json",
+        //         data:JSON.stringify({"id":id }),
+        //         success: function(msg){
+        //           if(msg["success"]){
+        //             $('#table1').bootstrapTable('remove', {
+        //               field: 'id',
+        //               values: [id]
+        //             });
+        //             layer.msg("操作成功",{time:700});
+        //           }
+        //         }
+        //       });
+        //       layer.close(index);
+        //     });
+        //   }
+        // };
+
+        $('#table1').bootstrapTable('destroy').bootstrapTable({
+            method: 'get',
+            url: url,
+            striped: true,
+            dataField: "list",
+            totalField: "total",
+            pageNumber: 1,
+            pageSize: 10,
+            pagination: true,
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+                return {
+                    pageSize : params.limit,
+                    pageNo : params.offset / params.limit + 1,
+                    sortName : this.sortName,
+                    sortOrder : this.sortOrder
+                }
+            },
+            sidePagination: 'server',
+            pageList: "[10, 25, 50, 100, all]",
+            //showRefresh: true,
+            clickToSelect: true,
+            toolbarAlign: 'left',
+            buttonsAlign: 'right',
+            toolbar: '#toolbar',
+            //showColumns: true,
+            paginationLoop: false,
+            sort: true,
+            sortName : 'ID',
+            sortOrder : "asc",
+            columns: [
+                {
+                    title: 'ID',
+                    field: 'id',
+                    visible: false,
+                    width: 160
+                },
+                {
+                    title: '商品号',
+                    field: 'no',
+                    //sortable: true,
+                    width: 160
+                },
+                {
+                    title: '图片',
+                    field: 'image',
+                    visible: true,
+                    width: 160,
+                    sortable: true,
+                    formatter : function (value, row, index) {
+                        return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+                    }
+                },
+                {
+                    title: '商品名'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'name',
+                    visible: true,
+                    width: 160,
+                    sortable: true,
+                },
+                {
+                    title: '价格'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'price',
+                    width: 160,
+                    align: 'center',
+                    sortable : true
+                },
+                {
+                    title: '描述',
+                    field: 'description',
+                    width: 160,
+                    align: 'left',
+                },
+                {
+                    // title: '操作',
+                    width: 80,
+                    align: 'center',
+                    formatter:function (value, row, index) {
+                        return [
+                            '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                            '详情' ,
+                            '</button>',
+                            // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+                            // '加入购物车' ,
+                            // '</button>',
+                        ].join('')
+                    },
+                    //events:window.operateEvents
+                }
+            ],
+            locale: 'zh-CN',
+            responseHandler: function (data) {
+                return data['data'];
+            }
+
+        });
+
+        $.ajax({
+            url:"/getAllCategory",
+            type:"get",
+            dataType:"json",
+            success:function (data) {
+                var html="";
+                //var jsonobj= eval('(' + data + ')');  // 把JSON字符串解析为javascript对象
+                //alert("ID:" + data[3].id + "\nName:" + data[3].name);
+                for(var i = 0; i < data.length; i++){
+                    html = html +'<li><a href="#" id="id'+data[i].id+'" onclick="cate('+data[i].id+')">' + data[i].name + '</a></li>';
+                }
+                $('#refresh').html(html); //在#text中输出
+            }
+        });
+
+        $.ajax({
+            url : "/getAllMessage",
+            type : "get",
+            dataType : "json",
+            success : function (data) {
+                var html = "";
+                $('#messageNum').html(data.length);
+                $('#messageNum1').html(data.length);
+                for(var i = 0; i < data.length; i++){
+                    html = html + '<li><a href="#"><i class="fa fa-users text-aqua"></i>'+ data[i].msg+'</a></li>';
+                }
+                $('#message').html(html);
+            }
+        })
+    });
+
+    function r(url,name){
+        url =url ;
+        var x = document.getElementById("name");
+        x.innerHTML = name;
+        $('#table1').bootstrapTable('destroy').bootstrapTable({
+            method: 'get',
+            url: url,
+            striped: true,
+            dataField: "list",
+            totalField: "total",
+            pageNumber: 1,
+            pageSize: 10,
+            pagination: true,
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+                return {
+                    pageSize: params.limit,
+                    pageNo: params.offset / params.limit + 1,
+                    sortName: this.sortName,
+                    sortOrder: this.sortOrder
+                }
+            },
+            sidePagination: 'server',
+            pageList: "[10, 25, 50, 100, all]",
+            //showRefresh: true,
+            clickToSelect: true,
+            toolbarAlign: 'left',
+            buttonsAlign: 'right',
+            toolbar: '#toolbar',
+            //showColumns: true,
+            paginationLoop: false,
+            sortable: true,
+            sort: true,
+            sortName : 'ID',
+            sortOrder : "asc",
+            columns: [
+                {
+                    title: 'ID',
+                    field: 'id',
+                    visible: false,
+                    width: 160
+                },
+                {
+                    title: '商品号',
+                    field: 'no',
+                    //sortable: true,
+                    width: 160
+                },
+                {
+                    title: '图片',
+                    field: 'image',
+                    visible: true,
+                    width: 160,
+                    formatter : function (value, row, index) {
+                        return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+                    }
+                },
+                {
+                    title: '商品名'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'name',
+                    visible: true,
+                    sortable: true,
+                    width: 160
+                },
+                {
+                    title: '价格'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'price',
+                    width: 160,
+                    align: 'center',
+                    sortable : true,
+                    order: 'desc'
+                },
+                {
+                    title: '描述',
+                    field: 'description',
+                    width: 160,
+                    align: 'left'
+                },
+                {
+                    // title: '操作',
+                    width: 80,
+                    align: 'center',
+                    formatter:function (value, row, index) {
+                        return [
+                            '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                            '详情' ,
+                            '</button>',
+                            // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+                            // '加入购物车' ,
+                            // '</button>',
+                        ].join('')
+                    },
+                    events:window.operateEvents
+                }
+            ],
+            locale: 'zh-CN',
+            responseHandler: function (data) {
+                return data['data'];
+            }
+
+        });
+    };
+
+    function cate(id){
+        var x = document.getElementById("name");
+        var idd = "#id"+ id;
+        //alert($(idd).text());
+        x.innerHTML = $(idd).text();
+        $('#table1').bootstrapTable('destroy').bootstrapTable({
+            method: 'get',
+            url: "/getCategoryGoods",
+            striped: true,
+            dataField: "list",
+            totalField: "total",
+            pageNumber: 1,
+            pageSize: 10,
+            pagination: true,
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+                return {
+                    id: id,
+                    pageSize : params.limit,
+                    pageNo : params.offset / params.limit + 1,
+                    sortName : this.sortName,
+                    sortOrder : this.sortOrder
+                }
+            },
+            sidePagination: 'server',
+            pageList: "[10, 25, 50, 100, all]",
+            //showRefresh: true,
+            clickToSelect: true,
+            toolbarAlign: 'left',
+            buttonsAlign: 'right',
+            toolbar: '#toolbar',
+            //showColumns: true,
+            paginationLoop: false,
+            sort: true,
+            sortName : 'ID',
+            sortOrder : "asc",
+            columns: [
+                {
+                    title: 'ID',
+                    field: 'id',
+                    visible: false,
+                    width: 160
+                },
+                {
+                    title: '商品号',
+                    field: 'no',
+                    //sortable: true,
+                    width: 160
+                },
+                {
+                    title: '图片',
+                    field: 'image',
+                    visible: true,
+                    width: 160,
+                    formatter : function (value, row, index) {
+                        return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+                    }
+                },
+                {
+                    title: '商品名'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'name',
+                    visible: true,
+                    sortable : true,
+                    width: 160
+                },
+                {
+                    title: '价格'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'price',
+                    width: 160,
+                    align: 'center',
+                    sortable : true,
+                    order: 'desc'
+                },
+                {
+                    title: '描述',
+                    field: 'description',
+                    width: 160,
+                    align: 'left'
+                },
+                {
+                    // title: '操作',
+                    width: 80,
+                    align: 'center',
+                    formatter:function (value, row, index) {
+                        return [
+                            '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                            '详情' ,
+                            '</button>',
+                            // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+                            // '加入购物车' ,
+                            // '</button>',
+                        ].join('')
+                    },
+                    events:window.operateEvents
+                }
+            ],
+            locale: 'zh-CN',
+            responseHandler: function (data) {
+                return data['data'];
+            }
+
+        });
+    };
+
+    function fun() {
+        $('#table1').bootstrapTable('destroy').bootstrapTable({
+            method: 'get',
+            url: "/getSearchGoods",
+            striped: true,
+            dataField: "list",
+            totalField: "total",
+            pageNumber: 1,
+            pageSize: 10,
+            pagination: true,
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+                return {
+                    pageSize : params.limit,
+                    pageNo : params.offset / params.limit + 1,
+                    sortName : this.sortName,
+                    sortOrder : this.sortOrder,
+                    searchString : $("#searchString").val()
+                }
+            },
+            sidePagination: 'server',
+            pageList: "[10, 25, 50, 100, all]",
+            //showRefresh: true,
+            clickToSelect: true,
+            toolbarAlign: 'left',
+            buttonsAlign: 'right',
+            toolbar: '#toolbar',
+            //showColumns: true,
+            paginationLoop: false,
+            sort: true,
+            sortName : 'ID',
+            sortOrder : "asc",
+            columns: [
+                {
+                    title: 'ID',
+                    field: 'id',
+                    visible: false,
+                    width: 160
+                },
+                {
+                    title: '商品号',
+                    field: 'no',
+                    //sortable: true,
+                    width: 160
+                },
+                {
+                    title: '图片',
+                    field: 'image',
+                    visible: true,
+                    width: 160,
+                    sortable: true,
+                    formatter : function (value, row, index) {
+                        return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+                    }
+                },
+                {
+                    title: '商品名'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'name',
+                    visible: true,
+                    width: 160,
+                    sortable: true,
+                },
+                {
+                    title: '价格'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'price',
+                    width: 160,
+                    align: 'center',
+                    sortable : true
+                },
+                {
+                    title: '描述',
+                    field: 'description',
+                    width: 160,
+                    align: 'left',
+                },
+                {
+                    // title: '操作',
+                    width: 80,
+                    align: 'center',
+                    formatter:function (value, row, index) {
+                        return [
+                            '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                            '详情' ,
+                            '</button>',
+                            // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+                            // '加入购物车' ,
+                            // '</button>',
+                        ].join('')
+                    },
+                    events:window.operateEvents
+                }
+            ],
+            locale: 'zh-CN',
+            responseHandler: function (data) {
+                return data['data'];
+            }
+
+        });
+    };
+
+    function noUser() {
+        alert("请先登录账号");
+    }
+
+</script>

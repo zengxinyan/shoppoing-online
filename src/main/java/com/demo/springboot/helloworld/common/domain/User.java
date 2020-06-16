@@ -1,8 +1,10 @@
 package com.demo.springboot.helloworld.common.domain;
 
+import com.demo.springboot.helloworld.common.domain.extend.UserExtend;
+
 import java.util.Date;
 
-public class User {
+public class User extends UserExtend {
     private Integer id;
 
     private Integer cartId;

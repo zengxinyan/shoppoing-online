@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,11 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @RequestMapping("/tologin")
+    public String tologin(){
+        return "/register/login";
+    }
 
     @RequestMapping("/login")
     public String login(User user, Model model) {
@@ -43,7 +49,7 @@ public class UserController {
         return "/register/register.html";
     }
 
-    @RequestMapping("/success")
+    @RequestMapping("/registerSuccess")
     public String success(User user){
         userService.insert(user);
         return  "index";
@@ -52,6 +58,12 @@ public class UserController {
     @RequestMapping("/signOut")
     public String signOut(){
         return "index";
+    }
+
+    @RequestMapping("/selectById")
+    @ResponseBody
+    public User selectById(int id){
+        return userService.selectById(id);
     }
 
 }
