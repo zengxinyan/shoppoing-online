@@ -1,10 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商城主页</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"
+          th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css" th:href="@{/dist/css/AdminLTE.min.css}">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
 
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="table1" class="table table-bordered table-hover"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
 </body>
 </html>
+
+<script>
+
+    $(function () {
+        $('#table1').bootstrapTable('destroy').bootstrapTable({
+            method: 'get',
+            url: "/getCategoryGoods",
+            striped: true,
+            dataField: "list",
+            totalField: "total",
+            pageNumber: 1,
+            pageSize: 10,
+            pagination: true,
+            queryParamsType: 'limit',
+            queryParams: function (params) {
+                return {
+                    id: [[${id}]],
+                    pageSize : params.limit,
+                    pageNo : params.offset / params.limit + 1,
+                    sortName : this.sortName,
+                    sortOrder : this.sortOrder
+                }
+            },
+            sidePagination: 'server',
+            pageList: "[10, 25, 50, 100, all]",
+            //showRefresh: true,
+            clickToSelect: true,
+            toolbarAlign: 'left',
+            buttonsAlign: 'right',
+            toolbar: '#toolbar',
+            //showColumns: true,
+            paginationLoop: false,
+            sort: true,
+            sortName : 'ID',
+            sortOrder : "asc",
+            columns: [
+                {
+                    title: 'ID',
+                    field: 'id',
+                    visible: false,
+                    width: 160
+                },
+                {
+                    title: '商品号',
+                    field: 'no',
+                    //sortable: true,
+                    width: 160
+                },
+                {
+                    title: '图片',
+                    field: 'image',
+                    visible: true,
+                    width: 160,
+                    formatter : function (value, row, index) {
+                        return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
+                    }
+                },
+                {
+                    title: '商品名'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'name',
+                    visible: true,
+                    sortable : true,
+                    width: 160
+                },
+                {
+                    title: '价格'+'<i class="fa fa-fw fa-sort"></i>',
+                    field: 'price',
+                    width: 160,
+                    align: 'center',
+                    sortable : true,
+                    order: 'desc'
+                },
+                {
+                    title: '描述',
+                    field: 'description',
+                    width: 160,
+                    align: 'left'
+                },
+                {
+                    // title: '操作',
+                    width: 80,
+                    align: 'center',
+                    formatter:function (value, row, index) {
+                        return [
+                            '<button  type="button" class="btn btn-danger btn-xs btn_del">',
+                            '详情' ,
+                            '</button>',
+                            // ' <button  type="button" class="btn btn-primary btn-xs btn_update">',
+                            // '加入购物车' ,
+                            // '</button>',
+                        ].join('')
+                    },
+                    events:window.operateEvents
+                }
+            ],
+            locale: 'zh-CN',
+            responseHandler: function (data) {
+                return data['data'];
+            }
+
+        });
+    });
+
+</script>

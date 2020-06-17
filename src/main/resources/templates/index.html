@@ -114,7 +114,7 @@
                     <form class="form-horizontal" onsubmit="return false;">
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <input type="text" id="searchString" class="form-control" placeholder="请输入商品名/商品描述" onkeydown="javascript:if(event.keyCode==13) searchId();" />
+                                <input type="text" id="searchString" class="form-control" placeholder="请输入商品名/商品描述" required="true"/>
                             </div>
                             <div class="col-sm-1" onclick="fun()">
                                 <button type="button" class="btn btn-primary btn-w-m" id="queryBtn">
@@ -127,7 +127,7 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading" id="name">全部商品</div>
-                <div class="panel-body">
+                <div class="panel-body"  id="load">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box">
@@ -169,46 +169,31 @@
      user experience. -->
 </body>
 </html>
-
+<style>
+    .nav > li:hover .dropdown-menu {display: block;}
+</style>
 <script>
 
     $(function () {
 
-        var url = "/getAllGoods";
+        dropdownOpen();
 
-        // window.operateEvents  = {
-        //   // 更改操作的方法
-        //   'click .btn_update': function (e, value, row, index) {
-        //     alert('更改');
-        //   },
-        //   //删除 单行/
-        //   'click .btn_del': function (e, value, row, index) {
-        //     var id = row.id;
-        //     layer.confirm("确认删除: "+row.name+ "  ?", {icon: 3, title:'删除操作'}, function(index){
-        //       //do something
-        //       $.ajax({
-        //         type: "delete",
-        //         url: "/deleteBook",
-        //         contentType:"application/json",
-        //         data:JSON.stringify({"id":id }),
-        //         success: function(msg){
-        //           if(msg["success"]){
-        //             $('#table1').bootstrapTable('remove', {
-        //               field: 'id',
-        //               values: [id]
-        //             });
-        //             layer.msg("操作成功",{time:700});
-        //           }
-        //         }
-        //       });
-        //       layer.close(index);
-        //     });
-        //   }
-        // };
+        window.operateEvents  = {
+            //商品详情/
+            'click .btn_del': function (e, value, row, index) {
+                //alert("ccc");
+                var id = row.id;
+                var x = document.getElementById("name");
+                x.innerHTML = "商品详情";
+                $("#load").load("/getGoodsInfo1?goodsId="+id);
+            }
+        };
 
-        $('#table1').bootstrapTable('destroy').bootstrapTable({
+        $("#load").load("getAllGoods1");
+
+        /*$('#table1').bootstrapTable('destroy').bootstrapTable({
             method: 'get',
-            url: url,
+            url: "/getAllGoods",
             striped: true,
             dataField: "list",
             totalField: "total",
@@ -254,7 +239,6 @@
                     field: 'image',
                     visible: true,
                     width: 160,
-                    sortable: true,
                     formatter : function (value, row, index) {
                         return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
                     }
@@ -293,7 +277,7 @@
                             // '</button>',
                         ].join('')
                     },
-                    //events:window.operateEvents
+                    events:window.operateEvents
                 }
             ],
             locale: 'zh-CN',
@@ -301,7 +285,7 @@
                 return data['data'];
             }
 
-        });
+        });*/
 
         $.ajax({
             url:"/getAllCategory",
@@ -335,10 +319,10 @@
     });
 
     function r(url,name){
-        url =url ;
         var x = document.getElementById("name");
+        $("#load").load(url+"1");
         x.innerHTML = name;
-        $('#table1').bootstrapTable('destroy').bootstrapTable({
+        /*$('#table1').bootstrapTable('destroy').bootstrapTable({
             method: 'get',
             url: url,
             striped: true,
@@ -434,15 +418,16 @@
                 return data['data'];
             }
 
-        });
+        });*/
     };
 
     function cate(id){
         var x = document.getElementById("name");
         var idd = "#id"+ id;
         //alert($(idd).text());
+        $("#load").load("/getCategoryGoods1",{id:id});
         x.innerHTML = $(idd).text();
-        $('#table1').bootstrapTable('destroy').bootstrapTable({
+        /*$('#table1').bootstrapTable('destroy').bootstrapTable({
             method: 'get',
             url: "/getCategoryGoods",
             striped: true,
@@ -538,11 +523,16 @@
                 return data['data'];
             }
 
-        });
+        });*/
     };
 
     function fun() {
-        $('#table1').bootstrapTable('destroy').bootstrapTable({
+        var x = document.getElementById("name");
+        if($("#searchString").val()==""){
+            return false;
+        };
+        $("#load").load("/getSearchGoods1",{searchString:$("#searchString").val()});
+        /*$('#table1').bootstrapTable('destroy').bootstrapTable({
             method: 'get',
             url: "/getSearchGoods",
             striped: true,
@@ -591,7 +581,6 @@
                     field: 'image',
                     visible: true,
                     width: 160,
-                    sortable: true,
                     formatter : function (value, row, index) {
                         return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
                     }
@@ -638,11 +627,23 @@
                 return data['data'];
             }
 
-        });
+        });*/
+        x.innerHTML = "搜索结果";
     };
 
     function noUser() {
         alert("请先登录账号");
+    };
+
+    function dropdownOpen() {
+
+        var $dropdownLi = $('li.dropdown');
+
+        $dropdownLi.mouseover(function() {
+            $(this).addClass('open');
+        }).mouseout(function() {
+            $(this).removeClass('open');
+        });
     }
 
 </script>
