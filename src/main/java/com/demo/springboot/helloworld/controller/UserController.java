@@ -52,7 +52,7 @@ public class UserController {
     @RequestMapping("/registerSuccess")
     public String success(User user){
         userService.insert(user);
-        return  "index";
+        return  "/register/login";
     }
 
     @RequestMapping("/signOut")

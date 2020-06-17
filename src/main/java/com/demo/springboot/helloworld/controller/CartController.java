@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -20,8 +21,17 @@ public class CartController {
     @RequestMapping("/getCartGoods")
     @ResponseBody
     public Cart getCartGoods(int cartId){
-        System.out.println("abbb");
+        //System.out.println("abbb");
         return cartService.findCartGoods(cartId);
     }
+
+    @RequestMapping("/updateCart")
+    @ResponseBody
+    public void updateCart(int cartId, int num, BigDecimal price){
+        //System.out.println(price);
+        cartService.updateCart(cartId,num,price);
+    }
+
+
 
 }

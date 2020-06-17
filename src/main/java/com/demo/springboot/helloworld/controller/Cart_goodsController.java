@@ -18,4 +18,11 @@ public class Cart_goodsController {
         return cart_goodsService.getQuantity(cartId,goodsId);
     }
 
+    @RequestMapping("/updateCartGoods")
+    @ResponseBody
+    public void updateCartGoods(int cartId, int goodsId, int num) {
+        //System.out.println(price);
+        cart_goodsService.updateCartGoods(cartId, goodsId, num);
+    }
+
 }

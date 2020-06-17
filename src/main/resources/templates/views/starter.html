@@ -43,6 +43,8 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-blue sidebar-mini">
+<a style="display: none" id="userId">[[${user.id}]]</a>
+<a style="display: none" id="cartId"></a>
 <div class="wrapper">
   <!-- Main Header -->
     <header class="main-header">
@@ -134,28 +136,7 @@ desired effect
                                         <a href="/signOut">退出</a>
                                     </li>
                                 </ul>
-                                <!--<div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">我的订单</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">账户资料</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">收货地址</a>
-                                    </div>
-                                </div>-->
-                                <!-- /.row -->
                             </li>
-                            <!-- Menu Footer-->
-                            <!--<li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="/signOut" class="btn btn-default btn-flat">Sign out</a>
-                                </div>
-                            </li>-->
                         </ul>
                     </li>
                 </ul>
@@ -235,7 +216,7 @@ desired effect
 
   </div>
 
-</div>>
+</div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
@@ -275,7 +256,7 @@ desired effect
                 var id = row.id;
                 var x = document.getElementById("name");
                 x.innerHTML = "商品详情";
-                $("#load").load("/getGoodsInfo1?goodsId="+id);
+                $("#load").load("/getGoodsInfo1?goodsId="+id+"&flag=1");
             }
         };
 
@@ -415,6 +396,7 @@ desired effect
                 $('#goodsNum1').html(data.cart.quantity);
                 $('#cartTotal').html(data.cart.total);
                 var cartId = data.cart.id;
+                $('#cartId').html(cartId);
                 $.ajax({
                     url : "/getCartGoods?cartId="+cartId,
                     type : "get",
@@ -424,13 +406,11 @@ desired effect
                         var html = "";
                         for(var i = 0; i < data1.goodsList.length; i++){
                             var goodsId = data1.goodsList[i].id;
-
-                            html = html + "<li><a href='#'><div style='position: relative;height: 50px'>"
+                            html = html + "<li><a href='javascript:void(0);' onclick='goodsInfo("+goodsId+")'><div style='position: relative;height: 50px'>"
                                 + "<div style='position: relative;float: left'>"
                                 + "<img style='width: 50px;height: 50px;border: 1px solid #cdd5da' src='"
                                 +data1.goodsList[i].image+"' alt=''></div><div style='margin-left: 70px'><h5 style='margin-top: 0;padding-top: 5px'>"
                                 + data1.goodsList[i].name +"</h5><h6 style='color: red'><span>¥ </span>"+ data1.goodsList[i].price+"<span style='color:#cacaca;'>";
-
                             $.ajax({
                                 url : "/getQuantity?cartId="+cartId+"&goodsId="+goodsId,
                                 type : "get",
@@ -445,7 +425,8 @@ desired effect
                     }
                 })
             }
-        })
+        });
+
     });
 
    function r(url,name){
@@ -761,7 +742,13 @@ desired effect
        x.innerHTML = "搜索结果";
    };
 
-    function dropdownOpen() {
+   function goodsInfo(goodsId) {
+       var x = document.getElementById("name");
+       x.innerHTML = "商品详情";
+       $("#load").load("/getGoodsInfo1?goodsId="+goodsId+"&flag=1");
+   };
+
+   function dropdownOpen() {
 
         var $dropdownLi = $('li.dropdown');
 
@@ -770,6 +757,8 @@ desired effect
         }).mouseout(function() {
             $(this).removeClass('open');
         });
-    }
+    };
+
+
 
 </script>

@@ -8,6 +8,7 @@ import com.demo.springboot.helloworld.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,4 +24,22 @@ public class CartService {
         System.out.println(cart.getGoodsList().get(1).getDescription());
         return cart;
     }
+
+    public void updateCart(int cartId, int num, BigDecimal price) {
+        Cart cart = new Cart();
+        cart = cartMapper.selectByPrimaryKey(cartId);
+        int quantity = cart.getQuantity()+num;
+        BigDecimal total = cart.getTotal();
+        for(int i=0;i<num;i++){
+            total = total.add(price);
+        }
+        cart.setQuantity(quantity);
+        cart.setTotal(total);
+        //System.out.println(total);
+        //cartMapper.updateByPrimaryKeySelective(cart);
+        cartMapper.updateByPrimaryKeySelective(cart);
+    }
+
+
+
 }

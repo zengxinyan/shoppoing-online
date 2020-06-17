@@ -86,11 +86,11 @@ public class GoodsController {
     }
 
     @RequestMapping("/getGoodsInfo1")
-    public String getGoodsInfo1(int goodsId, Model model){
-        System.out.println("zxyyyyyyy");
+    public String getGoodsInfo1(int goodsId,int flag, Model model){
+       // System.out.println("flag"+flag);
         Goods goods = goodsService.getGoodsInfo(goodsId);
         model.addAttribute("goods",goods);
-        model.addAttribute("goods",goods);
+        model.addAttribute("flag",flag);
         return "/goods/goodsInfo";
     }
 
