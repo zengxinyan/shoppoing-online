@@ -15,14 +15,16 @@ public class Cart_goodsController {
     @RequestMapping("/getQuantity")
     @ResponseBody
     public int getQuantity(int cartId,int goodsId){
-        return cart_goodsService.getQuantity(cartId,goodsId);
+        int quantity = cart_goodsService.getQuantity(cartId,goodsId);
+        System.out.println(quantity);
+        return quantity;
     }
 
     @RequestMapping("/updateCartGoods")
     @ResponseBody
-    public void updateCartGoods(int cartId, int goodsId, int num) {
+    public void updateCartGoods(int cartId, int goodsId, int num,int flag) {
         //System.out.println(price);
-        cart_goodsService.updateCartGoods(cartId, goodsId, num);
+        cart_goodsService.updateCartGoods(cartId, goodsId, num, flag);
     }
 
 }

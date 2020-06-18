@@ -2,6 +2,7 @@ package com.demo.springboot.helloworld.controller;
 
 import com.demo.springboot.helloworld.common.domain.Category;
 import com.demo.springboot.helloworld.common.domain.User;
+import com.demo.springboot.helloworld.service.CartService;
 import com.demo.springboot.helloworld.service.CategoryService;
 import com.demo.springboot.helloworld.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private CartService cartService;
 
     @RequestMapping("/tologin")
     public String tologin(){
@@ -52,6 +55,12 @@ public class UserController {
     @RequestMapping("/registerSuccess")
     public String success(User user){
         userService.insert(user);
+        User user1 = new User();
+        user1 = userService.login(user);
+        cartService.insert(user1.getId());
+        int cartId = cartService.findCart(user1.getId());
+        user1.setCartId(cartId);
+        userService.update(user1);
         return  "/register/login";
     }
 

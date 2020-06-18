@@ -99,7 +99,7 @@ public class GoodsController {
         //System.out.println("zxxxx");
         Goods goods = goodsService.getGoodsInfo(goodsId);
         model.addAttribute("goods",goods);
-        System.out.println(goods.getName());
+       // System.out.println(goods.getName());
         return "/goods/goodsInfo";
     }
 

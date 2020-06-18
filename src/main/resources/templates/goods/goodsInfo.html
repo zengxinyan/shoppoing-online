@@ -82,7 +82,7 @@
 <script>
 
     $(".add").click(function(){
-        $("#jian").removeAttr("disabled");
+        $(".jian").removeAttr("disabled");
         var n=$(this).prev().html();
         var num=parseInt(n)+1;
         $(this).prev().html(num);
@@ -95,7 +95,7 @@
             $(this).next().html(num-1);
         }
         else{
-            $("#jian").attr("disabled","disabled");
+            $(".jian").attr("disabled","disabled");
         }
     });
 
@@ -116,21 +116,20 @@
             return ;
         }
         $.ajax({
-            url : "/updateCart?cartId="+cartId+"&num="+num+"&price="+price,
+            url : "/updateCart?cartId="+cartId+"&num="+num+"&price="+price+"&flag=1",
             type : "post",
             dataType : "json",
             success : function(){
             },
         });
         $.ajax({
-            url : "/updateCartGoods?cartId="+cartId+"&num="+num+"&goodsId="+goodsId,
+            url : "/updateCartGoods?cartId="+cartId+"&num="+num+"&goodsId="+goodsId+"&flag=1",
             type : "post",
             dataType : "json",
             success : function(){
             },
         });
         alert("成功加入购物车");
-
         $.ajax({
             url : "/selectById?id="+userId,
             type : "get",
@@ -140,8 +139,8 @@
                 $('#goodsNum').html(data.cart.quantity);
                 $('#goodsNum1').html(data.cart.quantity);
                 $('#cartTotal').html(data.cart.total);
-                var cartId = data.cart.id;
-                $('#cartId').html(cartId);
+                var cartId = data.cartId;
+                //$('#cartId').html(cartId);
                 $.ajax({
                     url : "/getCartGoods?cartId="+cartId,
                     type : "get",

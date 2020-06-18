@@ -19,7 +19,7 @@ public class CategoryController {
     @RequestMapping("/getAllCategory")
     @ResponseBody
     public List<Category> getAllCategory(Model model){
-        System.out.println("22222");
+        //System.out.println("22222");
         //List<Category> categories = categoryService.findAllCategory();
         //return categories;
         return categoryService.findAllCategory();

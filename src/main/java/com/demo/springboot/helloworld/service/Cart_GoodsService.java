@@ -23,25 +23,41 @@ public class Cart_GoodsService {
         return cart_goods.get(0).getQuantity();
     }
 
-    public void updateCartGoods(int cartId, int goodsId, int num) {
+    public void updateCartGoods(int cartId, int goodsId, int num,int flag) {
         List<Cart_goods> cart_goodsList = new ArrayList<>();
         Cart_goodsExample cart_goodsExample = new Cart_goodsExample();
         cart_goodsExample.createCriteria().andCartIdEqualTo(cartId);
         cart_goodsList = cart_goodsMapper.selectByExample(cart_goodsExample);
-        for(int i=0;i<cart_goodsList.size();i++){
-            if(cart_goodsList.get(i).getGoodsId()==goodsId){
-                int quantity = cart_goodsList.get(i).getQuantity() + num;
-                cart_goodsList.get(i).setQuantity(quantity);
-                cart_goodsMapper.updateByPrimaryKeySelective(cart_goodsList.get(i));
-                break;
+        if(flag==1) {
+            for (int i = 0; i < cart_goodsList.size(); i++) {
+                if (cart_goodsList.get(i).getGoodsId() == goodsId) {
+                    int quantity = cart_goodsList.get(i).getQuantity() + num;
+                    cart_goodsList.get(i).setQuantity(quantity);
+                    cart_goodsMapper.updateByPrimaryKeySelective(cart_goodsList.get(i));
+                    return ;
+                }
             }
-            if(i==cart_goodsList.size()-1){
-                Cart_goods cart_goods = new Cart_goods();
-                cart_goods.setQuantity(num);
-                cart_goods.setCartId(cartId);
-                cart_goods.setGoodsId(goodsId);
-                cart_goodsMapper.insert(cart_goods);
-                break;
+            Cart_goods cart_goods = new Cart_goods();
+            cart_goods.setQuantity(num);
+            cart_goods.setCartId(cartId);
+            cart_goods.setGoodsId(goodsId);
+            cart_goodsMapper.insert(cart_goods);
+        }
+        else{
+            for (int i = 0; i < cart_goodsList.size(); i++) {
+                if (cart_goodsList.get(i).getGoodsId() == goodsId) {
+                    int quantity = cart_goodsList.get(i).getQuantity() - num;
+                    if(quantity!=0) {
+                        cart_goodsList.get(i).setQuantity(quantity);
+                        cart_goodsMapper.updateByPrimaryKeySelective(cart_goodsList.get(i));
+                    }
+                    else{
+                        Cart_goodsExample cart_goodsExample1 = new Cart_goodsExample();
+                        cart_goodsExample1.createCriteria().andCartIdEqualTo(cartId).andGoodsIdEqualTo(goodsId);
+                        cart_goodsMapper.deleteByExample(cart_goodsExample1);
+                    }
+                    break;
+                }
             }
         }
     }

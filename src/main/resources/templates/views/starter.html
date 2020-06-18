@@ -91,17 +91,17 @@ desired effect
                             <li class="footer">
                                 <div style="float: left;margin-left: 10px">
                                     <p style="color:#c1c1c1;font-size: 10px">共
-                                        <strong id="goodsNum1"></strong>
+                                        <strong id="goodsNum1">0</strong>
                                         件商品
                                     </p>
                                     <h5>合计:
                                         <span style="color:red;">¥ </span>
-                                        <span id="cartTotal" style="color:red;"></span>
+                                        <span id="cartTotal" style="color:red;">0</span>
                                     </h5>
                                 </div>
                                 <div style="margin-left: 150px;">
                                     <h6>
-                                        <button class="btn btn-block btn-primary" style="width:70px;font-size: 10px;">去购物车</button>
+                                        <button id="cartGoods" class="btn btn-block btn-primary" style="width:70px;font-size: 10px;" onclick="cartGoods();">去购物车</button>
                                     </h6>
                                 </div>
                             </li>
@@ -395,7 +395,7 @@ desired effect
                 $('#goodsNum').html(data.cart.quantity);
                 $('#goodsNum1').html(data.cart.quantity);
                 $('#cartTotal').html(data.cart.total);
-                var cartId = data.cart.id;
+                var cartId = data.cartId;
                 $('#cartId').html(cartId);
                 $.ajax({
                     url : "/getCartGoods?cartId="+cartId,
@@ -429,7 +429,7 @@ desired effect
 
     });
 
-   function r(url,name){
+    function r(url,name){
        var x = document.getElementById("name");
        $("#load").load(url+"1");
        x.innerHTML = name;
@@ -532,7 +532,7 @@ desired effect
        });*/
    };
 
-   function cate(id){
+    function cate(id){
        var x = document.getElementById("name");
        var idd = "#id"+ id;
        //alert($(idd).text());
@@ -637,7 +637,7 @@ desired effect
        });*/
    };
 
-   function fun() {
+    function fun() {
        var x = document.getElementById("name");
        if($("#searchString").val()==""){
            return false;
@@ -742,13 +742,13 @@ desired effect
        x.innerHTML = "搜索结果";
    };
 
-   function goodsInfo(goodsId) {
+    function goodsInfo(goodsId) {
        var x = document.getElementById("name");
        x.innerHTML = "商品详情";
        $("#load").load("/getGoodsInfo1?goodsId="+goodsId+"&flag=1");
    };
 
-   function dropdownOpen() {
+    function dropdownOpen() {
 
         var $dropdownLi = $('li.dropdown');
 
@@ -759,6 +759,10 @@ desired effect
         });
     };
 
-
+    function cartGoods(){
+        var x = document.getElementById("name");
+        x.innerHTML = "购物清单";
+        $("#load").load("/cartGoods?cartId="+$("#cartId").text());
+    };
 
 </script>

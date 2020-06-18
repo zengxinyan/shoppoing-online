@@ -21,25 +21,44 @@ public class CartService {
     public Cart findCartGoods(int cartId) {
         Cart cart = cartMapper.selectById(cartId);
         //System.out.println(cartList.get(1).getGoodsList().get(0).getName());
-        System.out.println(cart.getGoodsList().get(1).getDescription());
+        //System.out.println(cart.getGoodsList().get(1).getDescription());
         return cart;
     }
 
-    public void updateCart(int cartId, int num, BigDecimal price) {
+    public void updateCart(int cartId, int num, BigDecimal price,int flag) {
         Cart cart = new Cart();
         cart = cartMapper.selectByPrimaryKey(cartId);
-        int quantity = cart.getQuantity()+num;
+        int quantity = 0;
+        quantity = cart.getQuantity();
         BigDecimal total = cart.getTotal();
-        for(int i=0;i<num;i++){
-            total = total.add(price);
+        if(flag==1){
+            quantity += num;
+            for(int i=0;i<num;i++){
+                total = total.add(price);
+            }
+        }
+        else{
+            quantity -= num;
+            for(int i=0;i<num;i++){
+                total = total.subtract(price);
+            }
         }
         cart.setQuantity(quantity);
         cart.setTotal(total);
-        //System.out.println(total);
-        //cartMapper.updateByPrimaryKeySelective(cart);
         cartMapper.updateByPrimaryKeySelective(cart);
     }
 
+    public void insert(Integer id) {
+        Cart cart = new Cart();
+        cart.setTotal(new BigDecimal(0));
+        cart.setQuantity(0);
+        cart.setUserId(id);
+        cartMapper.insert(cart);
+    }
 
-
+    public int findCart(int userId){
+        CartExample cartExample = new CartExample();
+        cartExample.createCriteria().andUserIdEqualTo(userId);
+        return cartMapper.selectByExample(cartExample).get(0).getId();
+    }
 }
