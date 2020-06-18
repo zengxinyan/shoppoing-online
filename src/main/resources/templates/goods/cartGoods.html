@@ -100,7 +100,7 @@
                     success : function(data2){
                         html = html +" <span id=quantity"+data1.goodsList[i].id+">"+data2 +"</span> <input type='button' value='+' class='add' style='width: 20px; height: 20px; border-radius:50%;border: 0;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;background-color: #fff' "
                             +" onclick='add("+data1.goodsList[i].id+","+data1.goodsList[i].price+")'>"
-                            +"</td><td style='width: 80px;text-align: center;'><b>¥"
+                            +"</td><td style='width: 80px;text-align: center;'>¥<b id='xiao"+data1.goodsList[i].id+"'>"
                             +data2*data1.goodsList[i].price
                             +"</b></td><td style='width: 80px;text-align: center;'>" +
                             "<input type='button' value='x' class='delete"+data1.goodsList[i].id+"'"
@@ -118,6 +118,7 @@
         var n=$("#quantity"+goodsId).html();
         var num=parseInt(n)+1;
         $("#quantity"+goodsId).html(num);
+        $("#xiao"+goodsId).html(num*price);
         $.ajax({
             url : "/updateCart?cartId="+cartId+"&num=1"+"&price="+price+"&flag=1",
             type : "post",
@@ -183,6 +184,7 @@
         }
         var num=parseInt(n)-1;
         $("#quantity"+goodsId).html(num);
+        $("#xiao"+goodsId).html(num*price);
         $.ajax({
             url : "/updateCart?cartId="+cartId+"&num=1"+"&price="+price+"&flag=0",
             type : "post",
