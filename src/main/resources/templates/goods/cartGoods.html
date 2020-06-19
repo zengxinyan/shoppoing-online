@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<!--<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>商城主页</title>
-    <!-- Tell the browser to be responsive to screen width -->
+    &lt;!&ndash; Tell the browser to be responsive to screen width &ndash;&gt;
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"
           th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
-    <!-- Font Awesome -->
+    &lt;!&ndash; Font Awesome &ndash;&gt;
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
           th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
-    <!-- Ionicons -->
+    &lt;!&ndash; Ionicons &ndash;&gt;
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"
           th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
-    <!-- Theme style -->
+    &lt;!&ndash; Theme style &ndash;&gt;
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css" th:href="@{/dist/css/AdminLTE.min.css}">
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+    &lt;!&ndash; AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
-          apply the skin class to the body tag so the changes take effect. -->
+          apply the skin class to the body tag so the changes take effect. &ndash;&gt;
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
 
-</head>
+</head>-->
 
 <body>
 <div class="row">
@@ -38,9 +38,18 @@
                         <td style='width: 80px;text-align: center;'>小计</td>
                         <td style='width: 80px;text-align: center;'>删除</td>
                     </tr>
-                    <table id="cart">
+                    <tbody id="cart">
 
-                    </table>
+                    </tbody>
+                </table>
+                <table style="border-top: thin solid #c1c1c1;">
+                    <tr style="vertical-align: center;height: 50px;">
+                        <td style='width: 60px;font-size: 12px;vertical-align: middle;'><input type="checkbox" id="ck" onclick="checkAll(this)"/> 全选</td>
+                        <td style='width: 360px;color:#cacaca;font-size: 10px;'><a href="#" onclick="delAll();">删除选中商品</a></td>
+                        <td style='width: 130px;'>已选中<span style="color: red" id="number">0</span>件商品</td>
+                        <td style='width: 130px;'>应付金额：¥<span style="color: red" id="total1">0</span></td>
+                        <td style='width: 110px;'><input id="buy" type="button" class="btn btn-primary btn-block btn-flat" style="width: 80px;float: right;" value="现在结算"></td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -72,6 +81,8 @@
 
     var cartId = [[${cartId}]];
     var userId = $("#userId").text();
+    var quantity;
+    var total;
 
     $.ajax({
         url : "/getCartGoods?cartId="+cartId,
@@ -82,13 +93,13 @@
             var html = "";
             for(var i = 0; i < data1.goodsList.length; i++){
                 var goodsId = data1.goodsList[i].id;
-                html = html + "<tr style='height: 70px;'><td style='width: 40px;'></td>"
+                html = html + "<tr id=tr"+goodsId+" style='height: 70px;'><td style='width: 40px;'><input type='checkbox' name='good' value='"+goodsId+"' id=check"+goodsId+" onclick='checkOne("+goodsId+","+ data1.goodsList[i].price+")'></td>"
                     + "<td style='width: 80px;'><a href='javascript:void(0);' onclick='goodsInfo("+goodsId+")'>" +
                     "<img style='width: 50px;height: 50px;border: 1px solid #cdd5da' src='"
                     +data1.goodsList[i].image+"' alt=''></a></td><td style='width: 350px;'>" +
                     "<a href='javascript:void(0);' onclick='goodsInfo("+goodsId+")'>"
                     + data1.goodsList[i].name +"</a></td><td style='width: 80px;text-align: center;'>" +
-                    "¥"+ data1.goodsList[i].price+"</td><td style='width: 80px;text-align: center;'>" +
+                    "¥<span id=price"+goodsId+">"+data1.goodsList[i].price+"</span></td><td style='width: 80px;text-align: center;'>" +
                     "<input type='button' value='-' class='jian"+data1.goodsList[i].id+"'"
                     +"style='width: 20px; height: 20px; border-radius:50%;border:0;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;background-color: #fff' "
                     +" onclick='sub("+data1.goodsList[i].id+","+data1.goodsList[i].price+")'>";
@@ -119,6 +130,15 @@
         var num=parseInt(n)+1;
         $("#quantity"+goodsId).html(num);
         $("#xiao"+goodsId).html(num*price);
+
+        var one = document.getElementById("check"+goodsId);
+        if(one.checked){
+            quantity = parseInt($("#number").text()) + 1;
+            total = parseInt($("#total1").text()) + price;
+            $("#number").html(quantity);
+            $("#total1").html(total);
+        }
+
         $.ajax({
             url : "/updateCart?cartId="+cartId+"&num=1"+"&price="+price+"&flag=1",
             type : "post",
@@ -185,6 +205,15 @@
         var num=parseInt(n)-1;
         $("#quantity"+goodsId).html(num);
         $("#xiao"+goodsId).html(num*price);
+
+        var one = document.getElementById("check"+goodsId);
+        if(one.checked){
+            quantity = parseInt($("#number").text()) - 1;
+            total = parseInt($("#total1").text()) - price;
+            $("#number").html(quantity);
+            $("#total1").html(total);
+        }
+
         $.ajax({
             url : "/updateCart?cartId="+cartId+"&num=1"+"&price="+price+"&flag=0",
             type : "post",
@@ -304,7 +333,7 @@
                 })
             }
         });
-        $.ajax({
+        /*$.ajax({
             url : "/getCartGoods?cartId="+cartId,
             type : "get",
             dataType : "json",
@@ -313,7 +342,7 @@
                 var html = "";
                 for(var i = 0; i < data1.goodsList.length; i++){
                     var goodsId = data1.goodsList[i].id;
-                    html = html + "<tr style='height: 70px;'><td style='width: 40px;'></td>"
+                    html = html + "<tr style='height: 70px;'><td style='width: 40px;'><input type='checkbox' name='good' value='"+goodsId+"'></td>"
                         + "<td style='width: 80px;'><a href='javascript:void(0);' onclick='goodsInfo("+goodsId+")'>" +
                         "<img style='width: 50px;height: 50px;border: 1px solid #cdd5da' src='"
                         +data1.goodsList[i].image+"' alt=''></a></td><td style='width: 350px;'>" +
@@ -331,7 +360,7 @@
                         success : function(data2){
                             html = html +" <span id=quantity"+data1.goodsList[i].id+">"+data2 +"</span> <input type='button' value='+' class='add' style='width: 20px; height: 20px; border-radius:50%;border: 0;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;background-color: #fff' "
                                 +" onclick='add("+data1.goodsList[i].id+","+data1.goodsList[i].price+")'>"
-                                +"</td><td style='width: 80px;text-align: center;'><b>¥"
+                                +"</td><td style='width: 80px;text-align: center;'>¥<b id='xiao"+data1.goodsList[i].id+"'>"
                                 +data2*data1.goodsList[i].price
                                 +"</b></td><td style='width: 80px;text-align: center;'>" +
                                 "<input type='button' value='x' class='delete"+data1.goodsList[i].id+"'"
@@ -341,17 +370,156 @@
                     });
                 }
                 $('#cart').html(html);
-            },
-            error : function () {
-                $('#cart').html("");
             }
-        });
+        });*/
+
+        var one = document.getElementById("check"+goodsId);
+        if(one.checked){
+            quantity = parseInt($("#number").text()) - parseInt($("#quantity" + goodsId).text());
+            total = parseInt($("#total1").text()) - parseInt($("#quantity" + goodsId).text()) * price;
+            $("#number").html(quantity);
+            $("#total1").html(total);
+        }
+
+        var mainbody = document.getElementById("cart");
+        var cell = document.getElementById("tr"+goodsId);
+        mainbody.removeChild(cell);
+    };
+
+    function delAll() {
+        var arr=document.getElementsByName('good');
+        var ck=document.getElementById('ck');
+        var mainbody = document.getElementById("cart");
+        $("#number").html(0);
+        $("#total1").html(0);
+        var count = 0;
+        for(var i=arr.length-1; i>=0; i--){
+            if(arr[i].checked){
+                //alert(i);
+                count++;
+                var goodsId = arr[i].value;
+                var price = $("#price"+goodsId).text();
+                var n=$("#quantity"+goodsId).text();
+                $.ajax({
+                    url : "/updateCart?cartId="+cartId+"&num="+n+"&price="+price+"&flag=0",
+                    type : "post",
+                    dataType : "json",
+                    async:false,
+                    success : function(){
+                    },
+                });
+                $.ajax({
+                    url : "/updateCartGoods?cartId="+cartId+"&num="+n+"&goodsId="+goodsId+"&flag=0",
+                    type : "post",
+                    dataType : "json",
+                    async:false,
+                    success : function(){
+                    },
+                });
+                $.ajax({
+                    url : "/selectById?id="+userId,
+                    type : "get",
+                    dataType : "json",
+                    async : false,
+                    success : function (data) {
+                        $('#goodsNum').html(data.cart.quantity);
+                        $('#goodsNum1').html(data.cart.quantity);
+                        $('#cartTotal').html(data.cart.total);
+                        //var cartId = data.cart.id;
+                        // $('#cartId').html(cartId);
+                        $.ajax({
+                            url : "/getCartGoods?cartId="+cartId,
+                            type : "get",
+                            dataType : "json",
+                            async : false,
+                            success : function(data1){
+                                var html = "";
+                                for(var i = 0; i < data1.goodsList.length; i++){
+                                    var goodsId = data1.goodsList[i].id;
+                                    html = html + "<li><a href='javascript:void(0);' onclick='goodsInfo("+goodsId+")'><div style='position: relative;height: 50px'>"
+                                        + "<div style='position: relative;float: left'>"
+                                        + "<img style='width: 50px;height: 50px;border: 1px solid #cdd5da' src='"
+                                        +data1.goodsList[i].image+"' alt=''></div><div style='margin-left: 70px'><h5 style='margin-top: 0;padding-top: 5px'>"
+                                        + data1.goodsList[i].name +"</h5><h6 style='color: red'><span>¥ </span>"+ data1.goodsList[i].price+"<span style='color:#cacaca;'>";
+                                    $.ajax({
+                                        url : "/getQuantity?cartId="+cartId+"&goodsId="+goodsId,
+                                        type : "get",
+                                        dataType : "json",
+                                        async : false,
+                                        success : function(data2){
+                                            html = html + " x " + data2 +"</span></h6></div></div></a></li>";
+                                        }
+                                    });
+                                }
+                                //alert(html);
+                                $('#cartGoods').html(html);
+                            },
+                            error : function () {
+                                $('#cartGoods').html("");
+                            }
+                        })
+                    }
+                });
+                var cell = document.getElementById("tr"+goodsId);
+                mainbody.removeChild(cell);
+            }
+        }
+        if(count==0){
+            alert("请先选中商品!");
+        }
+        ck.checked = false;
     }
 
     function goodsInfo(goodsId) {
         var x = document.getElementById("name");
         x.innerHTML = "商品详情";
         $("#load").load("/getGoodsInfo1?goodsId="+goodsId+"&flag=1");
+    };
+
+    function checkAll(ck){
+        var arr=document.getElementsByName('good');
+        var ck=document.getElementById('ck');
+        for(i in arr){
+            arr[i].checked=ck.checked; // 全选
+            //arr[i].checked=!arr[i].checked; 反向全选
+        }
+        if(ck.checked) {
+            quantity = $("#goodsNum").text();
+            total = $("#cartTotal").text();
+        }
+        else{
+            quantity = 0;
+            total = 0;
+        }
+        $("#number").html(quantity);
+        $("#total1").html(total);
+    };
+
+    function checkOne(goodsId,price) {
+        var ck = document.getElementById('ck');
+        var arr = document.getElementsByName('good');
+        var one = document.getElementById("check"+goodsId);
+        //alert(one.checked);
+
+        var childStatus = true;
+        for (var i = 0; i < arr.length; ++i)
+            childStatus = (childStatus && arr[i].checked);
+        if (childStatus)
+            ck.checked = true;
+        else
+            ck.checked = false;
+
+        if(one.checked) {
+            quantity = parseInt($("#number").text()) + parseInt($("#quantity" + goodsId).text());
+            total = parseInt($("#total1").text()) + parseInt($("#quantity" + goodsId).text()) * price;
+        }
+        else{
+            quantity = parseInt($("#number").text()) - parseInt($("#quantity" + goodsId).text());
+            total = parseInt($("#total1").text()) - parseInt($("#quantity" + goodsId).text()) * price;
+        }
+        $("#number").html(quantity);
+        $("#total1").html(total);
+
     };
 
 </script>
