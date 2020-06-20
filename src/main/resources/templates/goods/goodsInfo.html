@@ -173,4 +173,77 @@
 
     });
 
+    $("#buy").click(function () {
+        var flag = $("#flag").text();
+        if(flag==0){
+            alert("请先登录账号");
+            return ;
+        }
+        /*var num = $("#quantity").text();
+        var price = $("#price").text();
+        var goodsId = $("#goodsId").text();
+        var cartId = $("#cartId").text();
+        var userId = $("#userId").text();
+        //alert(userId);
+        if(num==0){
+            alert("请选择数量");
+            return ;
+        }
+        $.ajax({
+            url : "/updateCart?cartId="+cartId+"&num="+num+"&price="+price+"&flag=1",
+            type : "post",
+            dataType : "json",
+            success : function(){
+            },
+        });
+        $.ajax({
+            url : "/updateCartGoods?cartId="+cartId+"&num="+num+"&goodsId="+goodsId+"&flag=1",
+            type : "post",
+            dataType : "json",
+            success : function(){
+            },
+        });
+        alert("成功加入购物车");
+        $.ajax({
+            url : "/selectById?id="+userId,
+            type : "get",
+            dataType : "json",
+            async : false,
+            success : function (data) {
+                $('#goodsNum').html(data.cart.quantity);
+                $('#goodsNum1').html(data.cart.quantity);
+                $('#cartTotal').html(data.cart.total);
+                var cartId = data.cartId;
+                //$('#cartId').html(cartId);
+                $.ajax({
+                    url : "/getCartGoods?cartId="+cartId,
+                    type : "get",
+                    dataType : "json",
+                    async : false,
+                    success : function(data1){
+                        var html = "";
+                        for(var i = 0; i < data1.goodsList.length; i++){
+                            var goodsId = data1.goodsList[i].id;
+                            html = html + "<li><a href='javascript:void(0);' onclick='goodsInfo("+goodsId+")'><div style='position: relative;height: 50px'>"
+                                + "<div style='position: relative;float: left'>"
+                                + "<img style='width: 50px;height: 50px;border: 1px solid #cdd5da' src='"
+                                +data1.goodsList[i].image+"' alt=''></div><div style='margin-left: 70px'><h5 style='margin-top: 0;padding-top: 5px'>"
+                                + data1.goodsList[i].name +"</h5><h6 style='color: red'><span>¥ </span>"+ data1.goodsList[i].price+"<span style='color:#cacaca;'>";
+                            $.ajax({
+                                url : "/getQuantity?cartId="+cartId+"&goodsId="+goodsId,
+                                type : "get",
+                                dataType : "json",
+                                async : false,
+                                success : function(data2){
+                                    html = html + " x " + data2 +"</span></h6></div></div></a></li>";
+                                }
+                            });
+                        }
+                        $('#cartGoods').html(html);
+                    }
+                })
+            }
+        });*/
+    });
+
 </script>

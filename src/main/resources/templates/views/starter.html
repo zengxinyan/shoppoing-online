@@ -130,7 +130,7 @@ desired effect
                                         <a href="#">账户资料</a>
                                     </li>
                                     <li>
-                                        <a href="#">收货地址</a>
+                                        <a href="#" onclick="receive();">收货地址</a>
                                     </li>
                                     <li>
                                         <a href="/signOut">退出</a>
@@ -764,5 +764,11 @@ desired effect
         x.innerHTML = "购物清单";
         $("#load").load("/cartGoods?cartId="+$("#cartId").text());
     };
+
+    function receive() {
+        var x = document.getElementById("name");
+        x.innerHTML = "收货地址";
+        $("#load").load("/receive?userId="+$("#userId").text());
+    }
 
 </script>
