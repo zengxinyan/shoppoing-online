@@ -1,18 +1,13 @@
 package com.demo.springboot.helloworld.controller;
 
-import com.demo.springboot.helloworld.common.domain.Category;
 import com.demo.springboot.helloworld.common.domain.User;
 import com.demo.springboot.helloworld.service.CartService;
-import com.demo.springboot.helloworld.service.CategoryService;
 import com.demo.springboot.helloworld.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.ResponseBody;;
 
 @Controller
 

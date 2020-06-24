@@ -1,6 +1,5 @@
 package com.demo.springboot.helloworld.service;
 
-import com.demo.springboot.helloworld.common.domain.Category;
 import com.demo.springboot.helloworld.common.domain.Goods;
 import com.demo.springboot.helloworld.common.domain.GoodsExample;
 import com.demo.springboot.helloworld.mapper.GoodsMapper;

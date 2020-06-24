@@ -3,7 +3,6 @@ package com.demo.springboot.helloworld.controller;
 
 import com.demo.springboot.helloworld.common.domain.Receive;
 import com.demo.springboot.helloworld.service.ReceiveService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +19,6 @@ public class ReceiveController {
 
     @RequestMapping("/receive")
     public String receive(int userId, Model model){
-        //System.out.println("zxy");
         model.addAttribute("receive",receiveService.getReceive(userId));
         model.addAttribute("userId",userId);
         return "/goods/receive";

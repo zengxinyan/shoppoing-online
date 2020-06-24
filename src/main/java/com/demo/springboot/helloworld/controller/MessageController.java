@@ -19,7 +19,6 @@ public class MessageController {
     @RequestMapping("/getAllMessage")
     @ResponseBody
     public List<Message> getAllMessage(){
-     //   System.out.println("a");
         return messageService.findAllMessage();
     }
 

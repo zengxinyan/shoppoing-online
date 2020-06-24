@@ -23,7 +23,6 @@ public class Cart_goodsController {
     @RequestMapping("/updateCartGoods")
     @ResponseBody
     public void updateCartGoods(int cartId, int goodsId, int num,int flag) {
-        //System.out.println(price);
         cart_goodsService.updateCartGoods(cartId, goodsId, num, flag);
     }
 

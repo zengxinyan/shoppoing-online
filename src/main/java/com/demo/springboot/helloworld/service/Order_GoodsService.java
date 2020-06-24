@@ -1,6 +1,5 @@
 package com.demo.springboot.helloworld.service;
 
-import com.demo.springboot.helloworld.common.domain.OrderedExample;
 import com.demo.springboot.helloworld.common.domain.Ordered_goods;
 import com.demo.springboot.helloworld.common.domain.Ordered_goodsExample;
 import com.demo.springboot.helloworld.mapper.Ordered_goodsMapper;

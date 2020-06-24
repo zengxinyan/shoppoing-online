@@ -23,7 +23,6 @@ public class OrderService {
         Ordered ordered = new Ordered();
         OrderedExample orderedExample = new OrderedExample();
         orderedExample.createCriteria().andTotalIsNull();
-        //orderedExample.or().andStatusEqualTo("noId");
         ordered = orderedMapper.selectByExample(orderedExample).get(0);
         return ordered;
     }
