@@ -18,7 +18,7 @@ public class OrderService {
     public Ordered createOrder(int userId) {
         Ordered order = new Ordered();
         order.setUserId(userId);
-        order.setStatus("待提交");
+        order.setStatus("待付款");
         orderedMapper.insert(order);
         OrderedExample orderedExample = new OrderedExample();
         orderedExample.createCriteria().andTotalIsNull();
@@ -39,5 +39,11 @@ public class OrderService {
 
     public List<Ordered> getOrder(int userId) {
         return orderedMapper.getOrder(userId);
+    }
+
+    public void orderAddReceive(int orderId, int receiveId) {
+        Ordered ordered = orderedMapper.selectByPrimaryKey(orderId);
+        ordered.setReceiveId(receiveId);
+        orderedMapper.updateByPrimaryKeySelective(ordered);
     }
 }

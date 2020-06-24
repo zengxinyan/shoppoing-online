@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商城主页</title>
+    &lt;!&ndash; Tell the browser to be responsive to screen width &ndash;&gt;
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+    &lt;!&ndash; Font Awesome &ndash;&gt;
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+    &lt;!&ndash; Ionicons &ndash;&gt;
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"
+          th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
+    &lt;!&ndash; Theme style &ndash;&gt;
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css" th:href="@{/dist/css/AdminLTE.min.css}">
+    &lt;!&ndash; AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. &ndash;&gt;
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
+
+</head>-->
+
+<body>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body">
+                <div style="width: 800px;border-bottom: thin solid #c1c1c1;border-top: thin solid #c1c1c1;padding-left: 40px;">
+                    <h5 style="font-weight: bold;">收货信息</h5>
+                    <h6>姓名：<span id="name1"></span></h6>
+                    <h6>联系电话：<span id="phone"></span></h6>
+                    <h6>详细地址：<span id="address"></span></h6>
+                </div>
+                <table style="border-bottom: thin solid #c1c1c1;">
+                    <tr style="font-size: 12px;">
+                        <td style='width: 500px;padding-left: 40px;'><h5 style="font-weight: bold;">商品信息</h5></td>
+                        <td style='width: 100px;text-align: center;'><h5 style="font-weight: bold;">单价</h5></td>
+                        <td style='width: 100px;text-align: center;'><h5 style="font-weight: bold;">数量</h5></td>
+                        <td style='width: 100px;text-align: center;'><h5 style="font-weight: bold;">小计</h5></td>
+                    </tr>
+                    <tbody id="order">
+
+                    </tbody>
+                </table>
+                <div style="margin-left: 650px;margin-top: 20px;">
+                    <h7>商品总计：¥<span id="total1">0</span></h7>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a style="display: none" id="orderId">[[${orderId}]]</a>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+</body>
+</html>
+
+<script>
+
+    $.ajax({
+        url : "/selectOrder?orderId="+$("#orderId").text(),
+        type : "get",
+        dataType : "json",
+        async : false,
+        success : function(data1){
+            $.ajax({
+                url : "/selectReceive?receiveId="+data1.receiveId,
+                type : "get",
+                dataType : "json",
+                async : false,
+                success : function(data2){
+                    document.getElementById("name1").innerHTML = data2.name;
+                    document.getElementById("phone").innerHTML = data2.phone;
+                    document.getElementById("address").innerHTML = data2.address;
+                }
+            });
+            var html = "";
+            total = data1.total;
+            for(var i = 0; i < data1.goodsList.length; i++){
+                var goodsId = data1.goodsList[i].id;
+                html = html + "<tr id=tr"+goodsId+">"
+                    + "<td style='padding-left: 40px;'><h6>"+data1.goodsList[i].name +"</h6></td><td style='text-align: center;'><h6>" +
+                    "¥<span id=price"+goodsId+">"+data1.goodsList[i].price+"</span></h6></td><td style='text-align: center;'><h6>";
+                $.ajax({
+                    url : "/selectOrderGoods?orderId="+orderId+"&goodsId="+goodsId,
+                    type : "get",
+                    dataType : "json",
+                    async : false,
+                    success : function(data2){
+                        html = html +" <span id=quantity"+data1.goodsList[i].id+">"+data2 +"</span>"
+                            +"</h6></td><td style='text-align: center;'><h6>¥"
+                            +data2*data1.goodsList[i].price
+                            +"</h6></td></tr>";
+                    }
+                });
+            }
+            document.getElementById("total1").innerText = total;
+            $('#order').html(html);
+        }
+    });
+
+</script>

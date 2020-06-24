@@ -28,7 +28,6 @@ public class OrderController {
     @ResponseBody
     public Ordered createOrder(int userId){
         Ordered ordered = orderService.createOrder(userId);
-        System.out.println("ID wei:"+ordered.getId());
         return ordered;
     }
 
@@ -49,12 +48,23 @@ public class OrderController {
         return "goods/order";
     }
 
+    @RequestMapping("/toOrderInfo")
+    public String toOrderInfo(int orderId,Model model){
+        model.addAttribute("orderId",orderId);
+        return "goods/orderInfo";
+    }
+
     @RequestMapping("/getOrder")
     @ResponseBody
     public List<Ordered> getOrder(int userId){
         List<Ordered> orderedList = orderService.getOrder(userId);
-        System.out.println("个数："+orderedList.size());
         return orderedList;
+    }
+
+    @RequestMapping("/orderAddReceive")
+    @ResponseBody
+    public void orderAddReceive(int orderId,int receiveId){
+        orderService.orderAddReceive(orderId,receiveId);
     }
 
 }

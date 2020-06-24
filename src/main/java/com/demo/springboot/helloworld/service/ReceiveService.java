@@ -31,4 +31,8 @@ public class ReceiveService {
     public void updateReceive(Receive receive) {
         receiveMapper.updateByPrimaryKeySelective(receive);
     }
+
+    public Receive selectReceive(int receiveId) {
+        return receiveMapper.selectByPrimaryKey(receiveId);
+    }
 }

@@ -48,4 +48,10 @@ public class ReceiveController {
         return receiveService.getReceive(userId);
     }
 
+    @RequestMapping("/selectReceive")
+    @ResponseBody
+    public Receive selectReceive(int receiveId){
+        return receiveService.selectReceive(receiveId);
+    }
+
 }

@@ -67,7 +67,7 @@
                             <tr style="vertical-align: center;height: 50px;">
                                 <td style="width: 430px;"></td>
                                 <td style='width: 130px;'>应付金额：¥<span style="color: red" id="total1">0</span></td>
-                                <td style='width: 110px;'><input id="buy" type="button" class="btn btn-primary btn-block btn-flat" style="width: 80px;float: right;" value="提交订单"></td>
+                                <td style='width: 110px;'><input id="buy" onclick="commit();" type="button" class="btn btn-primary btn-block btn-flat" style="width: 80px;float: right;" value="提交订单"></td>
                             </tr>
                         </table>
                     </div>
@@ -180,6 +180,23 @@
         receiveId = receiveId1;
         $("#receive").html(html);
         document.getElementById("yes"+receiveId).style.display = "block";
+    }
+
+    function  commit() {
+        if(receiveId==0){
+            alert("请先选择收货信息");
+            return ;
+        }
+        $.ajax({
+            url : "/orderAddReceive?orderId="+orderId+"&receiveId="+receiveId,
+            type : "post",
+            dataType : "json",
+            success : function(){}
+        })
+        alert("下单成功");
+        var x = document.getElementById("name");
+        x.innerHTML = "订单详情";
+        $("#load").load("/toOrderInfo?orderId="+orderId);
     }
 
 </script>
