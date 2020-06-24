@@ -1,9 +1,11 @@
 package com.demo.springboot.helloworld.common.domain;
 
+import com.demo.springboot.helloworld.common.domain.extend.OrderedExtend;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Ordered {
+public class Ordered extends OrderedExtend {
     private Integer id;
 
     private Integer userId;

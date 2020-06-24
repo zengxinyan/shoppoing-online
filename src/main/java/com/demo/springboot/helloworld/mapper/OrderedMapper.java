@@ -3,9 +3,11 @@ package com.demo.springboot.helloworld.mapper;
 import com.demo.springboot.helloworld.common.domain.Ordered;
 import com.demo.springboot.helloworld.common.domain.OrderedExample;
 import java.util.List;
+
+import com.demo.springboot.helloworld.mapper.extend.OrderedExtendMapper;
 import org.apache.ibatis.annotations.Param;
 
-public interface OrderedMapper {
+public interface OrderedMapper extends OrderedExtendMapper {
     long countByExample(OrderedExample example);
 
     int deleteByExample(OrderedExample example);

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 public class ReceiveController {
 
@@ -40,6 +42,12 @@ public class ReceiveController {
     @ResponseBody
     public void updateReceive(Receive receive){
         receiveService.updateReceive(receive);
+    }
+
+    @RequestMapping("/getReceive")
+    @ResponseBody
+    public List<Receive> getReceive(int userId){
+        return receiveService.getReceive(userId);
     }
 
 }

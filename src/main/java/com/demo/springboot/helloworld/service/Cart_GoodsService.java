@@ -2,7 +2,6 @@ package com.demo.springboot.helloworld.service;
 
 import com.demo.springboot.helloworld.common.domain.Cart_goods;
 import com.demo.springboot.helloworld.common.domain.Cart_goodsExample;
-import com.demo.springboot.helloworld.common.domain.Goods;
 import com.demo.springboot.helloworld.mapper.Cart_goodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

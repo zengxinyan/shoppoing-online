@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商城主页</title>
+    &lt;!&ndash; Tell the browser to be responsive to screen width &ndash;&gt;
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+    &lt;!&ndash; Font Awesome &ndash;&gt;
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+    &lt;!&ndash; Ionicons &ndash;&gt;
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"
+          th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
+    &lt;!&ndash; Theme style &ndash;&gt;
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css" th:href="@{/dist/css/AdminLTE.min.css}">
+    &lt;!&ndash; AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. &ndash;&gt;
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
+
+</head>-->
+
+<body>
+<a style="display: none" id="orderId">[[${orderId}]]</a>
+
+<div id="addReceive" style="display: none;position: fixed;width: 100%;height: 100%;text-align: center;padding-left: 200px;">
+    <div style="width: 400px;background-color: #fff;border-radius: 10px;background-color: rgba(255,255,255,0.9)">
+        <div style="position:relative; border-bottom: thin solid #c1c1c1;padding-bottom: 10px;padding-top: 10px;background-color: rgb(250,250,250)">
+                            <span style="text-align: center;">
+                                <span style="font-size: 16px;">管理收货地址</span>
+                            </span>
+            <span style="margin-left: 80px;position:absolute;right:15px;top:5px;"><a href="#" onclick="x();" style="font-size: 18px;">x</a></span>
+        </div>
+        <div style="; padding: 15px 10px;">
+            <div>
+                <div style="margin-bottom: 10px;">
+                    <input id="Rname" type="text" placeholder="收货人姓名" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;"></div>
+                <div style="margin-bottom: 10px;">
+                    <input id="Rphone" type="text" placeholder="手机号码" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <input id="Raddress" type="text" placeholder="收货地址" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                </div>
+                <div style="padding-left: 150px;">
+                    <button id="done" onclick="done();" class="btn btn-block btn-info" style="width: 100px;">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">收货信息</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body">
+                        <table  id="receive">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">购物清单</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body">
+                        <table>
+                            <thead>
+                            <tr style="font-size: 12px;color:#cacaca;">
+                                <th style='width: 80px;'>商品信息</th>
+                                <th style='width: 350px;'></th>
+                                <th style='width: 80px;text-align: center;'>单价</th>
+                                <th style='width: 80px;text-align: center;'>数量</th>
+                                <th style='width: 80px;text-align: center;'>小计</th>
+                            </tr>
+                            </thead>
+                            <tbody id="cart">
+                            </tbody>
+                        </table>
+                        <table style="border-top: thin solid #c1c1c1;">
+                            <tr style="vertical-align: center;height: 50px;">
+                                <td style="width: 430px;"></td>
+                                <td style='width: 130px;'>应付金额：¥<span style="color: red" id="total1">0</span></td>
+                                <td style='width: 110px;'><input id="buy" type="button" class="btn btn-primary btn-block btn-flat" style="width: 80px;float: right;" value="提交订单"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+</body>
+</html>
+
+<script>
+
+    var userId = $("#userId").text();
+    var orderId = $("#orderId").text();
+    var receiveId = 0;
+    var quantity;
+    var total;
+    var html = "";
+
+    $.ajax({
+        url : "/selectOrder?orderId="+orderId,
+        type : "get",
+        dataType : "json",
+        async : false,
+        success : function(data1){
+            var html = "";
+            total = data1.total;
+            for(var i = 0; i < data1.goodsList.length; i++){
+                var goodsId = data1.goodsList[i].id;
+                html = html + "<tr id=tr"+goodsId+" style='height: 70px;'>"
+                    + "<td style='width: 80px;'><a href='javascript:void(0);' onclick='goodsInfo("+goodsId+")'>" +
+                    "<img style='width: 50px;height: 50px;border: 1px solid #cdd5da' src='"
+                    +data1.goodsList[i].image+"' alt=''></a></td><td style='width: 350px;'>" +
+                    "<a href='javascript:void(0);' onclick='goodsInfo("+goodsId+")'>"
+                    + data1.goodsList[i].name +"</a></td><td style='width: 80px;text-align: center;'>" +
+                    "¥<span id=price"+goodsId+">"+data1.goodsList[i].price+"</span></td><td style='width: 80px;text-align: center;'>";
+                $.ajax({
+                    url : "/selectOrderGoods?orderId="+orderId+"&goodsId="+goodsId,
+                    type : "get",
+                    dataType : "json",
+                    async : false,
+                    success : function(data2){
+                        html = html +" <span id=quantity"+data1.goodsList[i].id+">"+data2 +"</span>"
+                            +"</td><td style='width: 80px;text-align: center;'>¥<b id='xiao"+data1.goodsList[i].id+"'>"
+                            +data2*data1.goodsList[i].price
+                            +"</b></td></tr>";
+                    }
+                });
+            }
+            document.getElementById("total1").innerText = total;
+            $('#cart').html(html);
+        }
+    });
+
+    $.ajax({
+        url : "/getReceive?userId="+userId,
+        type : "get",
+        dataType : "json",
+        success : function(data){
+            html = "<tr>";
+            if(data.length==0){
+                html += "<td><a href='#' onclick='add();'>添加收货地址</a></td>";
+            }
+            else {
+                for (var i = 0; i < data.length; i++) {
+                    html += "<td style='padding: 5px 6px;'><a href='#' onclick='chooseReceive(" + data[i].id + ");'><div style='height: 120px; width: 200px;border:  thin solid #c1c1c1;background-color: rgb(250,250,250);padding-left: 5px;'>" +
+                        "<h6>收货人：" + data[i].name + "</h6>" +
+                        "<h6>电话号码：" + data[i].phone + "</h6>" +
+                        "<h6>收货地址：" + data[i].address + "</h6>" +
+                        "<i class='fa fa-fw fa-check' style='margin-top:10px;margin-left:170px;display: none;' id='yes" + data[i].id + "' ></i>" +
+                        "</div></a></td>";
+                    if(i==3){
+                        html += "</tr><tr>"
+                    }
+                }
+                html+="</tr>"
+            }
+            $("#receive").html(html);
+        }
+    })
+
+    function goodsInfo(goodsId) {
+        var x = document.getElementById("name");
+        x.innerHTML = "商品详情";
+        $("#load").load("/getGoodsInfo1?goodsId="+goodsId+"&flag=1");
+    };
+
+    function chooseReceive(receiveId1) {
+        receiveId = receiveId1;
+        $("#receive").html(html);
+        document.getElementById("yes"+receiveId).style.display = "block";
+    }
+
+    function add() {
+        flag=0;
+        var name1 = document.getElementById("Rname");
+        var phone1 = document.getElementById("Rphone");
+        var address1 = document.getElementById("Raddress");
+        name1.value = "";
+        phone1.value = "";
+        address1.value = "";
+        var v = document.getElementById("addReceive");
+        v.style.display = "block";
+    };
+
+    function x() {
+        var v = document.getElementById("addReceive");
+        v.style.display = "none";
+    }
+
+    function done() {
+        var userId = $("#userId").text();
+        var name = $("#Rname").val();
+        var phone = $("#Rphone").val();
+        var address = $("#Raddress").val();
+        if(name==""){
+            alert("请输入收货人姓名");
+            return ;
+        }
+        if(phone==""){
+            alert("请输入电话号码");
+            return ;
+        }
+        if(address==""){
+            alert("请输入收货地址");
+            return ;
+        }
+        if(flag==0) {
+            $.ajax({
+                url: "/insertReceive",
+                type: "post",
+                dataType: "json",
+                data: {"userId": userId, "name": name, "phone": phone, "address": address},
+                success: function () {
+                }
+            });
+        }
+        else{
+            $.ajax({
+                url: "/updateReceive",
+                type: "post",
+                dataType: "json",
+                data: {"id": receiveId,"userId": userId, "name": name, "phone": phone, "address": address},
+                success: function () {
+                }
+            });
+        }
+        //alert(userId);
+        $("#load").load("/receive?userId="+userId);
+        $("#load").load("/receive?userId="+userId);
+    }
+
+</script>

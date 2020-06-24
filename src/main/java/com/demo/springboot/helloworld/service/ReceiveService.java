@@ -6,13 +6,15 @@ import com.demo.springboot.helloworld.mapper.ReceiveMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReceiveService {
 
     @Autowired
     ReceiveMapper receiveMapper;
 
-    public Object getReceive(int userId) {
+    public List<Receive> getReceive(int userId) {
         ReceiveExample receiveExample = new ReceiveExample();
         receiveExample.createCriteria().andUserIdEqualTo(userId);
         return receiveMapper.selectByExample(receiveExample);
