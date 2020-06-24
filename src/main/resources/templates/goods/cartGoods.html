@@ -48,7 +48,7 @@
                         <td style='width: 360px;color:#cacaca;font-size: 10px;'><a href="#" onclick="delAll();">删除选中商品</a></td>
                         <td style='width: 130px;'>已选中<span style="color: red" id="number">0</span>件商品</td>
                         <td style='width: 130px;'>应付金额：¥<span style="color: red" id="total1">0</span></td>
-                        <td style='width: 110px;'><input id="buy" type="button" class="btn btn-primary btn-block btn-flat" style="width: 80px;float: right;" value="现在结算"></td>
+                        <td style='width: 110px;'><input id="buy" onclick="buy();" type="button" class="btn btn-primary btn-block btn-flat" style="width: 80px;float: right;" value="现在结算"></td>
                     </tr>
                 </table>
             </div>
@@ -521,5 +521,70 @@
         $("#total1").html(total);
 
     };
+
+    function buy() {
+        if ($("#total1").text() == 0) {
+            alert("请先选择商品");
+            return;
+        }
+        var ids = new Array();
+        var prices = new Array();
+        var nums = new Array();
+        var arr = document.getElementsByName('good');
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].checked) {
+                var nowId = parseInt(arr[i].value);
+                ids.push(nowId);
+                $.ajax({
+                    url: "/getGoods?goodsId=" + nowId,
+                    dataType: "json",
+                    type: "get",
+                    async: false,
+                    success: function (data) {
+                        prices.push(data.price);
+                    }
+                });
+                $.ajax({
+                    url: "/getQuantity?cartId=" + cartId + "&goodsId=" + nowId,
+                    type: "get",
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        nums.push(data);
+                    }
+                });
+            }
+            //alert("id:"+ids[i]+",price:"+prices[i]+",num:"+nums[i]);
+        }
+        $.ajax({
+            url: "/createOrder?userId=" + userId,
+            type: "get",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                orderId = data.id;
+                var totall = 0;
+                for (var i = 0; i < ids.length; i++) {
+                    totall += ids[i] * prices[i];
+                    $.ajax({
+                        url: "/createOrderGoods?orderId=" + orderId + "&goodsId=" + ids[i] + "&quantity=" + nums[i],
+                        type: "post",
+                        dataType: "json",
+                        async: false,
+                    });
+                }
+                $.ajax({
+                    url: "/updateOrder?orderId=" + orderId + "&total=" + totall,
+                    type: "get",
+                    dataType: "json",
+                    async: false,
+                })
+            },
+        });
+        $("#load").load("/buyGoods?orderId=" + orderId);
+        var x = document.getElementById("name");
+        x.innerHTML = "确认订单";
+        delAll();
+    }
 
 </script>

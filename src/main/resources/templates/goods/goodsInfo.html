@@ -196,14 +196,14 @@
                     async: false,
                 });
                 $.ajax({
-                    url : "/updateOneOrder?orderId="+orderId+"&quantity="+quantity+"&price="+price,
+                    url : "/updateOrder?orderId="+orderId+"&total="+quantity*price,
                     type : "get",
                     dataType : "json",
                     async : false,
                 })
             },
         });
-        $("#load").load("/buyOne?orderId="+orderId);
+        $("#load").load("/buyGoods?orderId="+orderId);
         var x = document.getElementById("name");
         x.innerHTML = "确认订单";
     });

@@ -78,4 +78,7 @@ public class GoodsService {
         return goodsList.get(0);
     }
 
+    public Goods getGoods(int goodsId) {
+        return goodsMapper.selectByPrimaryKey(goodsId);
+    }
 }

@@ -27,12 +27,8 @@ public class OrderService {
         return ordered;
     }
 
-    public Ordered updateOneOrder(int orderId, int quantity, BigDecimal price) {
+    public Ordered updateOrder(int orderId,BigDecimal total) {
         Ordered ordered = orderedMapper.selectOrder(orderId);
-        BigDecimal total = new BigDecimal(0);
-        for(int i=0;i<ordered.getGoodsList().size();i++){
-            total = price.multiply(new BigDecimal(quantity));
-        }
         ordered.setTotal(total);
         orderedMapper.updateByPrimaryKeySelective(ordered);
         return ordered;

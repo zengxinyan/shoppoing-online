@@ -103,4 +103,10 @@ public class GoodsController {
         return "/goods/goodsInfo";
     }
 
+    @RequestMapping("/getGoods")
+    @ResponseBody
+    public Goods getGoods(int goodsId){
+        return goodsService.getGoods(goodsId);
+    }
+
 }

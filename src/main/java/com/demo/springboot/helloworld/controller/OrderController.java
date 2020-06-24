@@ -17,10 +17,10 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping("/buyOne")
-    public String buy(int orderId, Model model){
+    @RequestMapping("/buyGoods")
+    public String buyGoods(int orderId, Model model){
         model.addAttribute("orderId",orderId);
-        return "goods/buyOne";
+        return "goods/buyGoods";
     }
 
     @RequestMapping("/createOrder")
@@ -31,10 +31,10 @@ public class OrderController {
         return ordered;
     }
 
-    @RequestMapping("/updateOneOrder")
+    @RequestMapping("/updateOrder")
     @ResponseBody
-    public Ordered updateOneOrder(int orderId, int quantity, BigDecimal price){
-        return orderService.updateOneOrder(orderId,quantity,price);
+    public Ordered updateOrder(int orderId,BigDecimal total){
+        return orderService.updateOrder(orderId,total);
     }
 
     @RequestMapping("/selectOrder")
