@@ -1,10 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商城主页</title>
+    &lt;!&ndash; Tell the browser to be responsive to screen width &ndash;&gt;
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+    &lt;!&ndash; Font Awesome &ndash;&gt;
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+    &lt;!&ndash; Ionicons &ndash;&gt;
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"
+          th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
+    &lt;!&ndash; Theme style &ndash;&gt;
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css" th:href="@{/dist/css/AdminLTE.min.css}">
+    &lt;!&ndash; AdminLTE Skins. We have chosen the skin-blue for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. &ndash;&gt;
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
 
+</head>-->
+
+<body>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body" id="order">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
 </body>
 </html>
+
+<script>
+
+    var userId = $("#userId").text();
+
+    $.ajax({
+        url : "/getOrder?userId="+userId,
+        type : "get",
+        dataType : "json",
+        async : false,
+        success : function(data1){
+            var html = "";
+            for(var j=0;j<data1.length;j++) {
+                html += "<table><thead style='background-color: rgb(238,238,238);'><tr style='font-size: 12px;color:black;height: 40px;'>" +
+                    "<th style='width: 80px;padding-left: 5px;'>订单号: "+data1[j].id+"</th>" +
+                    "<th style='width: 350px;'>"+data1[j].orderdate+"</th>" +
+                    "<th style='width: 80px;text-align: center;'>单价</th>" +
+                    "<th style='width: 80px;text-align: center;'>数量</th>" +
+                    "<th style='width: 80px;text-align: center;'>小计</th>" +
+                    "</tr></thead><tbody>";
+                for(var i = 0; i < data1[j].goodsList.length; i++) {
+                    var goodsId = data1[j].goodsList[i].id;
+                    html = html + "<tr id=tr" + goodsId + " style='height: 70px;border-top: thin solid #c1c1c1;'>"
+                        + "<td style='width: 80px;'><a href='javascript:void(0);' onclick='goodsInfo(" + goodsId + ")'>" +
+                        "<img style='width: 50px;height: 50px;border: 1px solid #cdd5da' src='"
+                        + data1[j].goodsList[i].image + "' alt=''></a></td><td style='width: 350px;'>" +
+                        "<a href='javascript:void(0);' onclick='goodsInfo(" + goodsId + ")'>"
+                        + data1[j].goodsList[i].name + "</a></td><td style='width: 80px;text-align: center;'>" +
+                        "¥<span id=price" + goodsId + ">" + data1[j].goodsList[i].price + "</span></td><td style='width: 80px;text-align: center;'>";
+                    $.ajax({
+                        url: "/selectOrderGoods?orderId=" + data1[j].id + "&goodsId=" + goodsId,
+                        type: "get",
+                        dataType: "json",
+                        async: false,
+                        success: function (data2) {
+                            html = html + " <span id=quantity" + data1[j].goodsList[i].id + ">" + data2 + "</span>"
+                                + "</td><td style='width: 80px;text-align: center;'>¥<b id='xiao" + data1[j].goodsList[i].id + "'>"
+                                + data2 * data1[j].goodsList[i].price
+                                + "</b></td></tr></tbody>";
+                        }
+                    });
+                }
+                html += "</table>";
+            }
+            $('#order').html(html);
+        }
+    });
+
+</script>

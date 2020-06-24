@@ -21,4 +21,9 @@
          from ordered o,goods g,ordered_goods og
         where #{orderId} = og.ordered_id and g.id = og.goods_id and o.id = #{orderId};
     </select>
+    <select id="getOrder" resultMap="myMap">
+        select o.*,g.id as gid,g.category_id,g.no,g.name,g.price,g.description,g.image,g.onsale,g.sold,g.isHot,g.isDiscount
+         from ordered o,goods g,ordered_goods og
+        where #{userId} = o.user_id and g.id = og.goods_id and o.id = og.ordered_id;
+    </select>
 </mapper>

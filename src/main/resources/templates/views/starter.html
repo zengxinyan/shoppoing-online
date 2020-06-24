@@ -124,7 +124,7 @@ desired effect
                             <li>
                                 <ul class="menu">
                                     <li>
-                                        <a href="#">我的订单</a>
+                                        <a href="#" onclick="toOrder();">我的订单</a>
                                     </li>
                                     <li>
                                         <a href="#">账户资料</a>
@@ -769,6 +769,12 @@ desired effect
         var x = document.getElementById("name");
         x.innerHTML = "收货地址";
         $("#load").load("/receive?userId="+$("#userId").text());
+    }
+
+    function toOrder(){
+        var x = document.getElementById("name");
+        x.innerHTML = "我的订单";
+        $("#load").load("/toOrder");
     }
 
 </script>

@@ -26,32 +26,6 @@
 <body>
 <a style="display: none" id="orderId">[[${orderId}]]</a>
 
-<div id="addReceive" style="display: none;position: fixed;width: 100%;height: 100%;text-align: center;padding-left: 200px;">
-    <div style="width: 400px;background-color: #fff;border-radius: 10px;background-color: rgba(255,255,255,0.9)">
-        <div style="position:relative; border-bottom: thin solid #c1c1c1;padding-bottom: 10px;padding-top: 10px;background-color: rgb(250,250,250)">
-                            <span style="text-align: center;">
-                                <span style="font-size: 16px;">管理收货地址</span>
-                            </span>
-            <span style="margin-left: 80px;position:absolute;right:15px;top:5px;"><a href="#" onclick="x();" style="font-size: 18px;">x</a></span>
-        </div>
-        <div style="; padding: 15px 10px;">
-            <div>
-                <div style="margin-bottom: 10px;">
-                    <input id="Rname" type="text" placeholder="收货人姓名" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;"></div>
-                <div style="margin-bottom: 10px;">
-                    <input id="Rphone" type="text" placeholder="手机号码" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <input id="Raddress" type="text" placeholder="收货地址" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
-                </div>
-                <div style="padding-left: 150px;">
-                    <button id="done" onclick="done();" class="btn btn-block btn-info" style="width: 100px;">保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="panel panel-default">
     <div class="panel-heading">收货信息</div>
     <div class="panel-body">
@@ -206,65 +180,6 @@
         receiveId = receiveId1;
         $("#receive").html(html);
         document.getElementById("yes"+receiveId).style.display = "block";
-    }
-
-    function add() {
-        flag=0;
-        var name1 = document.getElementById("Rname");
-        var phone1 = document.getElementById("Rphone");
-        var address1 = document.getElementById("Raddress");
-        name1.value = "";
-        phone1.value = "";
-        address1.value = "";
-        var v = document.getElementById("addReceive");
-        v.style.display = "block";
-    };
-
-    function x() {
-        var v = document.getElementById("addReceive");
-        v.style.display = "none";
-    }
-
-    function done() {
-        var userId = $("#userId").text();
-        var name = $("#Rname").val();
-        var phone = $("#Rphone").val();
-        var address = $("#Raddress").val();
-        if(name==""){
-            alert("请输入收货人姓名");
-            return ;
-        }
-        if(phone==""){
-            alert("请输入电话号码");
-            return ;
-        }
-        if(address==""){
-            alert("请输入收货地址");
-            return ;
-        }
-        if(flag==0) {
-            $.ajax({
-                url: "/insertReceive",
-                type: "post",
-                dataType: "json",
-                data: {"userId": userId, "name": name, "phone": phone, "address": address},
-                success: function () {
-                }
-            });
-        }
-        else{
-            $.ajax({
-                url: "/updateReceive",
-                type: "post",
-                dataType: "json",
-                data: {"id": receiveId,"userId": userId, "name": name, "phone": phone, "address": address},
-                success: function () {
-                }
-            });
-        }
-        //alert(userId);
-        $("#load").load("/receive?userId="+userId);
-        $("#load").load("/receive?userId="+userId);
     }
 
 </script>

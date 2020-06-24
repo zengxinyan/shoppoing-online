@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -41,6 +42,19 @@ public class OrderController {
     @ResponseBody
     public Ordered selectOrder(int orderId){
         return orderService.selectOrder(orderId);
+    }
+
+    @RequestMapping("/toOrder")
+    public String toOrder(){
+        return "goods/order";
+    }
+
+    @RequestMapping("/getOrder")
+    @ResponseBody
+    public List<Ordered> getOrder(int userId){
+        List<Ordered> orderedList = orderService.getOrder(userId);
+        System.out.println("个数："+orderedList.size());
+        return orderedList;
     }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -36,5 +37,9 @@ public class OrderService {
 
     public Ordered selectOrder(int orderId) {
         return orderedMapper.selectOrder(orderId);
+    }
+
+    public List<Ordered> getOrder(int userId) {
+        return orderedMapper.getOrder(userId);
     }
 }
