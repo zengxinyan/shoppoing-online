@@ -6,7 +6,6 @@ import com.demo.springboot.helloworld.mapper.Cart_goodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,10 +22,9 @@ public class Cart_GoodsService {
     }
 
     public void updateCartGoods(int cartId, int goodsId, int num,int flag) {
-        List<Cart_goods> cart_goodsList = new ArrayList<>();
         Cart_goodsExample cart_goodsExample = new Cart_goodsExample();
         cart_goodsExample.createCriteria().andCartIdEqualTo(cartId);
-        cart_goodsList = cart_goodsMapper.selectByExample(cart_goodsExample);
+        List<Cart_goods> cart_goodsList = cart_goodsMapper.selectByExample(cart_goodsExample);
         if(flag==1) {
             for (int i = 0; i < cart_goodsList.size(); i++) {
                 if (cart_goodsList.get(i).getGoodsId() == goodsId) {

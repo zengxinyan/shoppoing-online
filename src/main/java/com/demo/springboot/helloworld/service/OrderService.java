@@ -20,10 +20,9 @@ public class OrderService {
         order.setUserId(userId);
         order.setStatus("待提交");
         orderedMapper.insert(order);
-        Ordered ordered = new Ordered();
         OrderedExample orderedExample = new OrderedExample();
         orderedExample.createCriteria().andTotalIsNull();
-        ordered = orderedMapper.selectByExample(orderedExample).get(0);
+        Ordered ordered = orderedMapper.selectByExample(orderedExample).get(0);
         return ordered;
     }
 

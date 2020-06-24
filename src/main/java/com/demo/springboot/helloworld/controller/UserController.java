@@ -50,8 +50,7 @@ public class UserController {
     @RequestMapping("/registerSuccess")
     public String success(User user){
         userService.insert(user);
-        User user1 = new User();
-        user1 = userService.login(user);
+        User user1 = userService.login(user);
         cartService.insert(user1.getId());
         int cartId = cartService.findCart(user1.getId());
         user1.setCartId(cartId);

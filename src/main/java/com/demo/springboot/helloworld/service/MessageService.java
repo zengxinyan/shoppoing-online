@@ -5,7 +5,6 @@ import com.demo.springboot.helloworld.mapper.MessageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,8 +14,7 @@ public class MessageService {
     private MessageMapper messageMapper;
 
     public List<Message> findAllMessage() {
-        List<Message> messages = new ArrayList<>();
-        messages = messageMapper.selectByExample(null);
+        List<Message> messages =  messageMapper.selectByExample(null);
         return messages;
     }
 }

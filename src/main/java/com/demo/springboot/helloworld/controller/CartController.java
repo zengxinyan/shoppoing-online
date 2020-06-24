@@ -30,8 +30,7 @@ public class CartController {
 
     @RequestMapping("/cartGoods")
     public String cartGoods(int cartId, Model model){
-        Cart cart = new Cart();
-        cart = cartService.findCartGoods(cartId);
+        Cart cart = cartService.findCartGoods(cartId);
         model.addAttribute("cartId",cartId);
         return "/goods/cartGoods";
     }

@@ -19,8 +19,7 @@ public class CartService {
     }
 
     public void updateCart(int cartId, int num, BigDecimal price,int flag) {
-        Cart cart = new Cart();
-        cart = cartMapper.selectByPrimaryKey(cartId);
+        Cart cart =  cartMapper.selectByPrimaryKey(cartId);
         int quantity = 0;
         quantity = cart.getQuantity();
         BigDecimal total = cart.getTotal();

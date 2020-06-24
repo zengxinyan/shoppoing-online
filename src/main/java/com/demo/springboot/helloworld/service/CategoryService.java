@@ -5,7 +5,6 @@ import com.demo.springboot.helloworld.mapper.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,8 +13,7 @@ public class CategoryService {
     private CategoryMapper categoryMapper;
 
     public List<Category> findAllCategory() {
-        List<Category> categories = new ArrayList<>();
-        categories = categoryMapper.selectByExample(null);
+        List<Category> categories =  categoryMapper.selectByExample(null);
         return categories;
     }
 }

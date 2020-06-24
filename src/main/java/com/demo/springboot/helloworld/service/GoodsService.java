@@ -8,7 +8,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,10 +69,9 @@ public class GoodsService {
     }
 
     public Goods getGoodsInfo(int goodsId) {
-        List<Goods> goodsList = new ArrayList<>();
         GoodsExample goodsExample = new GoodsExample();
         goodsExample.createCriteria().andIdEqualTo(goodsId);
-        goodsList = goodsMapper.selectByExample(goodsExample);
+        List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
         return goodsList.get(0);
     }
 
