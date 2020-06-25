@@ -45,7 +45,7 @@
 
                     </tbody>
                 </table>
-                <div style="margin-left: 650px;margin-top: 20px;">
+                <div style="margin-left: 650px;margin-top: 10px;">
                     <h7>商品总计：¥<span id="total1">0</span></h7>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                     + "<td style='padding-left: 40px;'><h6>"+data1.goodsList[i].name +"</h6></td><td style='text-align: center;'><h6>" +
                     "¥<span id=price"+goodsId+">"+data1.goodsList[i].price+"</span></h6></td><td style='text-align: center;'><h6>";
                 $.ajax({
-                    url : "/selectOrderGoods?orderId="+orderId+"&goodsId="+goodsId,
+                    url : "/selectOrderGoods?orderId="+$("#orderId").text()+"&goodsId="+data1.goodsList[i].id,
                     type : "get",
                     dataType : "json",
                     async : false,

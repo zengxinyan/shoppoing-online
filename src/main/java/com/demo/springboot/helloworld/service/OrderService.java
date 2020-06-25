@@ -46,4 +46,8 @@ public class OrderService {
         ordered.setReceiveId(receiveId);
         orderedMapper.updateByPrimaryKeySelective(ordered);
     }
+
+    public void delOrder(int orderId) {
+        orderedMapper.deleteByPrimaryKey(orderId);
+    }
 }

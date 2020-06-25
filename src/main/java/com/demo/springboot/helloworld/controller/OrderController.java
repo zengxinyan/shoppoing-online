@@ -67,4 +67,10 @@ public class OrderController {
         orderService.orderAddReceive(orderId,receiveId);
     }
 
+    @RequestMapping("/delOrder")
+    @ResponseBody
+    public void delOrder(int orderId){
+        orderService.delOrder(orderId);
+    }
+
 }

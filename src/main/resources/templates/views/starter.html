@@ -58,6 +58,21 @@ desired effect
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation" style="padding-right: 10px">
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+
+            <div class="navbar-custom-menu" style="float: left;margin-left: 40px;padding-top: 8px;margin-bottom: 0;">
+                <form class="form-horizontal" onsubmit="return false;" style="height: 30px;">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <input type="text" id="searchString" class="form-control" placeholder="请输入商品名/商品描述" required="true" style="width: 200px;"/>
+                        </div>
+                        <div class="col-sm-1" onclick="fun()" style="padding-left: 120px;">
+                            <button type="button" class="btn btn-primary btn-w-m" id="queryBtn">
+                                <span class="glyphicon glyphicon-search"></span> 搜索
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
@@ -178,22 +193,6 @@ desired effect
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-      <div class="panel">
-            <div class="panel-body" style="padding-bottom: 1px;">
-                <form class="form-horizontal" onsubmit="return false;">
-                    <div class="form-group">
-                        <div class="col-sm-3">
-                            <input type="text" id="searchString" class="form-control" placeholder="请输入商品名/商品描述" onkeydown="javascript:if(event.keyCode==13) searchId();" />
-                        </div>
-                        <div class="col-sm-1" onclick="fun()">
-                            <button type="button" class="btn btn-primary btn-w-m" id="queryBtn">
-                                <span class="glyphicon glyphicon-search"></span> 搜索
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
       <div class="panel panel-default">
         <div class="panel-heading" id="name">全部商品</div>
         <div class="panel-body" id="load">

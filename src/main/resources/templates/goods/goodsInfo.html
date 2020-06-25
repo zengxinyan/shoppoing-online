@@ -113,7 +113,6 @@
         var goodsId = $("#goodsId").text();
         var cartId = $("#cartId").text();
         var userId = $("#userId").text();
-        //alert(userId);
         $.ajax({
             url : "/updateCart?cartId="+cartId+"&num="+quantity+"&price="+price+"&flag=1",
             type : "post",
@@ -128,7 +127,6 @@
             success : function(){
             },
         });
-        alert("成功加入购物车");
         $.ajax({
             url : "/selectById?id="+userId,
             type : "get",

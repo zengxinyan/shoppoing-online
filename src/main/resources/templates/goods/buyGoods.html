@@ -193,7 +193,6 @@
             dataType : "json",
             success : function(){}
         })
-        alert("下单成功");
         var x = document.getElementById("name");
         x.innerHTML = "订单详情";
         $("#load").load("/toOrderInfo?orderId="+orderId);
