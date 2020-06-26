@@ -1,7 +1,6 @@
 package com.demo.springboot.helloworld.common.domain.extend;
 
 import com.demo.springboot.helloworld.common.domain.Goods;
-import com.demo.springboot.helloworld.common.domain.Ordered_goods;
 
 import java.util.List;
 

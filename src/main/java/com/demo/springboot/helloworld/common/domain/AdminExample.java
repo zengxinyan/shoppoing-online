@@ -10,6 +10,10 @@ public class AdminExample {
 
     protected List<Criteria> oredCriteria;
 
+    private static String s = "loginname";
+
+    private static String p = "password";
+
     public AdminExample() {
         oredCriteria = new ArrayList<>();
     }
@@ -175,62 +179,62 @@ public class AdminExample {
         }
 
         public Criteria andLoginnameEqualTo(String value) {
-            addCriterion("loginname =", value, "loginname");
+            addCriterion("loginname =", value, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameNotEqualTo(String value) {
-            addCriterion("loginname <>", value, "loginname");
+            addCriterion("loginname <>", value, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameGreaterThan(String value) {
-            addCriterion("loginname >", value, "loginname");
+            addCriterion("loginname >", value, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameGreaterThanOrEqualTo(String value) {
-            addCriterion("loginname >=", value, "loginname");
+            addCriterion("loginname >=", value, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameLessThan(String value) {
-            addCriterion("loginname <", value, "loginname");
+            addCriterion("loginname <", value, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameLessThanOrEqualTo(String value) {
-            addCriterion("loginname <=", value, "loginname");
+            addCriterion("loginname <=", value, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameLike(String value) {
-            addCriterion("loginname like", value, "loginname");
+            addCriterion("loginname like", value, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameNotLike(String value) {
-            addCriterion("loginname not like", value, "loginname");
+            addCriterion("loginname not like", value, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameIn(List<String> values) {
-            addCriterion("loginname in", values, "loginname");
+            addCriterion("loginname in", values, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameNotIn(List<String> values) {
-            addCriterion("loginname not in", values, "loginname");
+            addCriterion("loginname not in", values, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameBetween(String value1, String value2) {
-            addCriterion("loginname between", value1, value2, "loginname");
+            addCriterion("loginname between", value1, value2, s);
             return (Criteria) this;
         }
 
         public Criteria andLoginnameNotBetween(String value1, String value2) {
-            addCriterion("loginname not between", value1, value2, "loginname");
+            addCriterion("loginname not between", value1, value2, s);
             return (Criteria) this;
         }
 
@@ -245,62 +249,62 @@ public class AdminExample {
         }
 
         public Criteria andPasswordEqualTo(String value) {
-            addCriterion("password =", value, "password");
+            addCriterion("password =", value, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordNotEqualTo(String value) {
-            addCriterion("password <>", value, "password");
+            addCriterion("password <>", value, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordGreaterThan(String value) {
-            addCriterion("password >", value, "password");
+            addCriterion("password >", value, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordGreaterThanOrEqualTo(String value) {
-            addCriterion("password >=", value, "password");
+            addCriterion("password >=", value, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordLessThan(String value) {
-            addCriterion("password <", value, "password");
+            addCriterion("password <", value, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordLessThanOrEqualTo(String value) {
-            addCriterion("password <=", value, "password");
+            addCriterion("password <=", value, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordLike(String value) {
-            addCriterion("password like", value, "password");
+            addCriterion("password like", value, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordNotLike(String value) {
-            addCriterion("password not like", value, "password");
+            addCriterion("password not like", value, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordIn(List<String> values) {
-            addCriterion("password in", values, "password");
+            addCriterion("password in", values, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordNotIn(List<String> values) {
-            addCriterion("password not in", values, "password");
+            addCriterion("password not in", values, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordBetween(String value1, String value2) {
-            addCriterion("password between", value1, value2, "password");
+            addCriterion("password between", value1, value2, p);
             return (Criteria) this;
         }
 
         public Criteria andPasswordNotBetween(String value1, String value2) {
-            addCriterion("password not between", value1, value2, "password");
+            addCriterion("password not between", value1, value2, p);
             return (Criteria) this;
         }
     }
