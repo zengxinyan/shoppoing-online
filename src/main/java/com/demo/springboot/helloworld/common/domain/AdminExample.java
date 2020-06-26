@@ -1,3 +1,4 @@
+/*
 package com.demo.springboot.helloworld.common.domain;
 
 import java.util.ArrayList;
@@ -46,15 +47,15 @@ public class AdminExample {
 
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
-        if (oredCriteria.size() == 0) {
+        if (oredCriteria.isEmpty()) {
             oredCriteria.add(criteria);
         }
         return criteria;
     }
 
     protected Criteria createCriteriaInternal() {
-        Criteria criteria = new Criteria();
-        return criteria;
+
+        return new Criteria();
     }
 
     public void clear() {
@@ -72,7 +73,7 @@ public class AdminExample {
         }
 
         public boolean isValid() {
-            return criteria.size() > 0;
+            return !criteria.isEmpty();
         }
 
         public List<Criterion> getAllCriteria() {
@@ -396,4 +397,4 @@ public class AdminExample {
             this(condition, value, secondValue, null);
         }
     }
-}
+}*/
