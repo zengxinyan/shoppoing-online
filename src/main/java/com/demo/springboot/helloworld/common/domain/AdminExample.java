@@ -1,4 +1,3 @@
-/*
 package com.demo.springboot.helloworld.common.domain;
 
 import java.util.ArrayList;
@@ -397,4 +396,4 @@ public class AdminExample {
             this(condition, value, secondValue, null);
         }
     }
-}*/
+}

@@ -102,14 +102,14 @@
                     title: '商品号',
                     field: 'no',
                     //sortable: true,
-                    width: 160
+                    width: 80
                 },
                 {
                     title: '图片',
                     field: 'image',
                     visible: true,
-                    width: 160,
-                    sortable: true,
+                    align: 'center',
+                    width: 80,
                     formatter : function (value, row, index) {
                         return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
                     }
@@ -118,20 +118,20 @@
                     title: '商品名'+'<i class="fa fa-fw fa-sort"></i>',
                     field: 'name',
                     visible: true,
-                    width: 160,
+                    width: 200,
                     sortable: true,
                 },
                 {
                     title: '价格'+'<i class="fa fa-fw fa-sort"></i>',
                     field: 'price',
-                    width: 160,
+                    width: 80,
                     align: 'center',
                     sortable : true
                 },
                 {
                     title: '描述',
                     field: 'description',
-                    width: 160,
+                    width: 320,
                     align: 'left',
                 },
                 {

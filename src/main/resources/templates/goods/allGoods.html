@@ -1,27 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>商城主页</title>
-    &lt;!&ndash; Tell the browser to be responsive to screen width &ndash;&gt;
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"
-          th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
-    &lt;!&ndash; Font Awesome &ndash;&gt;
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
-          th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
-    &lt;!&ndash; Ionicons &ndash;&gt;
-    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"
-          th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
-    &lt;!&ndash; Theme style &ndash;&gt;
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css" th:href="@{/dist/css/AdminLTE.min.css}">
-    &lt;!&ndash; AdminLTE Skins. We have chosen the skin-blue for this starter
-          page. However, you can choose any other skin. Make sure you
-          apply the skin class to the body tag so the changes take effect. &ndash;&gt;
-    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" th:href="@{/dist/css/skins/_all-skins.min.css}">
-
-</head>-->
 
 <body>
     <div class="row">
@@ -100,13 +78,14 @@
                     title: '商品号',
                     field: 'no',
                     //sortable: true,
-                    width: 160
+                    width: 80
                 },
                 {
                     title: '图片',
                     field: 'image',
                     visible: true,
-                    width: 160,
+                    align: 'center',
+                    width: 80,
                     formatter : function (value, row, index) {
                         return "<img style='width: 50px;height: 50px;' src='"+value+"' alt=''>"
                     }
@@ -115,20 +94,20 @@
                     title: '商品名'+'<i class="fa fa-fw fa-sort"></i>',
                     field: 'name',
                     visible: true,
-                    width: 160,
+                    width: 200,
                     sortable: true,
                 },
                 {
                     title: '价格'+'<i class="fa fa-fw fa-sort"></i>',
                     field: 'price',
-                    width: 160,
+                    width: 80,
                     align: 'center',
                     sortable : true
                 },
                 {
                     title: '描述',
                     field: 'description',
-                    width: 160,
+                    width: 320,
                     align: 'left',
                 },
                 {
