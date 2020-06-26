@@ -1,7 +1,7 @@
+/*
 package com.demo.springboot.helloworld.mapper;
 
 import com.demo.springboot.helloworld.common.domain.Admin;
-import com.demo.springboot.helloworld.common.domain.AdminExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +27,4 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
-}
+}*/
