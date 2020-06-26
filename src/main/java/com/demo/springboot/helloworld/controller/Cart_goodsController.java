@@ -16,7 +16,6 @@ public class Cart_goodsController {
     @ResponseBody
     public int getQuantity(int cartId,int goodsId){
         int quantity = cart_goodsService.getQuantity(cartId,goodsId);
-        System.out.println(quantity);
         return quantity;
     }
 

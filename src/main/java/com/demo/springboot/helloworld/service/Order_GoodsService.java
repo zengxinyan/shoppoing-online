@@ -25,7 +25,7 @@ public class Order_GoodsService {
         Ordered_goodsExample ordered_goodsExample = new Ordered_goodsExample();
         ordered_goodsExample.createCriteria().andOrderedIdEqualTo(orderId).andGoodsIdEqualTo(goodsId);
         int quantity = ordered_goodsMapper.selectByExample(ordered_goodsExample).get(0).getQuantity();
-        System.out.println("数量"+quantity);
+
         return quantity;
     }
 }

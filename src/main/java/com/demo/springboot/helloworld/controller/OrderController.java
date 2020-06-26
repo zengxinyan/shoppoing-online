@@ -27,8 +27,8 @@ public class OrderController {
     @RequestMapping("/createOrder")
     @ResponseBody
     public Ordered createOrder(int userId){
-        Ordered ordered = orderService.createOrder(userId);
-        return ordered;
+
+        return orderService.createOrder(userId);
     }
 
     @RequestMapping("/updateOrder")
@@ -57,8 +57,8 @@ public class OrderController {
     @RequestMapping("/getOrder")
     @ResponseBody
     public List<Ordered> getOrder(int userId){
-        List<Ordered> orderedList = orderService.getOrder(userId);
-        return orderedList;
+
+        return orderService.getOrder(userId);
     }
 
     @RequestMapping("/orderAddReceive")

@@ -22,8 +22,8 @@ public class OrderService {
         orderedMapper.insert(order);
         OrderedExample orderedExample = new OrderedExample();
         orderedExample.createCriteria().andTotalIsNull();
-        Ordered ordered = orderedMapper.selectByExample(orderedExample).get(0);
-        return ordered;
+
+        return orderedMapper.selectByExample(orderedExample).get(0);
     }
 
     public Ordered updateOrder(int orderId,BigDecimal total) {

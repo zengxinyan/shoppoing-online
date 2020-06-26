@@ -13,7 +13,7 @@ public class CategoryService {
     private CategoryMapper categoryMapper;
 
     public List<Category> findAllCategory() {
-        List<Category> categories =  categoryMapper.selectByExample(null);
-        return categories;
+
+        return categoryMapper.selectByExample(null);
     }
 }

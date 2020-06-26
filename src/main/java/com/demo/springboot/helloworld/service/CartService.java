@@ -14,8 +14,8 @@ public class CartService {
     private CartMapper cartMapper;
 
     public Cart findCartGoods(int cartId) {
-        Cart cart = cartMapper.selectById(cartId);
-        return cart;
+
+        return cartMapper.selectById(cartId);
     }
 
     public void updateCart(int cartId, int num, BigDecimal price,int flag) {

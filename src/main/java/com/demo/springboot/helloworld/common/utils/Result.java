@@ -63,7 +63,7 @@ public class Result {
         return success().put(MESSAGE,message);
     }
 
-    /* 服务器发生错误,异常对应的方法  */
+
 
     public static JSONResultMap error(int statusCode) {
         return getJSONResultMap().put(SUCCESS,false).put("code",statusCode).put(MESSAGE,messageMap.get(String.valueOf(statusCode)));
@@ -78,20 +78,11 @@ public class Result {
         return error(statusCode).put(MESSAGE,message);
     }
 
-    /* 操作失败的对应方法  */
+
     public static  JSONResultMap fail(){
         return getJSONResultMap().put(SUCCESS,false).put("code",200);
     }
-    /*
-    public static  JSONResultMap fail(Object data){
-        return fail().put(DATA,data);
-    }
-    public static  JSONResultMap fail(Object data,String message){
-        return fail().put(DATA,data).put(MESSAGE,message);
-    }
-    public static  JSONResultMap fail(Object data,String message,int statusCode){
-        return fail(data).put(MESSAGE,message).put("code",statusCode);
-    }*/
+
     public static  JSONResultMap fail(String message,int statusCode){
         return fail(message).put("code",statusCode);
     }

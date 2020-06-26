@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 
@@ -27,16 +27,16 @@ public class UserController {
         User userInDB = userService.login(user);
 
         if (userInDB == null) {
-            System.out.println("用户名不存在");
+
         }
         else {
             String passwordInDB = userInDB.getPassword();
             if (passwordInDB.equals(user.getPassword())) {
-                System.out.println("登录成功");
+
                 model.addAttribute("user",userInDB);
                 return "/views/starter.html";
             } else {
-                System.out.println("密码错误");
+
             }
         }
         return "/register/fail_login";

@@ -55,7 +55,7 @@ public class GoodsService {
         PageHelper.startPage(pageNo,pageSize);
         GoodsExample goodsExample = new GoodsExample();
         goodsExample.setOrderByClause(sortName+' '+sortOrder);
-        GoodsExample.Criteria criteria = goodsExample.createCriteria();
+
         if(searchString != null && searchString.length() > 0){
             String s ="";
             for(int i=0;i<searchString.length();i++) {

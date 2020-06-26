@@ -3,8 +3,6 @@ package com.demo.springboot.helloworld.mapper;
 import com.demo.springboot.helloworld.common.domain.Cart;
 import com.demo.springboot.helloworld.common.domain.CartExample;
 import java.util.List;
-
-import com.demo.springboot.helloworld.common.domain.Goods;
 import com.demo.springboot.helloworld.mapper.extend.CartExtendMapper;
 import org.apache.ibatis.annotations.Param;
 

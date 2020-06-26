@@ -17,7 +17,7 @@ public class UserService {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andLoginnameEqualTo(user.getLoginname());
         List<User> users = userMapper.selectByExample(userExample);
-        return (users.size()>0?users.get(0):null);
+        return ((!users.isEmpty())?users.get(0):null);
 
     }
 
@@ -26,8 +26,8 @@ public class UserService {
     }
 
     public User selectById(int id) {
-        User user = userMapper.selectById(id);
-        return user;
+
+        return userMapper.selectById(id);
     }
 
     public void update(User user) {
