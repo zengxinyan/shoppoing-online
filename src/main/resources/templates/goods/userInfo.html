@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box"  style="padding-left: 30px;">
+            <div class="box-body" style="padding-left: 20px;">
+                <div id="changeUser" style="display: none;position: fixed;width: 100%;height: 100%;text-align: center;padding-left: 200px;">
+                    <div style="width: 400px;background-color: #fff;border-radius: 10px;background-color: rgba(255,255,255,0.9)">
+                        <div style="position:relative; border-bottom: thin solid #c1c1c1;padding-bottom: 10px;padding-top: 10px;background-color: rgb(250,250,250)">
+                            <span style="text-align: center;">
+                                <span style="font-size: 16px;">更改信息</span>
+                            </span>
+                            <span style="margin-left: 80px;position:absolute;right:15px;top:5px;"><a href="#" onclick="x();" style="font-size: 18px;">x</a></span>
+                        </div>
+                        <div style="; padding: 15px 10px;">
+                            <div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Rloginname" type="text" placeholder="账号名" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Rname" type="text" placeholder="姓名" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Rbirthday" type="text" placeholder="生日" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Rsex" type="text" placeholder="性别" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Rphone" type="text" placeholder="电话" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Remail" type="text" placeholder="邮箱" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="padding-left: 150px;">
+                                    <button id="done" onclick="done();" class="btn btn-block btn-info" style="width: 100px;">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="changePassword" style="display: none;position: fixed;width: 100%;height: 100%;text-align: center;padding-left: 200px;">
+                    <div style="width: 400px;background-color: #fff;border-radius: 10px;background-color: rgba(255,255,255,0.9)">
+                        <div style="position:relative; border-bottom: thin solid #c1c1c1;padding-bottom: 10px;padding-top: 10px;background-color: rgb(250,250,250)">
+                            <span style="text-align: center;">
+                                <span style="font-size: 16px;">更改密码</span>
+                            </span>
+                            <span style="margin-left: 80px;position:absolute;right:15px;top:5px;"><a href="#" onclick="x();" style="font-size: 18px;">x</a></span>
+                        </div>
+                        <div style="; padding: 15px 10px;">
+                            <div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Rpassword" type="password" placeholder="原密码" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Rp1" type="password" placeholder="新密码" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <input id="Rp2" type="password" placeholder="确认密码" required="true" style="padding-left:20px;border-radius: 10px;width: 100%;box-shadow:0px 0px 0px 0.5px #c1c1c1;outline: none;">
+                                </div>
+                                <div style="padding-left: 150px;">
+                                    <button id="commit" onclick="commit();" class="btn btn-block btn-danger" style="width: 100px;">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h5><img src="[[${user.image}]]" class="img-circle" style="width: 40px;height: 40px" th:src="@{${user.image}}"></h5>
+                    <h5>账户名：<span id="loginname">[[${user.loginname}]]</span></h5>
+                    <h5>姓名：<span id="username">[[${user.name}]]</span></h5>
+                    <h5>生日：<span id="birthday">[[${user.birthday}]]</span></h5>
+                    <h5>性别：<span id="sex">[[${user.sex}]]</span></h5>
+                    <h5>邮箱：<span id="email">[[${user.email}]]</span></h5>
+                    <h5>电话：<span id="phone">[[${user.phone}]]</span></h5>
+                </div>
+                <div>
+                    <button id="change" onclick="change();" class="btn btn-block btn-info" style="width: 60px;font-size: 8px;float: left;">修改资料</button>
+                    <button id="mima" onclick="mima();" class="btn btn-block btn-danger" style="width: 60px;font-size: 8px;margin-left: 70px;">修改密码</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js" th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script src="/static/bower_components/bootstrap-table/bootstrap-table.js"
+        th:src="@{/bower_components/bootstrap-table/bootstrap-table.js}"></script>
+<script src="/static/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js"
+        th:src="@{/bower_components/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+
+<script src="/static/bower_components/layer/layer.js"
+        th:src="@{/bower_components/layer/layer.js}"></script>
+
+</body>
+
+</html>
+
+<script>
+
+    function fermitTime(time){
+        var now = new Date(time);
+        var year = now.getFullYear();
+        var mon = now.getMonth()+1;
+        var date= now.getDate();
+        if(mon<10){
+            mon = '0'+mon;
+        };
+        if(date<10){
+            date = '0'+date;
+        }
+        var postDate = year+'-'+mon+'-'+date;
+        return postDate;
+    }
+
+    var time = document.getElementById("birthday").innerText;
+    document.getElementById("birthday").innerHTML = fermitTime(time);
+
+    function change() {
+        var v = document.getElementById("changeUser");
+        v.style.display = "block";
+        var name1 = document.getElementById("Rname");
+        var phone1 = document.getElementById("Rphone");
+        var sex1 = document.getElementById("Rsex");
+        var birthday1 = document.getElementById("Rbirthday");
+        var email1 = document.getElementById("Remail");
+        var loginname1 = document.getElementById("Rloginname");
+        name1.value = $("#username").text();
+        phone1.value = $("#phone").text();
+        sex1.value = $("#sex").text();
+        birthday1.value = $("#birthday").text();
+        email1.value = $("#email").text();
+        loginname1.value = $("#loginname").text();
+    }
+
+    function x() {
+        var v1 = document.getElementById("changeUser");
+        var v2 = document.getElementById("changePassword");
+        v1.style.display = "none";
+        v2.style.display = "none";
+    }
+
+    function done(){
+        var userId = $("#userId").text();
+        var name = $("#Rname").val();
+        var phone = $("#Rphone").val();
+        var sex = $("#Rsex").val();
+        var loginname = $("#Rloginname").val();
+        var birthday = $("#Rbirthday").val();
+        var email = $("#Remail").val();
+        if(loginname==""){
+            alert("账号名不能为空！");
+            return ;
+        }
+        $.ajax({
+            url : "/changeUser",
+            type : "get",
+            dataType : "json",
+            async :false,
+            data : {"id": userId, "name": name, "phone": phone, "sex": sex,"loginname":loginname,"email":email,"birthday":birthday},
+            success: function(data){
+                var d = fermitTime(data.birthday);
+                $("#username").text(data.name);
+                $("#phone").text(data.phone);
+                $("#sex").text(data.sex);
+                $("#birthday").text(d);
+                $("#email").text(data.email);
+                $("#loginname").text(data.loginname);
+                var v = document.getElementById("changeUser");
+                v.style.display = "none";
+            }
+        })
+    }
+
+    function mima() {
+        var v = document.getElementById("changePassword");
+        v.style.display = "block";
+
+    }
+
+    function commit() {
+        var v2 = document.getElementById("changePassword");
+        var password = $("#Rpassword").val();
+        var p1 = $("#Rp1").val();
+        var p2 = $("#Rp2").val();
+        if(password==""){
+            alert("请输入原密码");
+            return false;
+        }
+        else if(p1==""){
+            alert("请输入新密码");
+            return false;
+        }
+        else if(p2==""){
+            alert("请输入确认密码");
+            return false;
+        }
+        var password2;
+        $.ajax({
+            url : "/selectById?id="+$("#userId").text(),
+            dataType : "json",
+            type : "get",
+            async : false,
+            success : function (data) {
+                password2 = data.password;
+            }
+        });
+        if(password2!=password){
+            alert("原密码输入错误！");
+            return ;
+        }
+        if(p1!=p2){
+            alert("两次密码输入不一致！");
+            return ;
+        }
+        $.ajax({
+            url : "/changeUser",
+            type : "post",
+            dataType : "json",
+            async :false,
+            data : {"id": $("#userId").text(), "password": p1},
+            success: function(){
+                alert("修改成功!请重新登录");
+                window.location.href="/tologin";
+            }
+        })
+    }
+
+</script>

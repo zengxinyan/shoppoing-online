@@ -33,4 +33,13 @@ public class UserService {
     public void update(User user) {
         userMapper.updateByPrimaryKeySelective(user);
     }
+
+    public User selectUser(int userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
+    public User change(User user) {
+        userMapper.updateByPrimaryKeySelective(user);
+        return userMapper.selectByPrimaryKey(user.getId());
+    }
 }

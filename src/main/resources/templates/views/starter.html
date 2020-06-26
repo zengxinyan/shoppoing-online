@@ -142,7 +142,7 @@ desired effect
                                         <a href="#" onclick="toOrder();">我的订单</a>
                                     </li>
                                     <li>
-                                        <a href="#">账户资料</a>
+                                        <a href="#" onclick="toUserInfo();">账户资料</a>
                                     </li>
                                     <li>
                                         <a href="#" onclick="receive();">收货地址</a>
@@ -775,5 +775,11 @@ desired effect
         x.innerHTML = "我的订单";
         $("#load").load("/toOrder");
     }
+
+    function toUserInfo(){
+        var x = document.getElementById("name");
+        x.innerHTML = "账户资料";
+        $("#load").load("/toUserInfo?userId="+$("#userId").text());
+    };
 
 </script>

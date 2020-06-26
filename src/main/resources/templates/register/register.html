@@ -36,15 +36,15 @@
 
         <form action="/registerSuccess" method="post">
             <div class="form-group has-feedback">
-                <input type="text" name="loginname" class="form-control" placeholder="Login name" required="true">
+                <input type="text" name="loginname" class="form-control" placeholder="账号名" required="true">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input id="password" type="password" name="password" class="form-control" onblur="checkpas1();" required="true" placeholder="Password">
+                <input id="password" type="password" name="password" class="form-control" onblur="checkpas1();" required="true" placeholder="密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input id="repassword" type="password" name="repassword" class="form-control" required="true" onChange="checkpas();"  placeholder="Retype password">
+                <input id="repassword" type="password" name="repassword" class="form-control" required="true" onChange="checkpas();"  placeholder="确认密码">
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
                 <span class="tip" style="color: red;">两次输入的密码不一致</span>
             </div>
@@ -58,7 +58,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button id="btn" type="submit" class="btn btn-primary btn-block btn-flat" onclick="return checkpas2();"/>Register</button>
+                    <button id="btn" type="submit" class="btn btn-primary btn-block btn-flat" onclick="return checkpas2();"/>注册</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -72,7 +72,7 @@
 <!--                Google+</a>-->
 <!--        </div>-->
 
-        <a href="/tologin" class="text-center">I already have a membership</a>
+        <a href="/tologin" class="text-center">我已经有账号</a>
     </div>
     <!-- /.form-box -->
 </div>

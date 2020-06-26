@@ -69,4 +69,17 @@ public class UserController {
         return userService.selectById(id);
     }
 
+    @RequestMapping("/toUserInfo")
+    public String toUserInfo(int userId,Model model){
+        User user = userService.selectUser(userId);
+        model.addAttribute("user",user);
+        return "/goods/userInfo";
+    }
+
+    @RequestMapping("/changeUser")
+    @ResponseBody
+    public User changeUser(User user){
+        return userService.change(user);
+    }
+
 }
