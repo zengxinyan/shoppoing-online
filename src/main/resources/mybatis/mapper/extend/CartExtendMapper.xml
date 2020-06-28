@@ -8,6 +8,7 @@
             <result column="no" jdbcType="DECIMAL" property="no" />
             <result column="name" jdbcType="VARCHAR" property="name" />
             <result column="price" jdbcType="DECIMAL" property="price" />
+            <result column="disprice" jdbcType="DECIMAL" property="disprice" />
             <result column="description" jdbcType="VARCHAR" property="description" />
             <result column="image" jdbcType="VARCHAR" property="image" />
             <result column="onsale" jdbcType="INTEGER" property="onsale" />
@@ -17,7 +18,7 @@
         </collection>
     </resultMap>
     <select id="selectById" resultMap="myMap">
-        select c.*,g.id as gid,g.category_id,g.no,g.name,g.price,g.description,g.image,g.onsale,g.sold,g.isHot,g.isDiscount
+        select c.*,g.id as gid,g.category_id,g.no,g.name,g.disprice,g.price,g.description,g.image,g.onsale,g.sold,g.isHot,g.isDiscount
          from cart c,goods g,cart_goods cg
         where #{cartId} = cg.cart_id and g.id = cg.goods_id and c.id = #{cartId};
     </select>

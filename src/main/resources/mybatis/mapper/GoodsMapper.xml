@@ -7,6 +7,7 @@
     <result column="no" jdbcType="DECIMAL" property="no" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="disprice" jdbcType="DECIMAL" property="disprice" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="image" jdbcType="VARCHAR" property="image" />
     <result column="onsale" jdbcType="INTEGER" property="onsale" />
@@ -73,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, category_id, no, name, price, description, image, onsale, sold, isHot, isDiscount
+    id, category_id, no, name, price, disprice, description, image, onsale, sold, isHot, 
+    isDiscount
   </sql>
   <select id="selectByExample" parameterType="com.demo.springboot.helloworld.common.domain.GoodsExample" resultMap="BaseResultMap">
     select
@@ -107,13 +109,13 @@
   </delete>
   <insert id="insert" parameterType="com.demo.springboot.helloworld.common.domain.Goods">
     insert into goods (id, category_id, no, 
-      name, price, description, 
-      image, onsale, sold, 
-      isHot, isDiscount)
+      name, price, disprice, 
+      description, image, onsale, 
+      sold, isHot, isDiscount)
     values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{no,jdbcType=DECIMAL}, 
-      #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, 
-      #{image,jdbcType=VARCHAR}, #{onsale,jdbcType=INTEGER}, #{sold,jdbcType=INTEGER}, 
-      #{ishot,jdbcType=BIT}, #{isdiscount,jdbcType=BIT})
+      #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{disprice,jdbcType=DECIMAL}, 
+      #{description,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{onsale,jdbcType=INTEGER}, 
+      #{sold,jdbcType=INTEGER}, #{ishot,jdbcType=BIT}, #{isdiscount,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.demo.springboot.helloworld.common.domain.Goods">
     insert into goods
@@ -132,6 +134,9 @@
       </if>
       <if test="price != null">
         price,
+      </if>
+      <if test="disprice != null">
+        disprice,
       </if>
       <if test="description != null">
         description,
@@ -167,6 +172,9 @@
       </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="disprice != null">
+        #{disprice,jdbcType=DECIMAL},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -212,6 +220,9 @@
       <if test="record.price != null">
         price = #{record.price,jdbcType=DECIMAL},
       </if>
+      <if test="record.disprice != null">
+        disprice = #{record.disprice,jdbcType=DECIMAL},
+      </if>
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
       </if>
@@ -242,6 +253,7 @@
       no = #{record.no,jdbcType=DECIMAL},
       name = #{record.name,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DECIMAL},
+      disprice = #{record.disprice,jdbcType=DECIMAL},
       description = #{record.description,jdbcType=VARCHAR},
       image = #{record.image,jdbcType=VARCHAR},
       onsale = #{record.onsale,jdbcType=INTEGER},
@@ -266,6 +278,9 @@
       </if>
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="disprice != null">
+        disprice = #{disprice,jdbcType=DECIMAL},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
@@ -294,6 +309,7 @@
       no = #{no,jdbcType=DECIMAL},
       name = #{name,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
+      disprice = #{disprice,jdbcType=DECIMAL},
       description = #{description,jdbcType=VARCHAR},
       image = #{image,jdbcType=VARCHAR},
       onsale = #{onsale,jdbcType=INTEGER},

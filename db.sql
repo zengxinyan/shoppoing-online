@@ -98,6 +98,7 @@ create table goods
     no                   numeric(20,0),
     name                 varchar(50),
     price                decimal(10,2),
+    disprice                decimal(10,2),
     description          varchar(100),
     image                varchar(100),
     onsale               int,

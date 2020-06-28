@@ -47,14 +47,15 @@ public class GoodsExample {
 
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
-        if (oredCriteria.isEmpty()) {
+        if (oredCriteria.size() == 0) {
             oredCriteria.add(criteria);
         }
         return criteria;
     }
 
     protected Criteria createCriteriaInternal() {
-        return new Criteria();
+        Criteria criteria = new Criteria();
+        return criteria;
     }
 
     public void clear() {
@@ -72,7 +73,7 @@ public class GoodsExample {
         }
 
         public boolean isValid() {
-            return !criteria.isEmpty();
+            return criteria.size() > 0;
         }
 
         public List<Criterion> getAllCriteria() {
@@ -411,6 +412,66 @@ public class GoodsExample {
 
         public Criteria andPriceNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("price not between", value1, value2, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceIsNull() {
+            addCriterion("disprice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceIsNotNull() {
+            addCriterion("disprice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceEqualTo(BigDecimal value) {
+            addCriterion("disprice =", value, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceNotEqualTo(BigDecimal value) {
+            addCriterion("disprice <>", value, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceGreaterThan(BigDecimal value) {
+            addCriterion("disprice >", value, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("disprice >=", value, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceLessThan(BigDecimal value) {
+            addCriterion("disprice <", value, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("disprice <=", value, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceIn(List<BigDecimal> values) {
+            addCriterion("disprice in", values, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceNotIn(List<BigDecimal> values) {
+            addCriterion("disprice not in", values, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("disprice between", value1, value2, "disprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("disprice not between", value1, value2, "disprice");
             return (Criteria) this;
         }
 

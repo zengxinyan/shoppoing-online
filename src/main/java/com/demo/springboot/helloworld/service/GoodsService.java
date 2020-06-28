@@ -16,7 +16,7 @@ public class GoodsService {
     @Autowired
     GoodsMapper goodsMapper;
 
-    public PageInfo<Goods> findAllGoods(String sortName,String sortOrder,int pageNo, int pageSize){
+    public PageInfo<Goods> findAllGoods(String sortName, String sortOrder, int pageNo, int pageSize){
         PageHelper.startPage(pageNo,pageSize);
         GoodsExample goodsExample = new GoodsExample();
         goodsExample.setOrderByClause(sortName+' '+sortOrder);

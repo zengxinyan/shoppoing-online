@@ -35,16 +35,16 @@
         </javaClientGenerator>
 
 
-        <table tableName="User" domainObjectName="User"/>
+      <!--  <table tableName="User" domainObjectName="User"/>
         <table tableName="Admin" domainObjectName="Admin"/>
         <table tableName="Cart" domainObjectName="Cart"/>
-        <table tableName="Cart_goods" domainObjectName="Cart_goods"/>
+        <table tableName="Cart_goods" domainObjectName="Cart_goods"/>-->
         <table tableName="Goods" domainObjectName="Goods"/>
-        <table tableName="Message" domainObjectName="Message"/>
+        <!--<table tableName="Message" domainObjectName="Message"/>
         <table tableName="Ordered" domainObjectName="Ordered"/>
         <table tableName="Ordered_goods" domainObjectName="Ordered_goods"/>
         <table tableName="Receive" domainObjectName="Receive"/>
-        <table tableName="Category" domainObjectName="Category"/>
+        <table tableName="Category" domainObjectName="Category"/>-->
 
         <!--  <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" >
               <property name="useActualColumnNames" value="true"/>

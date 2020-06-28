@@ -8,6 +8,7 @@
             <result column="no" jdbcType="DECIMAL" property="no" />
             <result column="name" jdbcType="VARCHAR" property="name" />
             <result column="price" jdbcType="DECIMAL" property="price" />
+            <result column="disprice" jdbcType="DECIMAL" property="disprice" />
             <result column="description" jdbcType="VARCHAR" property="description" />
             <result column="image" jdbcType="VARCHAR" property="image" />
             <result column="onsale" jdbcType="INTEGER" property="onsale" />
@@ -17,12 +18,12 @@
         </collection>
     </resultMap>
     <select id="selectOrder" resultMap="myMap">
-        select o.*,g.id as gid,g.category_id,g.no,g.name,g.price,g.description,g.image,g.onsale,g.sold,g.isHot,g.isDiscount
+        select o.*,g.id as gid,g.category_id,g.no,g.name,g.disprice,g.price,g.description,g.image,g.onsale,g.sold,g.isHot,g.isDiscount
          from ordered o,goods g,ordered_goods og
         where #{orderId} = og.ordered_id and g.id = og.goods_id and o.id = #{orderId};
     </select>
     <select id="getOrder" resultMap="myMap">
-        select o.*,g.id as gid,g.category_id,g.no,g.name,g.price,g.description,g.image,g.onsale,g.sold,g.isHot,g.isDiscount
+        select o.*,g.id as gid,g.category_id,g.no,g.disprice,g.name,g.price,g.description,g.image,g.onsale,g.sold,g.isHot,g.isDiscount
          from ordered o,goods g,ordered_goods og
         where #{userId} = o.user_id and g.id = og.goods_id and o.id = og.ordered_id;
     </select>

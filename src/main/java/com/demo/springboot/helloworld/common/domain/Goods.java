@@ -13,6 +13,8 @@ public class Goods {
 
     private BigDecimal price;
 
+    private BigDecimal disprice;
+
     private String description;
 
     private String image;
@@ -63,6 +65,14 @@ public class Goods {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getDisprice() {
+        return disprice;
+    }
+
+    public void setDisprice(BigDecimal disprice) {
+        this.disprice = disprice;
     }
 
     public String getDescription() {
