@@ -73,7 +73,7 @@
                     "<th style='width: 100px;text-align: center;'>单价</th>" +
                     "<th style='width: 100px;text-align: center;'>数量</th>" +
                     "<th style='width: 100px;text-align: center;'>小计</th>" +
-                    "<th style='width: 90px;'><button class='btn btn-block btn-danger btn-xs' onclick='delOrder("+data1[j].id+");' style='width: 50px;font-size: 8px;padding-left: 10px;'>删除订单</button></th></tr></thead><tbody>";
+                    "<th style='width: 90px;'><button class='btn btn-block btn-danger btn-xs' onclick='delOrder("+data1[j].id+");' style='width: 50px;font-size: 8px;text-align: center;'>删除订单</button></th></tr></thead><tbody>";
                 for(var i = 0; i < data1[j].goodsList.length; i++) {
                     var goodsId = data1[j].goodsList[i].id;
                     html = html + "<tr id=tr" + goodsId + " style='height: 70px;border-top: thin solid #c1c1c1;'>"
