@@ -25,14 +25,10 @@ public class UserController {
     @RequestMapping("/login")
     public String login(User user, Model model) {
         User userInDB = userService.login(user);
-
-        if (userInDB == null) {
-
-        }
+        if (userInDB == null) { }
         else {
             String passwordInDB = userInDB.getPassword();
             if (passwordInDB.equals(user.getPassword())) {
-
                 model.addAttribute("user",userInDB);
                 return "/views/starter.html";
             } else {

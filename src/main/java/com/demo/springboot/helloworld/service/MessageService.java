@@ -14,7 +14,6 @@ public class MessageService {
     private MessageMapper messageMapper;
 
     public List<Message> findAllMessage() {
-
         return messageMapper.selectByExample(null);
     }
 }
